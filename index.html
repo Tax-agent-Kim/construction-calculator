@@ -1,0 +1,2352 @@
+<!DOCTYPE html>
+<!--
+*******************************************************************************
+* 건설업 실질자본 간이계산기
+* Copyright (c) 2025 김용래세무사사무소 기업진단센터
+* All Rights Reserved.
+* 
+* 본 소스 코드 및 프로그램은 김용래세무사사무소의 저작물입니다.
+* 무단 복제, 수정, 배포, 재사용을 금지합니다.
+* 
+* 위반 시 저작권법에 따라 민·형사상 책임을 물을 수 있습니다.
+* 
+* 개발 문의: 02-991-0331
+* 이메일: kyrtax@naver.com
+* 웹사이트: www.kyrtax.co.kr
+* 
+* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+* 🔐 저작권 검증 정보 (DO NOT REMOVE)
+* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+* Original Source: 김용래세무사사무소 기업진단센터
+* Creation Date: 2025-12-11
+* Digital Fingerprint: 1b2c11aac6503c9cc7da0ed4506262cd
+* Version Code: KYR-CONST-CAP-CALC-v2.5.1
+* Deployment ID: 20251211050021
+* License Type: Proprietary - All Rights Reserved
+* 
+* This fingerprint is embedded for copyright verification purposes.
+* Unauthorized removal or modification of this notice is prohibited by law.
+* 본 지문은 저작권 검증용입니다. 무단 삭제/수정 시 법적 책임이 가중됩니다.
+* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*******************************************************************************
+-->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO 메타태그 -->
+    <title>건설업 실질자본 계산기 | 김용래세무사사무소 기업진단센터</title>
+    <meta name="description" content="건설업 실질자본을 간편하게 계산하세요. 건설산업기본법 시행령 기준, 무료 온라인 계산기 제공 - 김용래세무사사무소 기업진단센터">
+    <meta name="keywords" content="건설업, 실질자본, 계산기, 세무사, 건설업등록, 자본금, 기업진단, 건설산업기본법">
+    <meta name="author" content="김용래세무사사무소">
+    
+    <!-- Open Graph (카카오톡, 페이스북 공유 시) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="건설업 실질자본 계산기 | 김용래세무사사무소">
+    <meta property="og:description" content="건설업 실질자본을 쉽고 정확하게 계산하세요. 무료 온라인 계산기">
+    <meta property="og:url" content="https://kyrtax.co.kr">
+    <meta property="og:site_name" content="김용래세무사사무소 기업진단센터">
+    
+    <!-- 네이버 검색 최적화 -->
+    <meta name="naver-site-verification" content="">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RG7V70V9V4"></script>
+    <script>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // 🔐 COPYRIGHT VERIFICATION FINGERPRINT - DO NOT REMOVE
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        // Original Author: 김용래세무사사무소 기업진단센터
+        // Digital Signature: 1b2c11aac6503c9cc7da0ed4506262cd
+        // Timestamp: 20251211050021
+        // Contact: 02-991-0331 | kyrtax@naver.com | www.kyrtax.co.kr
+        // 
+        // This code contains embedded digital fingerprints for copyright
+        // verification. Unauthorized use, modification, or distribution
+        // is strictly prohibited and may result in legal action.
+        // 
+        // 본 코드는 저작권 검증용 디지털 지문을 포함하고 있습니다.
+        // 무단 사용, 수정, 배포는 엄격히 금지되며 법적 조치를 받을 수 있습니다.
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        
+        // Copyright tracking
+        const _0x4a2f=['1b2c11aa','c6503c9c','c7da0ed4','506262cd','KYR-CONST','20251211'];
+        const _originalSource='김용래세무사사무소';
+        const _deploymentId='050021';
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RG7V70V9V4');
+    </script>
+    
+    <style>
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           🔐 COPYRIGHT NOTICE - STYLE FINGERPRINT
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           Copyright (c) 2025 김용래세무사사무소 기업진단센터
+           Digital Fingerprint: 1b2c11aac6503c9cc7da0ed4506262cd
+           Version: KYR-CONST-CAP-CALC-v2.5.1
+           Deployment: 20251211050021
+           
+           All design elements and styles are proprietary.
+           Unauthorized copying or replication is prohibited.
+           무단 복제 금지 - 모든 디자인 요소는 저작물입니다.
+           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        h1 { color: #333; text-align: center; margin-bottom: 10px; font-size: 28px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 40px; font-size: 14px; }
+        .step { margin-bottom: 25px; }
+        .step-title { font-weight: 600; color: #555; margin-bottom: 12px; font-size: 16px; }
+        .button-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+            font-weight: 500;
+            color: #555;
+        }
+        .btn:hover { border-color: #667eea; background: #f8f9ff; transform: translateY(-2px); }
+        .btn.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: #667eea; }
+        select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            background: white;
+            transition: all 0.3s;
+        }
+        select:focus { outline: none; border-color: #667eea; }
+        .license-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 13px;
+            position: relative;
+            padding-right: 35px;
+        }
+        .license-tag-remove {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .license-tag-remove:hover { color: #ffcccc; }
+        .license-list { margin-top: 10px; padding: 15px; background: #f8f9ff; border-radius: 10px; }
+        .license-list-title { font-size: 12px; color: #888; margin-bottom: 8px; }
+        .finance-section { margin-top: 30px; padding: 25px; background: #f8f9ff; border-radius: 15px; display: none; }
+        .finance-section.show { display: block; animation: fadeIn 0.5s; }
+        .finance-title { font-size: 18px; font-weight: 600; color: #667eea; margin-bottom: 20px; text-align: center; }
+        .input-group { margin-bottom: 15px; }
+        .input-label { display: block; font-size: 14px; color: #555; margin-bottom: 8px; font-weight: 500; }
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        .input-field:focus { outline: none; border-color: #667eea; background: white; }
+        .input-hint { font-size: 12px; color: #999; margin-top: 5px; }
+        .calculate-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s;
+        }
+        .calculate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4); }
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            display: none;
+        }
+        .result.show { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .result-label { font-size: 14px; color: #666; }
+        .result-value { font-size: 28px; font-weight: 700; color: #667eea; margin-bottom: 5px; }
+        .result-type { font-size: 14px; color: #888; }
+        .status-badge { padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 14px; }
+        .status-badge.success { background: #d4edda; color: #155724; }
+        .status-badge.fail { background: #f8d7da; color: #721c24; }
+        .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0; }
+        .comparison-item { background: white; padding: 15px; border-radius: 10px; }
+        .comparison-label { font-size: 12px; color: #888; margin-bottom: 5px; }
+        .comparison-value { font-size: 20px; font-weight: 600; color: #333; }
+        .shortage { margin-top: 15px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 8px; }
+        .shortage-text { font-size: 14px; color: #856404; font-weight: 600; }
+        .progress-bar { width: 100%; height: 30px; background: #e0e0e0; border-radius: 15px; overflow: hidden; margin-top: 15px; }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            transition: width 1s ease;
+        }
+        .reset-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .reset-btn:hover { background: #e0e0e0; }
+        .hidden { display: none; }
+        
+        /* 플로팅 버튼 스타일 */
+        .floating-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+        .floating-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            overflow: hidden;
+        }
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        .kakao-btn {
+            padding: 0;
+            background: transparent;
+        }
+        .kakao-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 0;
+        }
+        .phone-btn {
+            padding: 0;
+            background: transparent;
+        }
+        .phone-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        /* 모바일 반응형 */
+        @media (max-width: 768px) {
+            /* 컨테이너 여백 최소화 */
+            .container {
+                padding: 10px;
+                max-width: 100%;
+            }
+            
+            /* 회사 브랜딩 헤더 조정 */
+            .container > div:first-child > div > div:first-child > div {
+                font-size: 17px !important;
+            }
+            
+            .container > div:first-child > div > div:first-child img {
+                width: 24px !important;
+                height: 24px !important;
+            }
+            
+            /* 제목 크기 조정 */
+            h1 {
+                font-size: 22px;
+                margin-bottom: 15px;
+            }
+            
+            .subtitle {
+                font-size: 13px;
+                margin-bottom: 15px;
+            }
+            
+            /* 법률 안내 여백 축소 */
+            .legal-notice {
+                margin-bottom: 20px;
+                padding: 12px;
+            }
+            
+            /* Step 간격 축소 */
+            .step {
+                margin-bottom: 20px;
+            }
+            
+            /* 2단 레이아웃을 1단으로 변경 */
+            .container > div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+            
+            /* 재무상태 입력 2단 레이아웃을 1단으로 */
+            #financeSection > div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+            
+            /* 버튼 그룹 간격 축소 */
+            .button-group {
+                gap: 10px;
+            }
+            
+            /* 버튼 크기 확대 */
+            .btn {
+                padding: 14px;
+                font-size: 15px;
+            }
+            
+            /* 입력 필드 크기 확대 */
+            .input-field {
+                padding: 11px;
+                font-size: 15px;
+            }
+            
+            /* 입력 그룹 간격 축소 */
+            .input-group {
+                margin-bottom: 15px;
+            }
+            
+            /* 단계 제목 크기 */
+            .step-title {
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+            
+            /* 결과 박스 여백 축소 */
+            .result {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            
+            /* 결과 표시 크기 */
+            .result-value {
+                font-size: 24px;
+            }
+            
+            .comparison-value {
+                font-size: 18px;
+            }
+            
+            /* 플로팅 버튼 */
+            .floating-buttons {
+                bottom: 12px;
+                right: 12px;
+                gap: 10px;
+            }
+            .floating-btn {
+                width: 60px;
+                height: 60px;
+            }
+        }
+        
+        /* 간편 계산기 팝업 스타일 */
+        .calc-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+        .calc-modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .calc-modal-header {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+        }
+        .calc-input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .calc-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+        .calc-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .calc-remove-btn {
+            width: 35px;
+            height: 35px;
+            background: #ff5252;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        .calc-remove-btn:hover {
+            background: #d32f2f;
+            transform: scale(1.1);
+        }
+        .calc-add-btn {
+            width: 100%;
+            padding: 10px;
+            background: #e3f2fd;
+            color: #1976d2;
+            border: 2px dashed #1976d2;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        .calc-add-btn:hover {
+            background: #bbdefb;
+        }
+        .calc-total {
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .calc-total-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        .calc-total-value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .calc-modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .calc-modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .calc-apply-btn {
+            background: #667eea;
+            color: white;
+        }
+        .calc-apply-btn:hover {
+            background: #5568d3;
+        }
+        .calc-cancel-btn {
+            background: #f5f5f5;
+            color: #666;
+        }
+        .calc-cancel-btn:hover {
+            background: #e0e0e0;
+        }
+        .calc-icon-btn {
+            display: inline-block;
+            margin-left: 5px;
+            padding: 2px 6px;
+            background: #e3f2fd;
+            color: #1976d2;
+            border: 1px solid #90caf9;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.3s;
+            vertical-align: middle;
+        }
+        .calc-icon-btn:hover {
+            background: #1976d2;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 회사 브랜딩 헤더 -->
+        <div style="text-align: center; padding: 15px 0; border-bottom: 2px solid #e0e0e0; margin-bottom: 20px;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                <!-- 로고 + 회사명 -->
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="gold.png" alt="김용래세무사사무소 기업진단센터" style="width: 28px; height: 28px; flex-shrink: 0;">
+                    <div style="font-size: 22px; font-weight: 800; color: #333; white-space: nowrap;">김용래세무사사무소 기업진단센터</div>
+                </div>
+                <!-- 연락처 -->
+                <div style="font-size: 12px; color: #666;">
+                    ☎ 02-991-0331 | 📧 kyrtax@naver.com | 🌐 www.kyrtax.co.kr
+                </div>
+            </div>
+        </div>
+        
+        <h1 id="mainTitle">🏗️ 건설업 실질자본 간이계산기</h1>
+        <p class="subtitle" id="mainSubtitle">건설산업기본법 시행령 기준</p>
+        
+        <div style="background:#fff3cd;border-left:4px solid #ffc107;padding:15px;border-radius:8px;margin-bottom:35px;" id="legalNotice">
+            <div style="font-size:13px;color:#856404;line-height:1.6;">
+                <strong>⚠️ 법적 고지사항</strong><br>
+                본 계산기는 참고용 도구이며, 계산 결과는 법적 효력이 없습니다. 실제 건설업 등록 심사 시 관계 법령 및 개별 사안에 따라 결과가 달라질 수 있습니다. 정확한 실질자본 산정이 필요한 경우 전문가와 상담하시기 바랍니다.
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">1단계: 건설업 구분 선택 (복수선택 가능)</div>
+            <div class="button-group" id="step1">
+                <button class="btn" onclick="toggleType('comprehensive')">종합건설업</button>
+                <button class="btn" onclick="toggleType('specialized')">전문건설업</button>
+            </div>
+        </div>
+        
+        <div id="step2" class="step hidden">
+            <div class="step-title">2단계: 면허 종류 선택</div>
+            
+            <!-- 종합건설업 버튼 -->
+            <div id="comprehensiveSection" class="hidden" style="margin-bottom: 20px;">
+                <div style="font-size: 14px; color: #667eea; font-weight: 600; margin-bottom: 10px;">종합건설업</div>
+                <div class="button-group" id="comprehensiveButtons" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                    <!-- 버튼들이 여기에 동적으로 생성됨 -->
+                </div>
+            </div>
+            
+            <!-- 전문건설업 버튼 -->
+            <div id="specializedSection" class="hidden">
+                <div style="font-size: 14px; color: #667eea; font-weight: 600; margin-bottom: 10px;">전문건설업</div>
+                <div class="button-group" id="specializedButtons" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); max-height: 400px; overflow-y: auto;">
+                    <!-- 버튼들이 여기에 동적으로 생성됨 -->
+                </div>
+            </div>
+            
+            <div id="selectedLicenses"></div>
+        </div>
+        
+        <div id="step3" class="step hidden">
+            <div class="step-title">3단계: 사업자 구분 선택</div>
+            <div class="button-group">
+                <button class="btn" onclick="selectEntity('corporation')">법인</button>
+                <button class="btn" onclick="selectEntity('individual')">개인</button>
+            </div>
+        </div>
+        
+        <div id="step4" class="step hidden" style="margin-top: 30px;">
+            <div class="step-title" style="margin-bottom: 10px;">4단계: 겸업사업 보유 여부</div>
+            <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px 15px; border-radius: 6px; margin-bottom: 20px;">
+                <div style="font-size: 13px; color: #1565c0; line-height: 1.5;">
+                    <strong>💡 겸업사업이란?</strong><br>
+                    건설산업기본법상 건설업 이외의 사업을 말합니다.
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="btn" onclick="selectSideBusiness('none')">겸업사업 없음</button>
+                <button class="btn" onclick="selectSideBusiness('has')">겸업사업 있음</button>
+            </div>
+        </div>
+        
+        <div id="sideBusinessDetail" class="step hidden" style="margin-top: 20px;">
+            <div class="step-title" style="margin-bottom: 15px;">└ 겸업사업 유형 선택 (복수선택 가능)</div>
+            <div class="button-group" style="grid-template-columns: 1fr;">
+                <button class="btn" id="noCapitalBtn" style="text-align: left; padding: 15px 20px;">
+                    <strong>법정 등록기준 자본금이 없는 사업</strong><br>
+                    <span style="font-size: 13px; font-weight: normal; color: #888;">제조업, 도소매업 등</span>
+                </button>
+                <button class="btn" id="hasCapitalBtn" style="text-align: left; padding: 15px 20px;">
+                    <strong>법정 등록기준 자본금이 있는 사업</strong><br>
+                    <span style="font-size: 13px; font-weight: normal; color: #888;">아래 명단에서 선택</span>
+                </button>
+            </div>
+        </div>
+        
+        <div id="sideBusinessList" class="step hidden" style="margin-top: 20px;">
+            <div class="step-title" style="margin-bottom: 15px;">└ 업종 선택</div>
+            <div class="button-group" id="sideCategoryButtons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <!-- 버튼들이 여기에 동적으로 생성됨 -->
+            </div>
+            
+            <div id="subCategorySection" class="hidden" style="margin-top: 15px;">
+                <div class="step-title" style="margin-bottom: 15px;">└ 세부업종 선택</div>
+                <div class="button-group" id="sideBusinessButtons" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <!-- 버튼들이 여기에 동적으로 생성됨 -->
+                </div>
+            </div>
+            
+            <div id="selectedSideBusinesses" style="margin-top: 10px;"></div>
+        </div>
+        
+        <div id="requiredCapital" class="result">
+            <div class="result-label">필요 자본금 (합계)</div>
+            <div class="result-value" id="capitalAmount">-</div>
+            <div class="result-type" id="licenseInfo">-</div>
+            <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #e0e0e0;">
+                <div class="result-label">필요 겸업자본금 (합계)</div>
+                <div class="result-value" style="font-size: 24px; color: #764ba2;" id="sideCapitalAmount">-</div>
+                <div class="result-type" id="sideBusinessInfo">-</div>
+            </div>
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0; background: linear-gradient(135deg, #fff9e6 0%, #ffe9a3 100%); padding: 20px; border-radius: 10px; border: 2px solid #ffb74d; box-shadow: 0 4px 12px rgba(255, 183, 77, 0.3);">
+                <div class="result-label" style="font-size: 16px; font-weight: 700; color: #f57c00;">총 합계액</div>
+                <div class="result-value" style="font-size: 32px; color: #e65100; font-weight: 800;" id="totalCapitalAmount">-</div>
+                <div class="result-type" style="font-size: 13px; color: #795548;">건설업 자본금 + 겸업자본금</div>
+            </div>
+        </div>
+        
+        <div id="step5" class="step hidden" style="margin-top: 30px;">
+            <div class="step-title" style="margin-bottom: 20px;">5단계: 재무상태 입력</div>
+            <button class="btn" onclick="showFinanceInput()" style="width:100%; padding:20px; font-size:16px;">📊 재무상태 입력하기</button>
+        </div>
+        
+        <div id="financeSection" class="finance-section">
+            <div class="finance-title">📊 재무상태 입력</div>
+            
+            <button onclick="showAllSteps()" style="padding:10px 20px; background:#f5f5f5; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer; font-size:14px; margin-bottom:20px;">← 이전 단계로 돌아가기</button>
+            
+            <!-- 계산 기능 안내 -->
+            <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border: 2px solid #ff9800; padding: 18px 22px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 3px 10px rgba(255, 152, 0, 0.2);">
+                <div style="font-size: 15px; font-weight: 700; color: #e65100; margin-bottom: 10px;">
+                    💡 간편 계산 기능 안내
+                </div>
+                <div style="font-size: 13px; color: #424242; line-height: 1.7; background: white; padding: 12px 15px; border-radius: 6px; border-left: 4px solid #ff9800;">
+                    <div style="margin-bottom: 8px;">
+                        <strong style="color: #e65100;">방법 1)</strong> <span style="background: #e3f2fd; color: #1976d2; font-weight: 700; padding: 2px 6px; border-radius: 3px;">➕ 버튼</span> 클릭 → 여러 금액 입력 → 자동 합산
+                    </div>
+                    <div>
+                        <strong style="color: #e65100;">방법 2)</strong> <span style="background: #e8f5e9; color: #2e7d32; font-weight: 600; padding: 2px 6px; border-radius: 3px;">엑셀에서 복사한 여러 줄</span>을 입력 필드에 붙여넣기 → 자동 합산
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align:right; color:#667eea; font-weight:600; font-size:13px; margin-bottom:15px; padding:8px 12px; background:#f0f4ff; border-radius:8px;">단위: 원</div>
+            
+            <!-- 2단 컬럼 레이아웃 -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 25px;">
+                
+                <!-- 좌측: 자산 관련 -->
+                <div style="background: #f8f9ff; padding: 20px; border-radius: 12px; border: 2px solid #e0e7ff;">
+                    <div style="font-size: 16px; font-weight: 700; color: #667eea; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #e0e7ff;">
+                        💰 자산
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">자산총계</label>
+                        <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="companyAsset" placeholder="0" oninput="formatNumber(this);calc()">
+                    </div>
+                    
+                    <div class="input-group" style="margin-left:20px;">
+                        <label class="input-label" style="font-size:13px;color:#777;">└ 부실자산 <span style="color:#667eea;font-size:11px;">자동계산</span></label>
+                        <input type="text" class="input-field" id="badAsset" readonly style="background:#e8f0fe;cursor:not-allowed;">
+                        <button onclick="toggleBadAssetDetail()" style="margin-top:8px; padding:8px 15px; background:#fff; border:2px solid #e0e7ff; border-radius:8px; cursor:pointer; font-size:12px; color:#667eea; font-weight:600; width:100%;">
+                            <span id="badAssetToggleIcon">▼</span> 세부 항목 <span id="badAssetToggleText">펼치기</span>
+                        </button>
+                    </div>
+                    
+                    <div id="badAssetDetail" style="display:none;">
+                        <div class="input-group" style="margin-left:40px;">
+                            <label class="input-label" style="font-size:12px;color:#999;">
+                                └ 가. 무기명식 금융상품
+                                <button type="button" class="calc-icon-btn" onclick="openCalc('badAsset1')">➕</button>
+                            </label>
+                            <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="badAsset1" placeholder="0" oninput="formatNumber(this);calcBadAsset();calc()" style="background:#fff;font-size:14px;">
+                        </div>
+                        <div class="input-group" style="margin-left:40px;">
+                            <label class="input-label" style="font-size:12px;color:#999;">
+                                └ 나. 실재하지 않거나 출처가 불분명한 유가증권
+                                <button type="button" class="calc-icon-btn" onclick="openCalc('badAsset2')">➕</button>
+                            </label>
+                            <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="badAsset2" placeholder="0" oninput="formatNumber(this);calcBadAsset();calc()" style="background:#fff;font-size:14px;">
+                        </div>
+                        <div class="input-group" style="margin-left:40px;">
+                            <label class="input-label" style="font-size:12px;color:#999;">
+                                └ 다. 가지급금, 대여금
+                                <button type="button" class="calc-icon-btn" onclick="openCalc('badAsset3')">➕</button>
+                            </label>
+                            <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="badAsset3" placeholder="0" oninput="formatNumber(this);calcBadAsset();calc()" style="background:#fff;font-size:14px;">
+                        </div>
+                        <div class="input-group" style="margin-left:40px;">
+                            <label class="input-label" style="font-size:12px;color:#999;">
+                                └ 라. 미수금, 미수수익
+                                <button type="button" class="calc-icon-btn" onclick="openCalc('badAsset4')">➕</button>
+                            </label>
+                            <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="badAsset4" placeholder="0" oninput="formatNumber(this);calcBadAsset();calc()" style="background:#fff;font-size:14px;">
+                        </div>
+                        <div class="input-group" style="margin-left:40px;">
+                            <label class="input-label" style="font-size:12px;color:#999;">
+                                └ 마. 선급금, 선납세금, 선급비용
+                                <button type="button" class="calc-icon-btn" onclick="openCalc('badAsset5')">➕</button>
+                            </label>
+                            <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="badAsset5" placeholder="0" oninput="formatNumber(this);calcBadAsset();calc()" style="background:#fff;font-size:14px;">
+                        </div>
+                        <div class="input-group" style="margin-left:40px;">
+                            <label class="input-label" style="font-size:12px;color:#999;">
+                                └ 바. 부도어음, 장기성매출채권, 대손 처리할 자산
+                                <button type="button" class="calc-icon-btn" onclick="openCalc('badAsset6')">➕</button>
+                            </label>
+                            <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="badAsset6" placeholder="0" oninput="formatNumber(this);calcBadAsset();calc()" style="background:#fff;font-size:14px;">
+                        </div>
+                        <div class="input-group" style="margin-left:40px;">
+                            <label class="input-label" style="font-size:12px;color:#999;">
+                                └ 사. 무형자산
+                                <button type="button" class="calc-icon-btn" onclick="openCalc('badAsset7')">➕</button>
+                            </label>
+                            <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="badAsset7" placeholder="0" oninput="formatNumber(this);calcBadAsset();calc()" style="background:#fff;font-size:14px;">
+                        </div>
+                        <div class="input-group" style="margin-left:40px;">
+                            <label class="input-label" style="font-size:12px;color:#999;">
+                                └ 아. 그 밖의 부실자산
+                                <button type="button" class="calc-icon-btn" onclick="openCalc('badAsset8')">➕</button>
+                            </label>
+                            <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="badAsset8" placeholder="0" oninput="formatNumber(this);calcBadAsset();calc()" style="background:#fff;font-size:14px;">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group" style="margin-left:20px;margin-bottom:25px;">
+                        <label class="input-label" style="font-size:13px;color:#777;">
+                            └ 수정사항
+                            <button type="button" class="calc-icon-btn" onclick="openCalc('assetAdj')">➕</button>
+                        </label>
+                        <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="assetAdj" placeholder="0" oninput="formatNumber(this);calc()" style="background:#fff;">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">진단대상사업 실질 자산 <span style="color:#667eea;font-size:12px;">자동계산</span></label>
+                        <input type="text" class="input-field" id="targetAsset" placeholder="0" readonly style="background:#e8f0fe;cursor:not-allowed;">
+                    </div>
+                </div>
+                
+                <!-- 우측: 부채 관련 -->
+                <div style="background: #fff5f8; padding: 20px; border-radius: 12px; border: 2px solid #ffe0eb;">
+                    <div style="font-size: 16px; font-weight: 700; color: #d946ef; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #ffe0eb;">
+                        📋 부채
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">부채총계</label>
+                        <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="companyDebt" placeholder="0" oninput="formatNumber(this);calc()">
+                    </div>
+                    
+                    <div class="input-group" style="margin-left:20px;">
+                        <label class="input-label" style="font-size:13px;color:#777;">
+                            └ 수정사항
+                            <button type="button" class="calc-icon-btn" onclick="openCalc('debtAdj')">➕</button>
+                        </label>
+                        <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="debtAdj" placeholder="0" oninput="formatNumber(this);calc()" style="background:#fff;">
+                    </div>
+                    
+                    <div class="input-group" style="margin-left:20px;margin-bottom:25px;">
+                        <label class="input-label" style="font-size:13px;color:#777;">
+                            └ 부외부채
+                            <button type="button" class="calc-icon-btn" onclick="openCalc('offDebt')">➕</button>
+                        </label>
+                        <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="offDebt" placeholder="0" oninput="formatNumber(this);calc()" style="background:#fff;">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">진단대상사업 실질 부채 <span style="color:#667eea;font-size:12px;">자동계산</span></label>
+                        <input type="text" class="input-field" id="targetDebt" placeholder="0" readonly style="background:#e8f0fe;cursor:not-allowed;">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 겸업자본 섹션 (전체 폭 사용) -->
+            <div style="background: #fef3e7; padding: 20px; border-radius: 12px; border: 2px solid #fdd89a; margin-bottom: 25px;">
+                <div style="font-size: 16px; font-weight: 700; color: #ea580c; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #fdd89a;">
+                    🏢 겸업자본
+                </div>
+            
+            <div id="sideRatioSection">
+                <div class="input-group">
+                    <label class="input-label">겸업비율 산정 <span style="color:#667eea;font-size:12px;">수입금액 기준</span></label>
+                </div>
+                
+                <div class="input-group" style="margin-left:20px;">
+                    <label class="input-label" style="font-size:13px;color:#777;">└ 총 수입금액</label>
+                    <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="totalRevenue" placeholder="0" oninput="formatNumber(this);calcSideRatio();calc()" style="background:#fafafa;">
+                    <div class="input-hint">진단대상사업 + 겸업사업의 총 수입금액</div>
+                </div>
+                
+                <div class="input-group" style="margin-left:20px;margin-bottom:25px;">
+                    <label class="input-label" style="font-size:13px;color:#777;">└ 겸업사업 수입금액</label>
+                    <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="sideRevenue" placeholder="0" oninput="formatNumber(this);calcSideRatio();calc()" style="background:#fafafa;">
+                    <div class="input-hint">겸업사업의 수입금액</div>
+                </div>
+                
+                <div class="input-group" style="margin-left:20px;margin-bottom:25px;">
+                    <label class="input-label" style="font-size:13px;color:#777;">└ 겸업비율 (%) <span style="color:#667eea;font-size:11px;">자동계산</span></label>
+                    <input type="text" class="input-field" id="sideRatio" placeholder="0" readonly style="background:#e8f0fe;cursor:not-allowed;font-weight:600;">
+                    <div class="input-hint" id="sideRatioHint" style="color:#667eea;font-weight:500;"></div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label">겸업자본 <span style="color:#667eea;font-size:12px;">자동계산</span></label>
+                <input type="text" class="input-field" id="sideCap" placeholder="0" readonly style="background:#e8f0fe;cursor:not-allowed;">
+                <div id="sideCapWarning" style="display:none; margin-top:8px; padding:10px; background:#fff3cd; border-left:4px solid #ffc107; border-radius:6px;">
+                    <div style="font-size:12px; color:#856404; font-weight:600;">⚠️ 겸업자본이 기준자본금액에 미달합니다</div>
+                    <div style="font-size:11px; color:#856404; margin-top:4px;" id="sideCapWarningDetail"></div>
+                </div>
+                <button onclick="toggleSideCapDetail()" style="margin-top:8px; padding:8px 15px; background:#f8f9ff; border:2px solid #e0e7ff; border-radius:8px; cursor:pointer; font-size:12px; color:#667eea; font-weight:600; width:100%;">
+                    <span id="sideCapToggleIcon">▼</span> 세부 항목 <span id="sideCapToggleText">펼치기</span>
+                </button>
+            </div>
+            
+            <div id="sideCapDetail" style="display:none;">
+                <div class="input-group" style="margin-left:20px;">
+                    <label class="input-label" style="font-size:13px;color:#777;">└ 겸업 자산</label>
+                </div>
+                
+                <div class="input-group" style="margin-left:40px;">
+                    <label class="input-label" style="font-size:12px;color:#999;">
+                        가. 지침에서 겸업자산으로 열거한 자산
+                        <button type="button" class="calc-icon-btn" onclick="openCalc('sideAsset1')">➕</button>
+                    </label>
+                    <input type="text" class="input-field" id="sideAsset1" placeholder="0" value="0" oninput="formatNumber(this);calcSideAsset();calc()" style="background:#fff;font-size:14px;">
+                    <div class="input-hint">유가증권, 투자자산, 임대자산, 운휴자산 등</div>
+                </div>
+                
+                <div class="input-group" style="margin-left:40px;">
+                    <label class="input-label" style="font-size:12px;color:#999;">
+                        나. 겸업사업을 위하여 제공된 자산
+                        <button type="button" class="calc-icon-btn" onclick="openCalc('sideAsset2')">➕</button>
+                    </label>
+                    <input type="text" class="input-field" id="sideAsset2" placeholder="0" value="0" oninput="formatNumber(this);calcSideAsset();calc()" style="background:#fff;font-size:14px;">
+                    <div class="input-hint">실지귀속이 분명한 겸업자산</div>
+                </div>
+                
+                <div class="input-group" style="margin-left:40px;margin-bottom:20px;">
+                    <label class="input-label" style="font-size:12px;color:#999;">
+                        다. 공통자산 <span style="color:#667eea;font-size:11px;">겸업비율 자동 적용</span>
+                        <button type="button" class="calc-icon-btn" onclick="openCalc('sideAsset3')">➕</button>
+                    </label>
+                    <input type="text" class="input-field" id="sideAsset3" placeholder="0" value="0" oninput="formatNumber(this);calcSideAsset();calc()" style="background:#fff;font-size:14px;">
+                    <div class="input-hint">진단대상사업과 겸업사업에 공통으로 사용되는 자산</div>
+                </div>
+                
+                <div class="input-group" style="margin-left:20px;">
+                    <label class="input-label" style="font-size:13px;color:#777;">└ 겸업자산 합계 <span style="color:#667eea;font-size:11px;">자동계산</span></label>
+                    <input type="text" class="input-field" id="sideAsset" placeholder="0" readonly style="background:#e8f0fe;cursor:not-allowed;">
+                </div>
+                
+                <div class="input-group" style="margin-left:20px;">
+                    <label class="input-label" style="font-size:13px;color:#777;">└ 겸업 부채</label>
+                </div>
+                
+                <div class="input-group" style="margin-left:40px;">
+                    <label class="input-label" style="font-size:12px;color:#999;">
+                        가. 겸업자산과 직접 관련된 부채
+                        <button type="button" class="calc-icon-btn" onclick="openCalc('sideDebt1')">➕</button>
+                    </label>
+                    <input type="text" class="input-field" id="sideDebt1" placeholder="0" value="0" oninput="formatNumber(this);calcSideDebt();calc()" style="background:#fff;font-size:14px;">
+                    <div class="input-hint">겸업자산 취득 관련 부채</div>
+                </div>
+                
+                <div class="input-group" style="margin-left:40px;">
+                    <label class="input-label" style="font-size:12px;color:#999;">
+                        나. 실지귀속이 분명한 겸업부채
+                        <button type="button" class="calc-icon-btn" onclick="openCalc('sideDebt2')">➕</button>
+                    </label>
+                    <input type="text" class="input-field" id="sideDebt2" placeholder="0" value="0" oninput="formatNumber(this);calcSideDebt();calc()" style="background:#fff;font-size:14px;">
+                    <div class="input-hint">겸업사업 관련 명확한 부채</div>
+                </div>
+                
+                <div class="input-group" style="margin-left:40px;margin-bottom:20px;">
+                    <label class="input-label" style="font-size:12px;color:#999;">
+                        다. 공통부채 <span style="color:#667eea;font-size:11px;">겸업비율 자동 적용</span>
+                        <button type="button" class="calc-icon-btn" onclick="openCalc('sideDebt3')">➕</button>
+                    </label>
+                    <input type="text" class="input-field" id="sideDebt3" placeholder="0" value="0" oninput="formatNumber(this);calcSideDebt();calc()" style="background:#fff;font-size:14px;">
+                    <div class="input-hint">진단대상사업과 겸업사업에 공통으로 관련된 부채</div>
+                </div>
+                
+                <div class="input-group" style="margin-left:20px;margin-bottom:25px;">
+                    <label class="input-label" style="font-size:13px;color:#777;">└ 겸업부채 합계 <span style="color:#667eea;font-size:11px;">자동계산</span></label>
+                    <input type="text" class="input-field" id="sideDebt" placeholder="0" readonly style="background:#e8f0fe;cursor:not-allowed;">
+                </div>
+            </div>
+            </div>
+            
+            <button class="calculate-btn" onclick="calculateCapital()">실질자본 계산하기</button>
+        </div>
+        
+        <div id="finalResult" class="result">
+            <div class="result-header">
+                <div>
+                    <div class="result-label">건설업 실질자본</div>
+                    <div class="result-value" id="calculatedCapital">-</div>
+                </div>
+                <div class="status-badge" id="statusBadge">-</div>
+            </div>
+            
+            <div class="comparison">
+                <div class="comparison-item">
+                    <div class="comparison-label">건설업 자본금 등록기준</div>
+                    <div class="comparison-value" id="requiredAmount">-</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">건설업 실질자본</div>
+                    <div class="comparison-value" id="actualAmount">-</div>
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress">0%</div>
+            </div>
+            
+            <div id="shortageAlert" class="shortage" style="display: none;">
+                <div class="shortage-text" id="shortageText">-</div>
+            </div>
+        </div>
+        
+        <button class="reset-btn" onclick="reset()">다시 계산하기</button>
+        
+        <!-- 회사 정보 푸터 -->
+        <div style="margin-top: 30px; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white; text-align: center;">
+            <div style="font-size: 12px; opacity: 0.95; margin-bottom: 8px;">
+                © 2025 김용래세무사사무소. All rights reserved.
+            </div>
+            <div style="font-size: 10px; opacity: 0.8; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 8px;">
+                본 계산기의 무단 복제 및 배포를 금지합니다.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /*
+         * 건설업 실질자본 간이계산기
+         * Copyright © 2024. All rights reserved.
+         * 무단 복제, 수정, 배포 금지
+         */
+
+        console.log('%c⚠️ 저작권 경고', 'color: red; font-size: 20px; font-weight: bold;');
+        console.log('%c본 소프트웨어는 저작권으로 보호됩니다.', 'font-size: 14px;');
+
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('selectstart', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'u' || e.key === 'U')) {
+                e.preventDefault();
+                alert('⚠️ 소스 보기는 제한되어 있습니다.');
+            }
+        });
+
+        const data = {
+            comprehensive: {
+                '토목공사업': {corporation: 500000000, individual: 1000000000},
+                '건축공사업': {corporation: 350000000, individual: 700000000},
+                '토목건축공사업': {corporation: 850000000, individual: 1700000000},
+                '산업·환경설비공사업': {corporation: 850000000, individual: 1700000000},
+                '조경공사업': {corporation: 500000000, individual: 1000000000}
+            },
+            specialized: {
+                '지반조성·포장공사업': {corporation: 150000000, individual: 150000000},
+                '실내건축공사업': {corporation: 150000000, individual: 150000000},
+                '금속·창호·지붕·건축물조립공사업': {corporation: 150000000, individual: 150000000},
+                '도장·습식·방수·석공사업': {corporation: 150000000, individual: 150000000},
+                '조경식재·시설물공사업': {corporation: 150000000, individual: 150000000},
+                '철근·콘크리트공사업': {corporation: 150000000, individual: 150000000},
+                '구조물해체·비계공사업': {corporation: 150000000, individual: 150000000},
+                '상·하수도설비공사업': {corporation: 150000000, individual: 150000000},
+                '철도·궤도공사업': {corporation: 150000000, individual: 300000000},
+                '철강구조물공사업': {corporation: 150000000, individual: 300000000},
+                '수중·준설공사업': {corporation: 150000000, individual: 150000000},
+                '승강기·삭도공사업': {corporation: 150000000, individual: 150000000},
+                '기계설비·가스공사업': {corporation: 150000000, individual: 150000000},
+                '가스·난방공사업': {corporation: 0, individual: 0}
+            }
+        };
+
+        const sideBusinessCategories = {
+            '건설엔지니어링업': {
+                '종합': {corporation: 200000000, individual: 0},
+                '설계·자문관리': {corporation: 50000000, individual: 0}
+            },
+            '소방시설공사업': {
+                '전문소방시설공사업': {corporation: 100000000, individual: 100000000},
+                '일반소방시설공사업': {corporation: 100000000, individual: 100000000}
+            },
+            '전기공사업': {corporation: 150000000, individual: 150000000},
+            '정보통신공사업': {corporation: 150000000, individual: 150000000},
+            '감리업': {
+                '종합감리업': {corporation: 100000000, individual: 0},
+                '전문감리업': {corporation: 50000000, individual: 0}
+            },
+            '의약품도매상': {
+                '의약품도매상': {corporation: 500000000, individual: 500000000},
+                '시약': {corporation: 200000000, individual: 200000000},
+                '한약업': {corporation: 200000000, individual: 200000000},
+                '수입의약품': {corporation: 200000000, individual: 200000000},
+                '원료의약품': {corporation: 200000000, individual: 200000000},
+                '복지부장관 고시 일반 의약품': {corporation: 200000000, individual: 200000000}
+            },
+            '산림사업법인': {
+                '산림경영계획 및 산림조사': {corporation: 100000000, individual: 0},
+                '숲가꾸기 및 병해충방제': {corporation: 100000000, individual: 0},
+                '산림토목': {corporation: 300000000, individual: 0},
+                '자연휴양림 등 조성': {corporation: 300000000, individual: 0},
+                '도시숲등의 조성ᆞ관리': {corporation: 100000000, individual: 0},
+                '숲길 조성 관리': {corporation: 300000000, individual: 0}
+            },
+            '나무병원': {corporation: 100000000, individual: 0},
+            '종합국가유산수리업': {corporation: 200000000, individual: 200000000},
+            '전문국가유산수리업': {
+                '조경업': {corporation: 50000000, individual: 50000000},
+                '식물보호업': {corporation: 50000000, individual: 50000000},
+                '목공사업': {corporation: 50000000, individual: 50000000},
+                '번와공사업': {corporation: 50000000, individual: 50000000},
+                '온돌공사업': {corporation: 50000000, individual: 50000000},
+                '보존과학업': {corporation: 50000000, individual: 50000000},
+                '단청공사업': {corporation: 50000000, individual: 50000000},
+                '석공사업': {corporation: 50000000, individual: 50000000},
+                '미장공사업': {corporation: 50000000, individual: 50000000}
+            },
+            '국가유산감리업': {corporation: 50000000, individual: 50000000},
+            '방송채널사용사업': {corporation: 500000000, individual: 0},
+            '인터넷 멀티미디어 방송사업': {corporation: 500000000, individual: 0}
+        };
+
+        let types = [], licenses = [], entity = null, reqCap = 0;
+        let hasSideBusiness = null, sideBusinessTypes = [], sideBusinesses = [], sideBusReqCap = 0;
+        let adjustedReqCap = 0; // 나무병원-조경업 상호인정 적용된 조정 자본금
+
+        function formatNumber(input) {
+            let v = input.value.replace(/,/g, '').replace(/[^\d-]/g, '');
+            if (v) {
+                const neg = v.startsWith('-');
+                const abs = v.replace('-', '');
+                if (abs) v = (neg ? '-' : '') + parseInt(abs).toLocaleString('ko-KR');
+            }
+            input.value = v;
+        }
+
+        function parse(v) {
+            return v ? (parseFloat(v.replace(/,/g, '')) || 0) : 0;
+        }
+
+        function fmt(n) {
+            if (n >= 1000000000000) {
+                // 조 단위
+                const jo = Math.floor(n / 1000000000000);
+                const remainder = n % 1000000000000;
+                const e = Math.floor(remainder / 100000000);
+                const m = Math.floor((remainder % 100000000) / 10000);
+                
+                let result = `${jo}조`;
+                if (e > 0) {
+                    result += ` ${e}억`;
+                }
+                if (m > 0) {
+                    result += ` ${m.toLocaleString('ko-KR')}만원`;
+                } else if (e > 0) {
+                    result += `원`;
+                } else {
+                    result += `원`;
+                }
+                return result;
+            }
+            if (n >= 100000000) {
+                const e = Math.floor(n / 100000000);
+                const m = Math.floor((n % 100000000) / 10000);
+                if (m > 0) {
+                    // 만원 단위에 쉼표 추가
+                    const mFormatted = m.toLocaleString('ko-KR');
+                    return `${e}억 ${mFormatted}만원`;
+                } else {
+                    return `${e}억원`;
+                }
+            }
+            if (n >= 10000) {
+                const m = Math.floor(n / 10000);
+                return `${m.toLocaleString('ko-KR')}만원`;
+            }
+            return `${n.toLocaleString('ko-KR')}원`;
+        }
+
+        function calcSideRatio() {
+            const totalRev = parse(document.getElementById('totalRevenue').value);
+            const sideRev = parse(document.getElementById('sideRevenue').value);
+            
+            let ratio = 0;
+            let hintText = '';
+            
+            if (totalRev > 0 && sideRev > 0) {
+                // 수입금액이 둘 다 있는 경우: 수입금액 비율로 계산
+                ratio = (sideRev / totalRev) * 100;
+                hintText = `수입금액 기준: ${fmt(sideRev)} ÷ ${fmt(totalRev)} = ${ratio.toFixed(2)}%`;
+            } else if (sideBusReqCap > 0) {
+                // 한쪽이라도 수입금액이 없고 법정 기준자본금이 있는 경우
+                const totalReqCap = adjustedReqCap + sideBusReqCap;
+                if (totalReqCap > 0) {
+                    ratio = (sideBusReqCap / totalReqCap) * 100;
+                    hintText = `기준자본금 비율: ${fmt(sideBusReqCap)} ÷ ${fmt(totalReqCap)} = ${ratio.toFixed(2)}%`;
+                }
+            } else {
+                hintText = '수입금액을 입력하거나 겸업사업을 선택하세요';
+            }
+            
+            document.getElementById('sideRatio').value = ratio > 0 ? ratio.toFixed(2) + '%' : '0%';
+            document.getElementById('sideRatioHint').textContent = hintText;
+            
+            return ratio / 100; // 소수점으로 반환
+        }
+
+        function calcSideAsset() {
+            const asset1 = parse(document.getElementById('sideAsset1').value); // 지침 열거 자산
+            const asset2 = parse(document.getElementById('sideAsset2').value); // 실지귀속 자산
+            const asset3 = parse(document.getElementById('sideAsset3').value); // 공통자산
+            
+            const ratio = calcSideRatio();
+            
+            // 공통자산에 겸업비율 적용
+            const allocatedAsset3 = asset3 * ratio;
+            
+            const total = asset1 + asset2 + allocatedAsset3;
+            document.getElementById('sideAsset').value = total.toLocaleString('ko-KR');
+        }
+
+        function calcSideDebt() {
+            const debt1 = parse(document.getElementById('sideDebt1').value); // 직접 관련 부채
+            const debt2 = parse(document.getElementById('sideDebt2').value); // 실지귀속 부채
+            const debt3 = parse(document.getElementById('sideDebt3').value); // 공통부채
+            
+            const ratio = calcSideRatio();
+            
+            // 공통부채에 겸업비율 적용
+            const allocatedDebt3 = debt3 * ratio;
+            
+            const total = debt1 + debt2 + allocatedDebt3;
+            document.getElementById('sideDebt').value = total.toLocaleString('ko-KR');
+        }
+
+        function calc() {
+            const sa = parse(document.getElementById('sideAsset').value);
+            const sd = parse(document.getElementById('sideDebt').value);
+            const calculatedSideCap = sa - sd;
+            
+            // 실제 계산된 겸업자본 표시
+            document.getElementById('sideCap').value = calculatedSideCap.toLocaleString('ko-KR');
+            
+            // 제28조 2항: 기준자본액 미달 여부 확인 및 경고 표시
+            const warningDiv = document.getElementById('sideCapWarning');
+            const warningDetail = document.getElementById('sideCapWarningDetail');
+            
+            if (sideBusReqCap > 0 && calculatedSideCap < sideBusReqCap) {
+                const shortage = sideBusReqCap - calculatedSideCap;
+                warningDiv.style.display = 'block';
+                warningDetail.textContent = `겸업사업 기준자본금액 ${fmt(sideBusReqCap)}에 ${fmt(shortage)} 부족하여, 건설업 실질자본에서 차감됩니다.`;
+            } else {
+                warningDiv.style.display = 'none';
+            }
+            
+            const ca = parse(document.getElementById('companyAsset').value);
+            const ba = parse(document.getElementById('badAsset').value);
+            const aa = parse(document.getElementById('assetAdj').value);
+            const cd = parse(document.getElementById('companyDebt').value);
+            const da = parse(document.getElementById('debtAdj').value);
+            const od = parse(document.getElementById('offDebt').value);
+            const ta = ca - ba + aa - sa;
+            const td = cd + da + od - sd;
+            document.getElementById('targetAsset').value = ta.toLocaleString('ko-KR');
+            document.getElementById('targetDebt').value = td.toLocaleString('ko-KR');
+        }
+
+        function calcBadAsset() {
+            let total = 0;
+            for (let i = 1; i <= 8; i++) {
+                total += parse(document.getElementById('badAsset' + i).value);
+            }
+            document.getElementById('badAsset').value = total.toLocaleString('ko-KR');
+        }
+
+        function toggleBadAssetDetail() {
+            const detail = document.getElementById('badAssetDetail');
+            const icon = document.getElementById('badAssetToggleIcon');
+            const text = document.getElementById('badAssetToggleText');
+            
+            if (detail.style.display === 'none') {
+                detail.style.display = 'block';
+                icon.textContent = '▲';
+                text.textContent = '접기';
+            } else {
+                detail.style.display = 'none';
+                icon.textContent = '▼';
+                text.textContent = '펼치기';
+            }
+        }
+
+        function toggleSideCapDetail() {
+            const detail = document.getElementById('sideCapDetail');
+            const icon = document.getElementById('sideCapToggleIcon');
+            const text = document.getElementById('sideCapToggleText');
+            
+            if (detail.style.display === 'none') {
+                detail.style.display = 'block';
+                icon.textContent = '▲';
+                text.textContent = '접기';
+            } else {
+                detail.style.display = 'none';
+                icon.textContent = '▼';
+                text.textContent = '펼치기';
+            }
+        }
+
+        function toggleType(t) {
+            const idx = types.indexOf(t);
+            if (idx > -1) {
+                types.splice(idx, 1);
+                event.target.classList.remove('active');
+                licenses = licenses.filter(l => l.type !== t);
+                updateLicenses();
+            } else {
+                types.push(t);
+                event.target.classList.add('active');
+                
+                // 버튼 생성
+                const container = document.getElementById(t + 'Buttons');
+                container.innerHTML = '';
+                Object.keys(data[t]).forEach(licenseName => {
+                    const btn = document.createElement('button');
+                    btn.className = 'btn';
+                    btn.textContent = licenseName;
+                    btn.onclick = function() {
+                        addLicenseByButton(t, licenseName, btn);
+                    };
+                    container.appendChild(btn);
+                });
+            }
+            document.getElementById('comprehensiveSection').classList.toggle('hidden', !types.includes('comprehensive'));
+            document.getElementById('specializedSection').classList.toggle('hidden', !types.includes('specialized'));
+            if (types.length > 0) {
+                document.getElementById('step2').classList.remove('hidden');
+            } else {
+                document.getElementById('step2').classList.add('hidden');
+                document.getElementById('step3').classList.add('hidden');
+                document.getElementById('step4').classList.add('hidden');
+                document.getElementById('sideBusinessDetail').classList.add('hidden');
+                document.getElementById('sideBusinessList').classList.add('hidden');
+                document.getElementById('requiredCapital').classList.remove('show');
+                document.getElementById('step5').classList.add('hidden');
+            }
+            if (licenses.length === 0) {
+                document.getElementById('step3').classList.add('hidden');
+                document.getElementById('step4').classList.add('hidden');
+            } else if (entity) {
+                calcTotal();
+            }
+        }
+
+        function addLicenseByButton(type, licenseName, btn) {
+            // 이미 선택된 경우 제거
+            const existing = licenses.find(l => l.name === licenseName);
+            if (existing) {
+                licenses = licenses.filter(l => l.name !== licenseName);
+                btn.classList.remove('active');
+                updateLicenses();
+                if (licenses.length === 0) {
+                    document.getElementById('step3').classList.add('hidden');
+                    document.getElementById('step4').classList.add('hidden');
+                }
+                return;
+            }
+            
+            // 새로 추가
+            btn.classList.add('active');
+            licenses.push({ type: type, name: licenseName });
+            updateLicenses();
+            document.getElementById('step3').classList.remove('hidden');
+            if (entity) {
+                calcTotal();
+            }
+        }
+
+        function addLicense(t) {
+            const sel = document.getElementById(t + 'Select');
+            const ln = sel.value;
+            if (!ln) return;
+            if (licenses.find(l => l.name === ln)) {
+                alert('이미 선택된 면허입니다.');
+                sel.value = '';
+                return;
+            }
+            licenses.push({name: ln, type: t});
+            updateLicenses();
+            document.getElementById('step3').classList.remove('hidden');
+            document.querySelectorAll('#step3 .btn').forEach(b => b.classList.remove('active'));
+            entity = null;
+            document.getElementById('step4').classList.add('hidden');
+            document.getElementById('requiredCapital').classList.remove('show');
+            sel.value = '';
+        }
+
+        function updateLicenses() {
+            const cont = document.getElementById('selectedLicenses');
+            if (licenses.length === 0) {
+                cont.innerHTML = '';
+                return;
+            }
+            let h = '<div class="license-list"><div class="license-list-title">선택된 면허:</div>';
+            licenses.forEach((l, i) => {
+                const typeLabel = l.type === 'comprehensive' ? '[종합]' : '[전문]';
+                h += `<span class="license-tag">${typeLabel} ${l.name}<span class="license-tag-remove" onclick="removeLicense(${i})">✕</span></span>`;
+            });
+            h += '</div>';
+            cont.innerHTML = h;
+        }
+
+        function removeLicense(i) {
+            const removedLicense = licenses[i];
+            licenses.splice(i, 1);
+            
+            // 해당 버튼 비활성화
+            const containerId = removedLicense.type === 'comprehensive' ? 'comprehensiveButtons' : 'specializedButtons';
+            const buttons = document.querySelectorAll(`#${containerId} .btn`);
+            buttons.forEach(btn => {
+                if (btn.textContent.trim() === removedLicense.name) {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            updateLicenses();
+            if (licenses.length === 0) {
+                document.getElementById('step3').classList.add('hidden');
+                document.getElementById('step4').classList.add('hidden');
+                document.getElementById('requiredCapital').classList.remove('show');
+            } else if (entity) {
+                calcTotal();
+            }
+        }
+
+        function selectEntity(e) {
+            document.querySelectorAll('#step3 .btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            entity = e;
+            calcTotal();
+        }
+
+        function calcTotal() {
+            if (!entity || licenses.length === 0) return;
+            let capitalList = licenses.map(l => ({
+                name: l.name,
+                type: l.type,
+                amount: data[l.type][l.name][entity]
+            }));
+            capitalList.sort((a, b) => b.amount - a.amount);
+            let total = 0;
+            if (capitalList.length === 1) {
+                total = capitalList[0].amount;
+            } else {
+                total = capitalList[0].amount;
+                if (capitalList.length >= 2) {
+                    const maxCapitalHalf = capitalList[0].amount / 2;
+                    const secondCapitalHalf = capitalList[1].amount / 2;
+                    const reduction = Math.min(maxCapitalHalf, secondCapitalHalf);
+                    total += capitalList[1].amount - reduction;
+                }
+                for (let i = 2; i < capitalList.length; i++) {
+                    total += capitalList[i].amount;
+                }
+            }
+            reqCap = total;
+            const et = entity === 'corporation' ? '법인' : '개인';
+            const licenseText = licenses.map(l => {
+                const typeLabel = l.type === 'comprehensive' ? '[종합]' : '[전문]';
+                return `${typeLabel} ${l.name}`;
+            }).join(', ');
+            document.getElementById('capitalAmount').textContent = fmt(reqCap);
+            document.getElementById('licenseInfo').textContent = `${licenseText} (${et})`;
+            document.getElementById('step4').classList.remove('hidden');
+            updateRequiredCapitalDisplay();
+        }
+
+        function selectSideBusiness(choice) {
+            hasSideBusiness = choice;
+            document.querySelectorAll('#step4 .btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 겸업사업 여부와 관계없이 필요한 필드 (가 항목)
+            const alwaysActiveFields = ['sideAsset1', 'sideDebt1'];
+            
+            // 겸업사업이 있을 때만 필요한 필드
+            const conditionalFields = [
+                'totalRevenue', 'sideRevenue',
+                'sideAsset2', 'sideAsset3',
+                'sideDebt2', 'sideDebt3'
+            ];
+            
+            if (choice === 'none') {
+                sideBusinessTypes = [];
+                sideBusinesses = [];
+                document.getElementById('sideBusinessDetail').classList.add('hidden');
+                document.getElementById('sideBusinessList').classList.add('hidden');
+                document.getElementById('sideRatioSection').classList.add('hidden'); // 겸업비율 산정 섹션도 숨김
+                document.querySelectorAll('#sideBusinessDetail .btn').forEach(b => b.classList.remove('active'));
+                
+                // 겸업사업 없음 선택 시 조건부 필드만 비활성화
+                conditionalFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    field.disabled = true;
+                    field.style.background = '#f0f0f0';
+                    field.style.cursor = 'not-allowed';
+                    field.value = '0';
+                });
+                
+                // 자동계산 필드 초기화
+                document.getElementById('sideRatio').value = '-';
+                document.getElementById('sideRatioHint').textContent = '';
+            } else {
+                document.getElementById('sideBusinessDetail').classList.remove('hidden');
+                document.getElementById('sideRatioSection').classList.remove('hidden'); // 겸업비율 산정 섹션 보이기
+                
+                // 겸업사업 있음 선택 시 모든 필드 활성화
+                conditionalFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    field.disabled = false;
+                    field.style.background = '#fff';
+                    field.style.cursor = 'text';
+                });
+            }
+            updateRequiredCapitalDisplay();
+        }
+
+        function toggleSideBusinessType(type) {
+            const idx = sideBusinessTypes.indexOf(type);
+            const btnId = type === 'noCapital' ? 'noCapitalBtn' : 'hasCapitalBtn';
+            const btn = document.getElementById(btnId);
+            if (idx > -1) {
+                sideBusinessTypes.splice(idx, 1);
+                btn.classList.remove('active');
+                if (type === 'hasCapital') {
+                    document.getElementById('sideBusinessList').classList.add('hidden');
+                    document.getElementById('subCategorySection').classList.add('hidden');
+                    sideBusinesses = [];
+                    document.getElementById('selectedSideBusinesses').innerHTML = '';
+                }
+            } else {
+                sideBusinessTypes.push(type);
+                btn.classList.add('active');
+                if (type === 'hasCapital') {
+                    // 카테고리 버튼 생성
+                    const container = document.getElementById('sideCategoryButtons');
+                    container.innerHTML = '';
+                    Object.keys(sideBusinessCategories).forEach(category => {
+                        const categoryBtn = document.createElement('button');
+                        categoryBtn.className = 'btn';
+                        categoryBtn.textContent = category;
+                        categoryBtn.onclick = function() {
+                            showSubCategoriesButton(category, categoryBtn);
+                        };
+                        container.appendChild(categoryBtn);
+                    });
+                    document.getElementById('sideBusinessList').classList.remove('hidden');
+                }
+            }
+            updateRequiredCapitalDisplay();
+        }
+
+        function showSubCategoriesButton(category, categoryBtn) {
+            // 이전에 선택된 카테고리 버튼 비활성화
+            document.querySelectorAll('#sideCategoryButtons .btn').forEach(b => b.classList.remove('active'));
+            categoryBtn.classList.add('active');
+            
+            const categoryData = sideBusinessCategories[category];
+            const subSection = document.getElementById('subCategorySection');
+            const container = document.getElementById('sideBusinessButtons');
+            
+            if (typeof categoryData === 'object' && !categoryData.corporation) {
+                // 세부 업종이 있는 경우
+                container.innerHTML = '';
+                Object.keys(categoryData).forEach(sub => {
+                    const subBtn = document.createElement('button');
+                    subBtn.className = 'btn';
+                    subBtn.textContent = sub;
+                    subBtn.onclick = function() {
+                        addSideBusinessButton(category + '>' + sub, subBtn);
+                    };
+                    container.appendChild(subBtn);
+                });
+                subSection.classList.remove('hidden');
+            } else {
+                // 세부 업종이 없는 경우 (바로 선택)
+                subSection.classList.add('hidden');
+                addSideBusinessButton(category, categoryBtn);
+            }
+        }
+
+        function addSideBusinessButton(businessKey, btn) {
+            // 이미 선택된 경우 제거
+            const existing = sideBusinesses.find(b => b.key === businessKey);
+            if (existing) {
+                sideBusinesses = sideBusinesses.filter(b => b.key !== businessKey);
+                btn.classList.remove('active');
+                updateSelectedSideBusinesses();
+                return;
+            }
+            
+            // 새로 추가 - 객체 형태로 저장
+            btn.classList.add('active');
+            
+            // businessKey가 "카테고리>세부업종" 형식인지 확인
+            const parts = businessKey.split('>');
+            let businessObj;
+            
+            if (parts.length === 2) {
+                // 세부업종이 있는 경우
+                businessObj = {
+                    key: businessKey,
+                    category: parts[0],
+                    subCategory: parts[1],
+                    name: businessKey.replace('>', ' > ')
+                };
+            } else {
+                // 세부업종이 없는 경우
+                businessObj = {
+                    key: businessKey,
+                    category: businessKey,
+                    subCategory: null,
+                    name: businessKey
+                };
+            }
+            
+            sideBusinesses.push(businessObj);
+            updateSelectedSideBusinesses();
+        }
+
+        function updateSelectedSideBusinesses() {
+            const cont = document.getElementById('selectedSideBusinesses');
+            if (sideBusinesses.length === 0) {
+                cont.innerHTML = '';
+                return;
+            }
+            let html = '<div style="margin-top:15px; padding:10px; background:#f0f4ff; border-radius:8px;"><div style="font-size:12px; color:#667eea; font-weight:600; margin-bottom:8px;">선택된 겸업사업:</div>';
+            sideBusinesses.forEach((b, index) => {
+                html += `<div style="display:inline-block; margin:4px; padding:6px 12px; background:white; border:2px solid #667eea; border-radius:6px; font-size:13px;">
+                    ${b.name}
+                    <span onclick="removeSideBusinessByIndex(${index})" style="margin-left:8px; cursor:pointer; color:#ef4444; font-weight:bold;">✕</span>
+                </div>`;
+            });
+            html += '</div>';
+            cont.innerHTML = html;
+            updateRequiredCapitalDisplay();
+        }
+
+        function removeSideBusinessByIndex(index) {
+            const removedBusiness = sideBusinesses[index];
+            sideBusinesses.splice(index, 1);
+            
+            // 해당 버튼 비활성화
+            const buttons = document.querySelectorAll('#sideCategoryButtons .btn, #sideBusinessButtons .btn');
+            buttons.forEach(btn => {
+                if (btn.classList.contains('active')) {
+                    // 버튼의 텍스트와 제거된 항목 비교
+                    const btnText = btn.textContent.trim();
+                    if (removedBusiness.subCategory) {
+                        if (btnText === removedBusiness.subCategory) {
+                            btn.classList.remove('active');
+                        }
+                    } else {
+                        if (btnText === removedBusiness.category) {
+                            btn.classList.remove('active');
+                        }
+                    }
+                }
+            });
+            
+            updateSelectedSideBusinesses();
+        }
+
+        function showSubCategories() {
+            const categorySelect = document.getElementById('sideCategorySelect');
+            const category = categorySelect.value;
+            const subSelect = document.getElementById('sideBusinessSelect');
+            const subSection = document.getElementById('subCategorySection');
+            if (!category) {
+                subSection.classList.add('hidden');
+                return;
+            }
+            const categoryData = sideBusinessCategories[category];
+            if (typeof categoryData === 'object' && !categoryData.corporation) {
+                subSelect.innerHTML = '<option value="">세부업종을 선택하세요</option>';
+                Object.keys(categoryData).forEach(sub => {
+                    const option = document.createElement('option');
+                    option.value = category + '>' + sub;
+                    option.textContent = sub;
+                    subSelect.appendChild(option);
+                });
+                subSection.classList.remove('hidden');
+            } else {
+                subSection.classList.add('hidden');
+                addSingleSideBusiness(category);
+            }
+        }
+
+        function addSingleSideBusiness(businessName) {
+            if (sideBusinesses.find(b => b.name === businessName)) {
+                alert('이미 선택된 사업입니다.');
+                return;
+            }
+            sideBusinesses.push({
+                name: businessName,
+                category: businessName,
+                subCategory: null
+            });
+            updateSideBusinessDisplay();
+            updateRequiredCapitalDisplay();
+            document.getElementById('sideCategorySelect').value = '';
+        }
+
+        function addSideBusiness() {
+            const select = document.getElementById('sideBusinessSelect');
+            const value = select.value;
+            if (!value) return;
+            const [category, subCategory] = value.split('>');
+            const businessName = subCategory ? `${category} - ${subCategory}` : category;
+            if (sideBusinesses.find(b => b.name === businessName)) {
+                alert('이미 선택된 사업입니다.');
+                select.value = '';
+                return;
+            }
+            sideBusinesses.push({
+                name: businessName,
+                category: category,
+                subCategory: subCategory || null
+            });
+            updateSideBusinessDisplay();
+            updateRequiredCapitalDisplay();
+            select.value = '';
+        }
+
+        function updateSideBusinessDisplay() {
+            const container = document.getElementById('selectedSideBusinesses');
+            if (sideBusinesses.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+            let html = '<div class="license-list"><div class="license-list-title">선택된 겸업사업:</div>';
+            sideBusinesses.forEach((b, i) => {
+                html += `<span class="license-tag">${b.name}<span class="license-tag-remove" onclick="removeSideBusiness(${i})">✕</span></span>`;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function removeSideBusiness(index) {
+            sideBusinesses.splice(index, 1);
+            updateSideBusinessDisplay();
+            updateRequiredCapitalDisplay();
+        }
+
+        function updateRequiredCapitalDisplay() {
+            if (hasSideBusiness === null || !entity) {
+                document.getElementById('requiredCapital').classList.remove('show');
+                return;
+            }
+            
+            // 나무병원 보유 여부 확인
+            const hasTreeHospital = sideBusinesses.some(b => b.category === '나무병원');
+            
+            // 조경 관련 면허 보유 여부 확인
+            const hasLandscapeLicense = licenses.some(l => 
+                l.name === '조경공사업' || l.name === '조경식재·시설물공사업'
+            );
+            
+            // 나무병원과 조경업 모두 있는 경우 상호인정 처리
+            const treeHospitalRecognized = hasTreeHospital && hasLandscapeLicense;
+            
+            // 건설업 자본금은 그대로 계산 (조경공사업 포함)
+            adjustedReqCap = reqCap;
+            
+            if (hasSideBusiness === 'none' || (sideBusinessTypes.length === 0 && sideBusinesses.length === 0)) {
+                sideBusReqCap = 0;
+                document.getElementById('sideCapitalAmount').textContent = '0원';
+                document.getElementById('sideBusinessInfo').textContent = '겸업사업 없음';
+            } else {
+                let total = 0;
+                let infoText = [];
+                if (sideBusinessTypes.includes('noCapital')) {
+                    infoText.push('제조업·도소매업 등');
+                }
+                
+                // 산림사업법인 및 나무병원 처리
+                const forestBusinesses = sideBusinesses.filter(b => b.category === '산림사업법인');
+                const treeHospital = sideBusinesses.filter(b => b.category === '나무병원');
+                const otherBusinesses = sideBusinesses.filter(b => 
+                    b.category !== '산림사업법인' && b.category !== '나무병원'
+                );
+                
+                // 산림사업법인 또는 나무병원이 있는 경우 특별 계산
+                if (forestBusinesses.length > 0 || treeHospital.length > 0) {
+                    let forestCapitals = [];
+                    let hospitalCapital = 0;
+                    
+                    // 나무병원 자본금 확인
+                    if (treeHospital.length > 0) {
+                        const hospitalData = sideBusinessCategories['나무병원'];
+                        hospitalCapital = hospitalData?.[entity] || 0;
+                    }
+                    
+                    // 산림사업법인 자본금 목록
+                    forestBusinesses.forEach(b => {
+                        const categoryData = sideBusinessCategories[b.category];
+                        let cap = 0;
+                        if (b.subCategory) {
+                            cap = categoryData[b.subCategory]?.[entity] || 0;
+                        } else {
+                            cap = categoryData?.[entity] || 0;
+                        }
+                        if (cap) {
+                            forestCapitals.push({name: b.name, amount: cap});
+                        }
+                    });
+                    
+                    // 금액 순으로 정렬 (내림차순)
+                    forestCapitals.sort((a, b) => b.amount - a.amount);
+                    
+                    // 경우의 수별 계산
+                    if (treeHospital.length > 0 && forestBusinesses.length === 0) {
+                        // 나무병원만 있는 경우
+                        if (treeHospitalRecognized) {
+                            // 조경업 보유: 상호인정으로 나무병원 자본금 불필요
+                            infoText.push('나무병원 (조경업과 상호인정)');
+                        } else {
+                            // 조경업 없음: 100%
+                            total += hospitalCapital;
+                            infoText.push('나무병원');
+                        }
+                        
+                    } else if (treeHospital.length === 0 && forestBusinesses.length > 0) {
+                        // 산림사업법인만 있는 경우
+                        // 가장 큰 것 100%, 나머지 50%
+                        total += forestCapitals[0].amount;
+                        infoText.push(forestCapitals[0].name);
+                        for (let i = 1; i < forestCapitals.length; i++) {
+                            total += forestCapitals[i].amount * 0.5;
+                            infoText.push(forestCapitals[i].name + ' (50%)');
+                        }
+                        
+                    } else if (treeHospital.length > 0 && forestBusinesses.length === 1) {
+                        // 나무병원 + 산림사업 1개
+                        total += forestCapitals[0].amount;
+                        infoText.push(forestCapitals[0].name);
+                        
+                        if (treeHospitalRecognized) {
+                            // 조경업 보유: 나무병원 상호인정
+                            infoText.push('나무병원 (조경업과 상호인정)');
+                        } else {
+                            // 조경업 없음: 나무병원 50%
+                            total += hospitalCapital * 0.5;
+                            infoText.push('나무병원 (50%)');
+                        }
+                        
+                    } else if (treeHospital.length > 0 && forestBusinesses.length >= 2) {
+                        // 나무병원 + 산림사업 2개 이상
+                        total += forestCapitals[0].amount;
+                        infoText.push(forestCapitals[0].name);
+                        
+                        for (let i = 1; i < forestCapitals.length; i++) {
+                            total += forestCapitals[i].amount * 0.5;
+                            infoText.push(forestCapitals[i].name + ' (50%)');
+                        }
+                        
+                        if (treeHospitalRecognized) {
+                            // 조경업 보유: 나무병원 상호인정
+                            infoText.push('나무병원 (조경업과 상호인정)');
+                        } else {
+                            // 조경업 없음: 나무병원 50%
+                            total += hospitalCapital * 0.5;
+                            infoText.push('나무병원 (50%)');
+                        }
+                    }
+                }
+                
+                // 다른 겸업사업은 100% 반영
+                otherBusinesses.forEach(b => {
+                    const categoryData = sideBusinessCategories[b.category];
+                    let cap = 0;
+                    if (b.subCategory) {
+                        cap = categoryData[b.subCategory]?.[entity] || 0;
+                    } else {
+                        cap = categoryData?.[entity] || 0;
+                    }
+                    if (cap) {
+                        total += cap;
+                        infoText.push(b.name);
+                    }
+                });
+                
+                sideBusReqCap = total;
+                document.getElementById('sideCapitalAmount').textContent = total > 0 ? fmt(total) : '0원';
+                document.getElementById('sideBusinessInfo').textContent = infoText.join(', ');
+            }
+            const totalCapital = adjustedReqCap + sideBusReqCap;
+            document.getElementById('totalCapitalAmount').textContent = fmt(totalCapital);
+            document.getElementById('requiredCapital').classList.add('show');
+            document.getElementById('step5').classList.remove('hidden');
+        }
+
+        function showFinanceInput() {
+            document.getElementById('mainSubtitle')?.classList.add('hidden');
+            document.getElementById('legalNotice')?.classList.add('hidden');
+            const step1 = document.querySelector('.step:nth-child(4)');
+            if (step1) step1.classList.add('hidden');
+            document.getElementById('step2')?.classList.add('hidden');
+            document.getElementById('step3')?.classList.add('hidden');
+            document.getElementById('step4')?.classList.add('hidden');
+            document.getElementById('sideBusinessDetail')?.classList.add('hidden');
+            document.getElementById('sideBusinessList')?.classList.add('hidden');
+            document.getElementById('requiredCapital')?.classList.add('hidden');
+            document.getElementById('step5')?.classList.add('hidden');
+            const financeSection = document.getElementById('financeSection');
+            financeSection.style.opacity = '0';
+            financeSection.classList.add('show');
+            setTimeout(() => {
+                financeSection.style.transition = 'opacity 0.5s ease-in';
+                financeSection.style.opacity = '1';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 50);
+        }
+
+        function showAllSteps() {
+            document.getElementById('mainSubtitle')?.classList.remove('hidden');
+            document.getElementById('legalNotice')?.classList.remove('hidden');
+            const step1 = document.querySelector('.step:nth-child(4)');
+            if (step1) step1.classList.remove('hidden');
+            document.getElementById('step2')?.classList.remove('hidden');
+            document.getElementById('step3')?.classList.remove('hidden');
+            document.getElementById('step4')?.classList.remove('hidden');
+            if (hasSideBusiness === 'has') {
+                document.getElementById('sideBusinessDetail')?.classList.remove('hidden');
+                if (sideBusinessTypes.includes('hasCapital')) {
+                    document.getElementById('sideBusinessList')?.classList.remove('hidden');
+                }
+            }
+            document.getElementById('requiredCapital')?.classList.remove('hidden');
+            document.getElementById('step5')?.classList.remove('hidden');
+            document.getElementById('financeSection')?.classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function calculateCapital() {
+            const targetAsset = parse(document.getElementById('targetAsset').value);
+            const targetDebt = parse(document.getElementById('targetDebt').value);
+            let actualCapital = targetAsset - targetDebt; // 이미 겸업자산/부채가 차감된 진단대상사업 실질자본
+            
+            // 제28조 2항 적용: 겸업자본이 기준자본액 미달 시 추가 차감
+            const sa = parse(document.getElementById('sideAsset').value);
+            const sd = parse(document.getElementById('sideDebt').value);
+            const calculatedSideCap = sa - sd; // 실제 계산된 겸업자본
+            
+            // 겸업자본이 기준자본액보다 낮으면, 부족분을 추가로 차감
+            if (sideBusReqCap > 0 && calculatedSideCap < sideBusReqCap) {
+                const shortage = sideBusReqCap - calculatedSideCap;
+                actualCapital = actualCapital - shortage;
+            }
+            
+            showFinalResult(actualCapital);
+        }
+
+        function showFinalResult(actualCapital) {
+            // 비교 기준은 건설업 기준자본
+            const totalReq = adjustedReqCap;
+            const isSufficient = actualCapital >= totalReq;
+            const percentage = totalReq > 0 ? Math.min((actualCapital / totalReq) * 100, 100) : 0;
+            
+            document.getElementById('calculatedCapital').textContent = fmt(actualCapital);
+            document.getElementById('requiredAmount').textContent = fmt(totalReq); // 건설업 기준자본만
+            document.getElementById('actualAmount').textContent = fmt(actualCapital);
+            const statusBadge = document.getElementById('statusBadge');
+            if (isSufficient) {
+                statusBadge.textContent = '✅ 충족';
+                statusBadge.className = 'status-badge success';
+            } else {
+                statusBadge.textContent = '❌ 불충족';
+                statusBadge.className = 'status-badge fail';
+            }
+            const progressBar = document.getElementById('progress');
+            setTimeout(() => {
+                progressBar.style.width = percentage + '%';
+                progressBar.textContent = percentage.toFixed(1) + '%';
+            }, 100);
+            const shortageAlert = document.getElementById('shortageAlert');
+            if (!isSufficient) {
+                const shortage = totalReq - actualCapital;
+                document.getElementById('shortageText').textContent = `⚠️ ${fmt(shortage)} 부족합니다`;
+                shortageAlert.style.display = 'block';
+                shortageAlert.style.background = '#fff3cd';
+                shortageAlert.style.borderLeftColor = '#ffc107';
+                document.getElementById('shortageText').style.color = '#856404';
+            } else {
+                const surplus = actualCapital - totalReq;
+                document.getElementById('shortageText').textContent = `✨ ${fmt(surplus)} 초과 보유 중입니다`;
+                shortageAlert.style.display = 'block';
+                shortageAlert.style.background = '#d4edda';
+                shortageAlert.style.borderLeftColor = '#28a745';
+                document.getElementById('shortageText').style.color = '#155724';
+            }
+            document.getElementById('finalResult').classList.add('show');
+        }
+
+        function reset() {
+            types = [];
+            licenses = [];
+            entity = null;
+            reqCap = 0;
+            adjustedReqCap = 0;
+            hasSideBusiness = null;
+            sideBusinessTypes = [];
+            sideBusinesses = [];
+            sideBusReqCap = 0;
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+            
+            // 버튼 컨테이너 초기화
+            document.getElementById('comprehensiveButtons').innerHTML = '';
+            document.getElementById('specializedButtons').innerHTML = '';
+            document.getElementById('sideCategoryButtons').innerHTML = '';
+            document.getElementById('sideBusinessButtons').innerHTML = '';
+            
+            document.getElementById('selectedLicenses').innerHTML = '';
+            document.getElementById('selectedSideBusinesses').innerHTML = '';
+            document.getElementById('companyAsset').value = '';
+            document.getElementById('badAsset').value = '';
+            for (let i = 1; i <= 8; i++) document.getElementById('badAsset' + i).value = '';
+            document.getElementById('assetAdj').value = '';
+            document.getElementById('companyDebt').value = '';
+            document.getElementById('debtAdj').value = '';
+            document.getElementById('offDebt').value = '';
+            
+            // 겸업비율 관련 필드 초기화
+            document.getElementById('totalRevenue').value = '';
+            document.getElementById('sideRevenue').value = '';
+            document.getElementById('sideRatio').value = '-';
+            document.getElementById('sideRatioHint').textContent = '';
+            
+            // 겸업자산 관련 필드 초기화
+            document.getElementById('sideAsset1').value = '0';
+            document.getElementById('sideAsset2').value = '0';
+            document.getElementById('sideAsset3').value = '0';
+            document.getElementById('sideAsset').value = '0';
+            
+            // 겸업부채 관련 필드 초기화
+            document.getElementById('sideDebt1').value = '0';
+            document.getElementById('sideDebt2').value = '0';
+            document.getElementById('sideDebt3').value = '0';
+            document.getElementById('sideDebt').value = '0';
+            
+            document.getElementById('sideCap').value = '';
+            document.getElementById('targetAsset').value = '';
+            document.getElementById('targetDebt').value = '';
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('comprehensiveSection').classList.add('hidden');
+            document.getElementById('specializedSection').classList.add('hidden');
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step4').classList.add('hidden');
+            document.getElementById('sideBusinessDetail').classList.add('hidden');
+            document.getElementById('sideBusinessList').classList.add('hidden');
+            document.getElementById('subCategorySection').classList.add('hidden');
+            document.getElementById('sideRatioSection').classList.add('hidden');
+            document.getElementById('step5').classList.add('hidden');
+            document.getElementById('requiredCapital').classList.remove('show');
+            document.getElementById('financeSection').classList.remove('show');
+            document.getElementById('finalResult').classList.remove('show');
+            document.getElementById('progress').style.width = '0%';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('noCapitalBtn')?.addEventListener('click', function() {
+                toggleSideBusinessType('noCapital');
+            });
+            document.getElementById('hasCapitalBtn')?.addEventListener('click', function() {
+                toggleSideBusinessType('hasCapital');
+            });
+        });
+
+        // ==========================================
+        // 간편 계산기 기능
+        // ==========================================
+        
+        let currentCalcFieldId = '';
+        
+        function openCalc(fieldId) {
+            currentCalcFieldId = fieldId;
+            const modal = document.getElementById('calcModal');
+            const inputsContainer = document.getElementById('calcInputs');
+            
+            // 기존 값이 있으면 표시
+            const currentValue = parse(document.getElementById(fieldId).value);
+            
+            inputsContainer.innerHTML = '';
+            if (currentValue > 0) {
+                addCalcRow(currentValue);
+            } else {
+                addCalcRow();
+                addCalcRow();
+                addCalcRow();
+            }
+            
+            modal.style.display = 'block';
+            updateCalcTotal();
+            
+            // 첫 번째 입력 필드에 포커스
+            setTimeout(() => {
+                const firstInput = inputsContainer.querySelector('.calc-input');
+                if (firstInput) firstInput.focus();
+            }, 100);
+        }
+        
+        function closeCalc() {
+            document.getElementById('calcModal').style.display = 'none';
+            currentCalcFieldId = '';
+        }
+        
+        function addCalcRow(value = '') {
+            const inputsContainer = document.getElementById('calcInputs');
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'calc-input-row';
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.inputMode = 'numeric';
+            input.pattern = '[0-9,]*';
+            input.className = 'calc-input';
+            input.placeholder = '금액 입력';
+            input.value = value ? fmt(value).replace('원', '').replace('억', '00000000').replace('만', '0000').replace(/,/g, '') : '';
+            input.oninput = function() {
+                formatNumber(this);
+                updateCalcTotal();
+            };
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.className = 'calc-remove-btn';
+            removeBtn.textContent = '×';
+            removeBtn.onclick = function() {
+                rowDiv.remove();
+                updateCalcTotal();
+            };
+            
+            rowDiv.appendChild(input);
+            rowDiv.appendChild(removeBtn);
+            inputsContainer.appendChild(rowDiv);
+            
+            updateCalcTotal();
+        }
+        
+        function updateCalcTotal() {
+            const inputs = document.querySelectorAll('#calcInputs .calc-input');
+            let total = 0;
+            inputs.forEach(input => {
+                total += parse(input.value);
+            });
+            document.getElementById('calcTotalValue').textContent = fmt(total);
+        }
+        
+        function applyCalc() {
+            const inputs = document.querySelectorAll('#calcInputs .calc-input');
+            let total = 0;
+            inputs.forEach(input => {
+                total += parse(input.value);
+            });
+            
+            const targetField = document.getElementById(currentCalcFieldId);
+            // 숫자를 쉼표 형식으로 변환 (formatNumber가 처리할 수 있는 형식)
+            targetField.value = total.toLocaleString('ko-KR');
+            
+            // 변경 이벤트 트리거
+            formatNumber(targetField);
+            calc();
+            
+            closeCalc();
+        }
+        
+        // 팝업 외부 클릭 시 닫기
+        window.onclick = function(event) {
+            const modal = document.getElementById('calcModal');
+            if (event.target === modal) {
+                closeCalc();
+            }
+        };
+        
+        // ==========================================
+        // 붙여넣기 자동 합산 기능
+        // ==========================================
+        
+        // 모든 입력 필드에 붙여넣기 이벤트 추가
+        document.addEventListener('DOMContentLoaded', function() {
+            const fieldsWithCalc = [
+                'badAsset1', 'badAsset2', 'badAsset3', 'badAsset4', 'badAsset5', 'badAsset6', 'badAsset7', 'badAsset8',
+                'assetAdj', 'debtAdj', 'offDebt',
+                'sideAsset1', 'sideAsset2', 'sideAsset3',
+                'sideDebt1', 'sideDebt2', 'sideDebt3'
+            ];
+            
+            fieldsWithCalc.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('paste', function(e) {
+                        e.preventDefault();
+                        const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+                        
+                        // 여러 줄로 나뉜 숫자들 찾기
+                        const lines = pastedText.split(/[\n\r]+/);
+                        const numbers = [];
+                        
+                        lines.forEach(line => {
+                            // 숫자만 추출 (쉼표, 공백 제거)
+                            const cleaned = line.replace(/[^0-9]/g, '');
+                            if (cleaned && cleaned !== '0') {
+                                numbers.push(parseInt(cleaned));
+                            }
+                        });
+                        
+                        if (numbers.length > 1) {
+                            // 여러 개의 숫자가 있으면 합산
+                            const total = numbers.reduce((a, b) => a + b, 0);
+                            this.value = total.toLocaleString('ko-KR');
+                            formatNumber(this);
+                            calc();
+                        } else if (numbers.length === 1) {
+                            // 하나의 숫자만 있으면 그대로 입력
+                            this.value = numbers[0].toLocaleString('ko-KR');
+                            formatNumber(this);
+                            calc();
+                        } else {
+                            // 숫자가 없으면 원본 텍스트 입력
+                            this.value = pastedText;
+                            formatNumber(this);
+                            calc();
+                        }
+                    });
+                }
+            });
+        });
+
+        // ==========================================
+        // 기본 보호 기능
+        // ==========================================
+        
+        // 우클릭 방지
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // F12 개발자 도구 방지
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                alert('⚠️ 개발자 도구는 사용할 수 없습니다.\n\n본 계산기는 김용래세무사사무소의 저작물입니다.\n무단 복제 및 배포를 금지합니다.\n\n문의: 02-991-0331');
+                return false;
+            }
+            // Ctrl+Shift+I (개발자 도구)
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                alert('⚠️ 개발자 도구는 사용할 수 없습니다.\n\n본 계산기는 김용래세무사사무소의 저작물입니다.\n무단 복제 및 배포를 금지합니다.\n\n문의: 02-991-0331');
+                return false;
+            }
+            // Ctrl+Shift+C (요소 선택)
+            if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+                e.preventDefault();
+                alert('⚠️ 개발자 도구는 사용할 수 없습니다.\n\n본 계산기는 김용래세무사사무소의 저작물입니다.\n무단 복제 및 배포를 금지합니다.\n\n문의: 02-991-0331');
+                return false;
+            }
+            // Ctrl+Shift+J (콘솔)
+            if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+                e.preventDefault();
+                alert('⚠️ 개발자 도구는 사용할 수 없습니다.\n\n본 계산기는 김용래세무사사무소의 저작물입니다.\n무단 복제 및 배포를 금지합니다.\n\n문의: 02-991-0331');
+                return false;
+            }
+            // Ctrl+U (소스 보기)
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+                alert('⚠️ 소스 코드 보기는 사용할 수 없습니다.\n\n본 계산기는 김용래세무사사무소의 저작물입니다.\n무단 복제 및 배포를 금지합니다.\n\n문의: 02-991-0331');
+                return false;
+            }
+            // Ctrl+S (저장)
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                alert('⚠️ 페이지 저장은 사용할 수 없습니다.\n\n본 계산기는 김용래세무사사무소의 저작물입니다.\n무단 복제 및 배포를 금지합니다.\n\n문의: 02-991-0331');
+                return false;
+            }
+        });
+
+        // 텍스트 드래그 선택 방지
+        document.addEventListener('selectstart', function(e) {
+            // 입력 필드는 선택 가능하도록 예외 처리
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return true;
+            }
+            e.preventDefault();
+            return false;
+        });
+
+        // 복사 방지
+        document.addEventListener('copy', function(e) {
+            // 입력 필드는 복사 가능하도록 예외 처리
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return true;
+            }
+            e.preventDefault();
+            alert('⚠️ 이 페이지의 내용은 복사할 수 없습니다.\n\n본 계산기는 김용래세무사사무소의 저작물입니다.\n무단 복제 및 배포를 금지합니다.\n\n문의: 02-991-0331');
+            return false;
+        });
+
+        // 콘솔 경고 메시지
+        console.log('%c⚠️ 경고', 'color: red; font-size: 40px; font-weight: bold;');
+        console.log('%c본 계산기의 소스 코드는 김용래세무사사무소의 저작물입니다.', 'font-size: 16px;');
+        console.log('%c무단 복제, 수정, 배포를 금지합니다.', 'font-size: 16px; font-weight: bold;');
+        console.log('%c위반 시 법적 조치를 받을 수 있습니다.', 'font-size: 16px; color: red;');
+        console.log('%c문의: 02-991-0331 | kyrtax@naver.com', 'font-size: 14px;');
+        
+    </script>
+    
+    
+    <!-- 간편 계산기 팝업 -->
+    <div id="calcModal" class="calc-modal">
+        <div class="calc-modal-content">
+            <div class="calc-modal-header">
+                💰 간편 계산기
+            </div>
+            <div id="calcInputs">
+                <!-- 동적으로 생성됨 -->
+            </div>
+            <button type="button" class="calc-add-btn" onclick="addCalcRow()">➕ 항목 추가</button>
+            <div class="calc-total">
+                <div class="calc-total-label">합계</div>
+                <div class="calc-total-value" id="calcTotalValue">0원</div>
+            </div>
+            <div class="calc-modal-buttons">
+                <button type="button" class="calc-modal-btn calc-apply-btn" onclick="applyCalc()">적용하기</button>
+                <button type="button" class="calc-modal-btn calc-cancel-btn" onclick="closeCalc()">취소</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 플로팅 버튼 (카카오톡 & 전화) -->
+    <div class="floating-buttons">
+        <!-- 카카오톡 상담 버튼 -->
+        <a href="http://pf.kakao.com/_nFxlYG" class="floating-btn kakao-btn" target="_blank" title="카카오톡 상담">
+            <img src="kakao_icon.png" alt="카카오톡 상담하기">
+        </a>
+        <!-- 전화 바로 걸기 버튼 -->
+        <a href="tel:02-991-0331" class="floating-btn phone-btn" title="전화 상담">
+            <img src="phone_icon.png" alt="전화 상담하기">
+        </a>
+    </div>
+    
+    <!-- 
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    🔐 COPYRIGHT WATERMARK - INVISIBLE BUT TRACEABLE
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    -->
+    <div style="display:none;" data-copyright="김용래세무사사무소" data-fingerprint="1b2c11aac6503c9cc7da0ed4506262cd" data-version="KYR-CONST-CAP-CALC-v2.5.1" data-timestamp="20251211050021">
+        Original Source: 김용래세무사사무소 기업진단센터
+        Contact: 02-991-0331 | kyrtax@naver.com | www.kyrtax.co.kr
+        Digital Fingerprint: 1b2c11aac6503c9cc7da0ed4506262cd
+        This software is protected by copyright law.
+        Unauthorized use, modification, or distribution is prohibited.
+    </div>
+    
+    <script>
+    // Copyright verification token (do not remove)
+    (function(){
+        var _t='1b2c11aac6503c9cc7da0ed4506262cd';
+        var _s='김용래세무사사무소';
+        var _d='20251211050021';
+        // Digital signature embedded for legal verification
+        console.log('%c🔐 Copyright Protected', 'color:#red;font-weight:bold;font-size:14px;');
+        console.log('%cOriginal Source: 김용래세무사사무소 기업진단센터', 'color:#666;');
+        console.log('%cDigital Fingerprint: ' + _t, 'color:#999;font-size:10px;');
+        console.log('%cUnauthorized use is prohibited by law.', 'color:#ff0000;font-weight:bold;');
+        console.log('%c무단 사용 금지 - 법적 조치 가능', 'color:#ff0000;font-weight:bold;');
+    })();
+    </script>
+</body>
+</html>
