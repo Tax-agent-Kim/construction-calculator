@@ -33,7 +33,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     
     <!-- SEO 메타태그 -->
     <title>건설업 실질자본 계산기 | 김용래세무사사무소 기업진단센터</title>
@@ -295,12 +295,27 @@
             object-fit: contain;
         }
         
+        /* 피드백 버튼 호버 효과 */
+        button[onclick*="forms.gle"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(14, 165, 233, 0.4) !important;
+        }
+        
         /* 모바일 반응형 */
         @media (max-width: 768px) {
+            /* body 여백 제거 */
+            body {
+                padding: 0;
+                align-items: stretch;
+            }
+            
             /* 컨테이너 여백 최소화 */
             .container {
-                padding: 10px;
+                padding: 15px;
                 max-width: 100%;
+                border-radius: 0;
+                min-height: 100vh;
+                max-height: none;
             }
             
             /* 회사 브랜딩 헤더 조정 */
@@ -392,13 +407,34 @@
             
             /* 플로팅 버튼 */
             .floating-buttons {
-                bottom: 12px;
-                right: 12px;
+                bottom: 15px;
+                right: 15px;
                 gap: 10px;
+                z-index: 9999;
             }
             .floating-btn {
                 width: 60px;
                 height: 60px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            }
+            
+            /* 컨테이너 하단 여백 확보 (플로팅 버튼 공간) */
+            .container {
+                padding-bottom: 100px;
+            }
+        }
+        
+        /* 가로 모드 (Landscape) 대응 */
+        @media (max-width: 768px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+                align-items: center;
+            }
+            
+            .container {
+                border-radius: 15px;
+                min-height: auto;
+                max-height: 90vh;
             }
         }
         
@@ -995,6 +1031,11 @@
             </div>
             <div style="font-size: 10px; opacity: 0.8; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 8px;">
                 본 계산기의 무단 복제 및 배포를 금지합니다.
+                <span style="opacity: 0.5; margin: 0 8px;">|</span>
+                <a href="https://naver.me/xGFgNN3M" target="_blank" 
+                   style="color: white; text-decoration: none; opacity: 0.85; transition: opacity 0.3s;"
+                   onmouseover="this.style.opacity='1'; this.style.textDecoration='underline';"
+                   onmouseout="this.style.opacity='0.85'; this.style.textDecoration='none';">개선 의견</a>
             </div>
         </div>
     </div>
