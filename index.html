@@ -925,7 +925,7 @@
                         가. 지침에서 겸업자산으로 열거한 자산
                         <button type="button" class="calc-icon-btn" onclick="openCalc('sideAsset1')">➕</button>
                     </label>
-                    <input type="text" class="input-field" id="sideAsset1" placeholder="0" value="0" oninput="formatNumber(this);calcSideAsset();calc()" style="background:#fff;font-size:14px;">
+                    <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="sideAsset1" placeholder="0" value="0" oninput="formatNumber(this);calcSideAsset();calc()" style="background:#fff;font-size:14px;">
                     <div class="input-hint">유가증권, 투자자산, 임대자산, 운휴자산 등</div>
                 </div>
                 
@@ -934,7 +934,7 @@
                         나. 겸업사업을 위하여 제공된 자산
                         <button type="button" class="calc-icon-btn" onclick="openCalc('sideAsset2')">➕</button>
                     </label>
-                    <input type="text" class="input-field" id="sideAsset2" placeholder="0" value="0" oninput="formatNumber(this);calcSideAsset();calc()" style="background:#fff;font-size:14px;">
+                    <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="sideAsset2" placeholder="0" value="0" oninput="formatNumber(this);calcSideAsset();calc()" style="background:#fff;font-size:14px;">
                     <div class="input-hint">실지귀속이 분명한 겸업자산</div>
                 </div>
                 
@@ -943,7 +943,7 @@
                         다. 공통자산 <span style="color:#667eea;font-size:11px;">겸업비율 자동 적용</span>
                         <button type="button" class="calc-icon-btn" onclick="openCalc('sideAsset3')">➕</button>
                     </label>
-                    <input type="text" class="input-field" id="sideAsset3" placeholder="0" value="0" oninput="formatNumber(this);calcSideAsset();calc()" style="background:#fff;font-size:14px;">
+                    <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="sideAsset3" placeholder="0" value="0" oninput="formatNumber(this);calcSideAsset();calc()" style="background:#fff;font-size:14px;">
                     <div class="input-hint">진단대상사업과 겸업사업에 공통으로 사용되는 자산</div>
                 </div>
                 
@@ -961,7 +961,7 @@
                         가. 겸업자산과 직접 관련된 부채
                         <button type="button" class="calc-icon-btn" onclick="openCalc('sideDebt1')">➕</button>
                     </label>
-                    <input type="text" class="input-field" id="sideDebt1" placeholder="0" value="0" oninput="formatNumber(this);calcSideDebt();calc()" style="background:#fff;font-size:14px;">
+                    <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="sideDebt1" placeholder="0" value="0" oninput="formatNumber(this);calcSideDebt();calc()" style="background:#fff;font-size:14px;">
                     <div class="input-hint">겸업자산 취득 관련 부채</div>
                 </div>
                 
@@ -970,7 +970,7 @@
                         나. 실지귀속이 분명한 겸업부채
                         <button type="button" class="calc-icon-btn" onclick="openCalc('sideDebt2')">➕</button>
                     </label>
-                    <input type="text" class="input-field" id="sideDebt2" placeholder="0" value="0" oninput="formatNumber(this);calcSideDebt();calc()" style="background:#fff;font-size:14px;">
+                    <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="sideDebt2" placeholder="0" value="0" oninput="formatNumber(this);calcSideDebt();calc()" style="background:#fff;font-size:14px;">
                     <div class="input-hint">겸업사업 관련 명확한 부채</div>
                 </div>
                 
@@ -979,7 +979,7 @@
                         다. 공통부채 <span style="color:#667eea;font-size:11px;">겸업비율 자동 적용</span>
                         <button type="button" class="calc-icon-btn" onclick="openCalc('sideDebt3')">➕</button>
                     </label>
-                    <input type="text" class="input-field" id="sideDebt3" placeholder="0" value="0" oninput="formatNumber(this);calcSideDebt();calc()" style="background:#fff;font-size:14px;">
+                    <input type="text" inputmode="numeric" pattern="[0-9,]*" class="input-field" id="sideDebt3" placeholder="0" value="0" oninput="formatNumber(this);calcSideDebt();calc()" style="background:#fff;font-size:14px;">
                     <div class="input-hint">진단대상사업과 겸업사업에 공통으로 관련된 부채</div>
                 </div>
                 
@@ -1510,13 +1510,21 @@
                 document.getElementById('sideRatioSection').classList.add('hidden'); // 겸업비율 산정 섹션도 숨김
                 document.querySelectorAll('#sideBusinessDetail .btn').forEach(b => b.classList.remove('active'));
                 
-                // 겸업사업 없음 선택 시 조건부 필드만 비활성화
+                // 겸업사업 없음 선택 시 조건부 필드와 ➕ 버튼 비활성화
                 conditionalFields.forEach(fieldId => {
                     const field = document.getElementById(fieldId);
                     field.disabled = true;
                     field.style.background = '#f0f0f0';
                     field.style.cursor = 'not-allowed';
                     field.value = '0';
+                    
+                    // 해당 필드의 ➕ 버튼도 비활성화
+                    const calcBtn = document.querySelector(`button[onclick="openCalc('${fieldId}')"]`);
+                    if (calcBtn) {
+                        calcBtn.disabled = true;
+                        calcBtn.style.opacity = '0.5';
+                        calcBtn.style.cursor = 'not-allowed';
+                    }
                 });
                 
                 // 자동계산 필드 초기화
@@ -1526,12 +1534,20 @@
                 document.getElementById('sideBusinessDetail').classList.remove('hidden');
                 document.getElementById('sideRatioSection').classList.remove('hidden'); // 겸업비율 산정 섹션 보이기
                 
-                // 겸업사업 있음 선택 시 모든 필드 활성화
+                // 겸업사업 있음 선택 시 모든 필드와 ➕ 버튼 활성화
                 conditionalFields.forEach(fieldId => {
                     const field = document.getElementById(fieldId);
                     field.disabled = false;
                     field.style.background = '#fff';
                     field.style.cursor = 'text';
+                    
+                    // 해당 필드의 ➕ 버튼도 활성화
+                    const calcBtn = document.querySelector(`button[onclick="openCalc('${fieldId}')"]`);
+                    if (calcBtn) {
+                        calcBtn.disabled = false;
+                        calcBtn.style.opacity = '1';
+                        calcBtn.style.cursor = 'pointer';
+                    }
                 });
             }
             updateRequiredCapitalDisplay();
@@ -2181,6 +2197,16 @@
             
             // 변경 이벤트 트리거
             formatNumber(targetField);
+            
+            // 필드별 특수 계산 함수 호출
+            if (currentCalcFieldId.startsWith('badAsset')) {
+                calcBadAsset();
+            } else if (currentCalcFieldId.startsWith('sideAsset')) {
+                calcSideAsset();
+            } else if (currentCalcFieldId.startsWith('sideDebt')) {
+                calcSideDebt();
+            }
+            
             calc();
             
             closeCalc();
