@@ -1256,24 +1256,24 @@
             // 검증: 겸업자산이 자산총계를 초과할 수 없음
             if (sa > ca && ca > 0) {
                 alert('⚠️ 오류: 겸업자산(' + fmt(sa) + ')은 자산총계(' + fmt(ca) + ')를 초과할 수 없습니다.\n\n자산총계를 먼저 입력하거나 겸업자산을 줄여주세요.');
-                return;
+                return false;
             }
             
             // 검증: 겸업부채가 부채총계를 초과할 수 없음
             if (sd > cd && cd > 0) {
                 alert('⚠️ 오류: 겸업부채(' + fmt(sd) + ')는 부채총계(' + fmt(cd) + ')를 초과할 수 없습니다.\n\n부채총계를 먼저 입력하거나 겸업부채를 줄여주세요.');
-                return;
+                return false;
             }
             
             // 검증: 겸업자산/부채가 있는데 총계가 0인 경우
             if (sa > 0 && ca === 0) {
                 alert('⚠️ 오류: 겸업자산을 입력하려면 자산총계를 먼저 입력해야 합니다.');
-                return;
+                return false;
             }
             
             if (sd > 0 && cd === 0) {
                 alert('⚠️ 오류: 겸업부채를 입력하려면 부채총계를 먼저 입력해야 합니다.');
-                return;
+                return false;
             }
             
             const calculatedSideCap = sa - sd;
@@ -1301,6 +1301,8 @@
             const td = cd + da + od - sd;
             document.getElementById('targetAsset').value = ta.toLocaleString('ko-KR');
             document.getElementById('targetDebt').value = td.toLocaleString('ko-KR');
+            
+            return true; // 검증 성공
         }
 
         function calcBadAsset() {
@@ -2221,6 +2223,8 @@
             });
             
             const targetField = document.getElementById(currentCalcFieldId);
+            const originalValue = targetField.value; // 원래 값 저장
+            
             // 숫자를 쉼표 형식으로 변환 (formatNumber가 처리할 수 있는 형식)
             targetField.value = total.toLocaleString('ko-KR');
             
@@ -2236,7 +2240,25 @@
                 calcSideDebt();
             }
             
-            calc();
+            // calc() 함수 호출 및 검증 결과 확인
+            const isValid = calc();
+            
+            // 검증 실패 시 원래 값으로 복원
+            if (isValid === false) {
+                targetField.value = originalValue;
+                
+                // 특수 계산 함수 다시 호출 (원래 값으로)
+                if (currentCalcFieldId.startsWith('badAsset')) {
+                    calcBadAsset();
+                } else if (currentCalcFieldId.startsWith('sideAsset')) {
+                    calcSideAsset();
+                } else if (currentCalcFieldId.startsWith('sideDebt')) {
+                    calcSideDebt();
+                }
+                
+                closeCalc();
+                return; // 팝업만 닫고 종료
+            }
             
             closeCalc();
         }
