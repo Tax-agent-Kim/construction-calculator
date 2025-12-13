@@ -1024,22 +1024,34 @@
         
         <button class="reset-btn" onclick="reset()">다시 계산하기</button>
         
-        <!-- SEO용 추가 정보 -->
-        <div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 12px; font-size: 13px; line-height: 1.8; color: #555;">
-            <h2 style="font-size: 16px; color: #333; margin-bottom: 15px; font-weight: 700;">건설업 실질자본 계산기란?</h2>
-            <p style="margin-bottom: 12px;">
-                건설업 등록을 위해서는 <strong>실질자본</strong>이 법정 기준 이상이어야 합니다. 
-                본 <strong>건설업 실질자본 계산기</strong>는 건설산업기본법 시행령에 따라 실질자본을 정확하게 계산할 수 있도록 도와드립니다.
-            </p>
-            <p style="margin-bottom: 12px;">
-                <strong>무료 계산기</strong>로 회원가입 없이 3분 안에 건설업 실질자본을 확인할 수 있으며, 
-                종합건설업, 전문건설업, 겸업사업 등 모든 경우의 실질자본 계산을 지원합니다. 
-                건설업 자본금 계산이 필요하신 경우에도 본 계산기를 활용하실 수 있습니다.
-            </p>
-            <p style="margin-bottom: 0;">
-                건설업 실질자본 확인, 자본금 계산이 필요하시다면 지금 바로 무료로 계산해보세요!
-            </p>
-        </div>
+        <!-- SEO용 추가 정보 (접기/펼치기) -->
+        <details style="margin: 30px 0 40px 0; padding: 15px; background: #f8f9fa; border-radius: 12px;">
+            <summary style="cursor: pointer; font-weight: 700; color: #333; font-size: 15px; list-style: none; display: flex; align-items: center; gap: 8px;">
+                <span style="color: #667eea;">▶</span> 건설업 실질자본 계산기란?
+            </summary>
+            <div style="margin-top: 15px; font-size: 13px; line-height: 1.8; color: #555; padding-left: 24px;">
+                <p style="margin-bottom: 12px;">
+                    본 <strong>건설업 실질자본 계산기</strong>는 건설산업기본법 시행령에 따라 실질자본을 쉽고 간편하게 계산할 수 있도록 도와드립니다.
+                </p>
+                <p style="margin-bottom: 12px;">
+                    회원가입 없이 3분 안에 건설업 실질자본을 확인할 수 있으며, 
+                    종합건설업, 전문건설업, 겸업사업 등 모든 경우의 실질자본 계산을 지원합니다.
+                </p>
+                <p style="margin-bottom: 0;">
+                    건설업 실질자본 확인이 필요하시다면 지금 바로 계산해보세요!
+                </p>
+            </div>
+        </details>
+        
+        <style>
+            details summary::-webkit-details-marker {
+                display: none;
+            }
+            details[open] summary span {
+                transform: rotate(90deg);
+                display: inline-block;
+            }
+        </style>
         
         <!-- 회사 정보 푸터 -->
         <div style="margin-top: 30px; margin-bottom: 120px; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white; text-align: center;">
