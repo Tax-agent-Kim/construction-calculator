@@ -1250,6 +1250,32 @@
         function calc() {
             const sa = parse(document.getElementById('sideAsset').value);
             const sd = parse(document.getElementById('sideDebt').value);
+            const ca = parse(document.getElementById('companyAsset').value);
+            const cd = parse(document.getElementById('companyDebt').value);
+            
+            // 검증: 겸업자산이 자산총계를 초과할 수 없음
+            if (sa > ca && ca > 0) {
+                alert('⚠️ 오류: 겸업자산(' + fmt(sa) + ')은 자산총계(' + fmt(ca) + ')를 초과할 수 없습니다.\n\n자산총계를 먼저 입력하거나 겸업자산을 줄여주세요.');
+                return;
+            }
+            
+            // 검증: 겸업부채가 부채총계를 초과할 수 없음
+            if (sd > cd && cd > 0) {
+                alert('⚠️ 오류: 겸업부채(' + fmt(sd) + ')는 부채총계(' + fmt(cd) + ')를 초과할 수 없습니다.\n\n부채총계를 먼저 입력하거나 겸업부채를 줄여주세요.');
+                return;
+            }
+            
+            // 검증: 겸업자산/부채가 있는데 총계가 0인 경우
+            if (sa > 0 && ca === 0) {
+                alert('⚠️ 오류: 겸업자산을 입력하려면 자산총계를 먼저 입력해야 합니다.');
+                return;
+            }
+            
+            if (sd > 0 && cd === 0) {
+                alert('⚠️ 오류: 겸업부채를 입력하려면 부채총계를 먼저 입력해야 합니다.');
+                return;
+            }
+            
             const calculatedSideCap = sa - sd;
             
             // 실제 계산된 겸업자본 표시
@@ -1267,10 +1293,8 @@
                 warningDiv.style.display = 'none';
             }
             
-            const ca = parse(document.getElementById('companyAsset').value);
             const ba = parse(document.getElementById('badAsset').value);
             const aa = parse(document.getElementById('assetAdj').value);
-            const cd = parse(document.getElementById('companyDebt').value);
             const da = parse(document.getElementById('debtAdj').value);
             const od = parse(document.getElementById('offDebt').value);
             const ta = ca - ba + aa - sa;
@@ -1374,6 +1398,10 @@
                 if (licenses.length === 0) {
                     document.getElementById('step3').classList.add('hidden');
                     document.getElementById('step4').classList.add('hidden');
+                    document.getElementById('requiredCapital').classList.remove('show');
+                } else if (entity) {
+                    // 면허 제거 후 자본금 재계산
+                    calcTotal();
                 }
                 return;
             }
@@ -1624,6 +1652,7 @@
                 sideBusinesses = sideBusinesses.filter(b => b.key !== businessKey);
                 btn.classList.remove('active');
                 updateSelectedSideBusinesses();
+                updateRequiredCapitalDisplay(); // 자본금 재계산
                 return;
             }
             
