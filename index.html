@@ -705,6 +705,50 @@
             <div class="result-label">필요 자본금 (합계)</div>
             <div class="result-value" id="capitalAmount">-</div>
             <div class="result-type" id="licenseInfo">-</div>
+            
+            <!-- 자본금 감경 설정 영역 -->
+            <div id="reductionConfigSection" style="display:none; margin-top: 25px; padding: 20px; background: #f8f9fa; border-radius: 12px; border: 2px solid #667eea;">
+                <div style="font-size: 15px; font-weight: 700; color: #333; margin-bottom: 15px;">
+                    ⚙️ 자본금 감경 설정
+                </div>
+                
+                <div style="background: #e3f2fd; padding: 12px 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+                    <div style="font-size: 12px; color: #1565c0; line-height: 1.6;">
+                        💡 면허 추가 등록 시 1개 업종에 한해 감경 가능<br>
+                        └ 감경액 = MIN(추가 면허 50%, 기존 보유 면허 중 최대액 50%)
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <div style="font-size: 13px; font-weight: 700; color: #555; margin-bottom: 10px;">
+                        💰 감경 받은 면허 선택
+                    </div>
+                    <div id="receivedReductionOptions" style="display: flex; flex-direction: column; gap: 8px;">
+                        <!-- 체크박스 동적 생성 -->
+                    </div>
+                </div>
+                
+                <!-- 실제 감경액 선택 영역 (조건부 표시) -->
+                <div id="actualReductionSection" style="display:none;">
+                    <div style="font-size: 13px; font-weight: 700; color: #555; margin-bottom: 10px;">
+                        💰 실제 감경액 선택
+                    </div>
+                    <div id="actualReductionOptions" style="display: flex; flex-direction: column; gap: 8px;">
+                        <!-- 라디오 버튼 동적 생성 -->
+                    </div>
+                </div>
+                
+                <!-- 자동 계산 결과 표시 영역 (조건부 표시) -->
+                <div id="autoReductionResult" style="display:none; padding: 15px; background: #e8f5e9; border-radius: 8px; border-left: 4px solid #4caf50;">
+                    <div style="font-size: 13px; font-weight: 700; color: #2e7d32; margin-bottom: 8px;">
+                        ✅ 감경액 자동 계산
+                    </div>
+                    <div id="autoReductionText" style="font-size: 13px; color: #1b5e20; line-height: 1.6;">
+                        <!-- 자동 계산 결과 텍스트 -->
+                    </div>
+                </div>
+            </div>
+            
             <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #e0e0e0;">
                 <div class="result-label">필요 겸업자본금 (합계)</div>
                 <div class="result-value" style="font-size: 24px; color: #764ba2;" id="sideCapitalAmount">-</div>
@@ -1166,6 +1210,10 @@
         let types = [], licenses = [], entity = null, reqCap = 0;
         let hasSideBusiness = null, sideBusinessTypes = [], sideBusinesses = [], sideBusReqCap = 0;
         let adjustedReqCap = 0; // 나무병원-조경업 상호인정 적용된 조정 자본금
+        
+        // 자본금 감경 관련 변수
+        let receivedReductionLicense = null; // 감경 받은 면허
+        let selectedReductionAmount = null; // 선택된 실제 감경액 정보
 
         function formatNumber(input) {
             let v = input.value.replace(/,/g, '').replace(/[^\d-]/g, '');
@@ -1285,23 +1333,29 @@
             // 검증: 겸업자산이 자산총계를 초과할 수 없음
             if (sa > ca && ca > 0) {
                 alert('⚠️ 오류: 겸업자산(' + fmt(sa) + ')은 자산총계(' + fmt(ca) + ')를 초과할 수 없습니다.\n\n자산총계를 먼저 입력하거나 겸업자산을 줄여주세요.');
+                // 겸업자산 관련 필드 초기화
+                resetSideAssetFields();
                 return false;
             }
             
             // 검증: 겸업부채가 부채총계를 초과할 수 없음
             if (sd > cd && cd > 0) {
                 alert('⚠️ 오류: 겸업부채(' + fmt(sd) + ')는 부채총계(' + fmt(cd) + ')를 초과할 수 없습니다.\n\n부채총계를 먼저 입력하거나 겸업부채를 줄여주세요.');
+                // 겸업부채 관련 필드 초기화
+                resetSideDebtFields();
                 return false;
             }
             
             // 검증: 겸업자산/부채가 있는데 총계가 0인 경우
             if (sa > 0 && ca === 0) {
                 alert('⚠️ 오류: 겸업자산을 입력하려면 자산총계를 먼저 입력해야 합니다.');
+                resetSideAssetFields();
                 return false;
             }
             
             if (sd > 0 && cd === 0) {
                 alert('⚠️ 오류: 겸업부채를 입력하려면 부채총계를 먼저 입력해야 합니다.');
+                resetSideDebtFields();
                 return false;
             }
             
@@ -1332,6 +1386,22 @@
             document.getElementById('targetDebt').value = td.toLocaleString('ko-KR');
             
             return true; // 검증 성공
+        }
+        
+        // 겸업자산 필드 초기화
+        function resetSideAssetFields() {
+            document.getElementById('sideAsset1').value = '0';
+            document.getElementById('sideAsset2').value = '0';
+            document.getElementById('sideAsset3').value = '0';
+            calcSideAsset();
+        }
+        
+        // 겸업부채 필드 초기화
+        function resetSideDebtFields() {
+            document.getElementById('sideDebt1').value = '0';
+            document.getElementById('sideDebt2').value = '0';
+            document.getElementById('sideDebt3').value = '0';
+            calcSideDebt();
         }
 
         function calcBadAsset() {
@@ -1437,6 +1507,13 @@
                 return;
             }
             
+            // 상호 배타적 면허 검증
+            const exclusiveCheck = checkExclusiveLicenses(licenseName);
+            if (exclusiveCheck.conflict) {
+                alert(`⚠️ 오류: ${licenseName}과(와) ${exclusiveCheck.conflictWith}은(는) 동시에 보유할 수 없습니다.\n\n${exclusiveCheck.conflictWith}을(를) 먼저 해제하거나, ${licenseName} 선택을 취소해주세요.`);
+                return;
+            }
+            
             // 새로 추가
             btn.classList.add('active');
             licenses.push({ type: type, name: licenseName });
@@ -1445,6 +1522,30 @@
             if (entity) {
                 calcTotal();
             }
+        }
+        
+        // 상호 배타적 면허 검증
+        function checkExclusiveLicenses(newLicense) {
+            // 토목건축공사업 ↔ (건축공사업 또는 토목공사업)
+            if (newLicense === '토목건축공사업') {
+                const hasArch = licenses.find(l => l.name === '건축공사업');
+                const hasCivil = licenses.find(l => l.name === '토목공사업');
+                if (hasArch) {
+                    return { conflict: true, conflictWith: '건축공사업' };
+                }
+                if (hasCivil) {
+                    return { conflict: true, conflictWith: '토목공사업' };
+                }
+            }
+            
+            if (newLicense === '건축공사업' || newLicense === '토목공사업') {
+                const hasCivilArch = licenses.find(l => l.name === '토목건축공사업');
+                if (hasCivilArch) {
+                    return { conflict: true, conflictWith: '토목건축공사업' };
+                }
+            }
+            
+            return { conflict: false };
         }
 
         function addLicense(t) {
@@ -1513,27 +1614,13 @@
 
         function calcTotal() {
             if (!entity || licenses.length === 0) return;
-            let capitalList = licenses.map(l => ({
-                name: l.name,
-                type: l.type,
-                amount: data[l.type][l.name][entity]
-            }));
-            capitalList.sort((a, b) => b.amount - a.amount);
-            let total = 0;
-            if (capitalList.length === 1) {
-                total = capitalList[0].amount;
-            } else {
-                total = capitalList[0].amount;
-                if (capitalList.length >= 2) {
-                    const maxCapitalHalf = capitalList[0].amount / 2;
-                    const secondCapitalHalf = capitalList[1].amount / 2;
-                    const reduction = Math.min(maxCapitalHalf, secondCapitalHalf);
-                    total += capitalList[1].amount - reduction;
-                }
-                for (let i = 2; i < capitalList.length; i++) {
-                    total += capitalList[i].amount;
-                }
-            }
+            
+            // 감경 UI 업데이트
+            updateReductionUI();
+            
+            // 자본금 계산
+            let total = calculateCapitalWithReduction();
+            
             reqCap = total;
             const et = entity === 'corporation' ? '법인' : '개인';
             const licenseText = licenses.map(l => {
@@ -1544,6 +1631,268 @@
             document.getElementById('licenseInfo').textContent = `${licenseText} (${et})`;
             document.getElementById('step4').classList.remove('hidden');
             updateRequiredCapitalDisplay();
+        }
+        
+        // 감경 UI 업데이트
+        function updateReductionUI() {
+            const section = document.getElementById('reductionConfigSection');
+            const receivedOptions = document.getElementById('receivedReductionOptions');
+            
+            if (licenses.length < 2) {
+                // 면허 1개 이하면 감경 UI 숨김
+                section.style.display = 'none';
+                receivedReductionLicense = null;
+                selectedReductionAmount = null;
+                return;
+            }
+            
+            // 면허 2개 이상이면 감경 UI 표시
+            section.style.display = 'block';
+            
+            // 감경 받은 면허 체크박스 생성
+            receivedOptions.innerHTML = '';
+            licenses.forEach((license, index) => {
+                const label = document.createElement('label');
+                label.style.cssText = 'display: flex; align-items: center; padding: 12px 15px; background: white; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.2s;';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = index;
+                checkbox.style.cssText = 'width: 18px; height: 18px; margin-right: 12px; cursor: pointer; accent-color: #667eea;';
+                checkbox.onchange = function() {
+                    if (this.checked) {
+                        // 다른 체크박스 해제 (1개만 선택)
+                        document.querySelectorAll('#receivedReductionOptions input[type="checkbox"]').forEach(cb => {
+                            if (cb !== this) cb.checked = false;
+                        });
+                        receivedReductionLicense = licenses[index];
+                        // 스타일 업데이트
+                        document.querySelectorAll('#receivedReductionOptions label').forEach(l => {
+                            l.style.borderColor = '#e0e0e0';
+                            l.style.background = 'white';
+                            l.style.fontWeight = 'normal';
+                        });
+                        label.style.borderColor = '#667eea';
+                        label.style.background = '#e3f2fd';
+                        label.style.fontWeight = '600';
+                        
+                        // 실제 감경액 옵션 업데이트
+                        updateActualReductionOptions();
+                    } else {
+                        receivedReductionLicense = null;
+                        selectedReductionAmount = null;
+                        label.style.borderColor = '#e0e0e0';
+                        label.style.background = 'white';
+                        label.style.fontWeight = 'normal';
+                        hideActualReductionOptions();
+                    }
+                    calcTotal();
+                };
+                
+                const amount = data[license.type][license.name][entity];
+                const text = document.createElement('span');
+                text.textContent = `${license.name} (${fmt(amount)})`;
+                text.style.cssText = 'font-size: 14px; flex: 1;';
+                
+                label.appendChild(checkbox);
+                label.appendChild(text);
+                
+                // 호버 효과
+                label.onmouseover = function() {
+                    if (!this.querySelector('input').checked) {
+                        this.style.borderColor = '#667eea';
+                        this.style.background = '#f0f4ff';
+                    }
+                };
+                label.onmouseout = function() {
+                    if (!this.querySelector('input').checked) {
+                        this.style.borderColor = '#e0e0e0';
+                        this.style.background = 'white';
+                    }
+                };
+                
+                receivedOptions.appendChild(label);
+                
+                // 기존 선택 유지
+                if (receivedReductionLicense === license) {
+                    checkbox.checked = true;
+                    label.style.borderColor = '#667eea';
+                    label.style.background = '#e3f2fd';
+                    label.style.fontWeight = '600';
+                }
+            });
+            
+            // 기존 선택이 있으면 실제 감경액 옵션 표시
+            if (receivedReductionLicense) {
+                updateActualReductionOptions();
+            }
+        }
+        
+        // 실제 감경액 옵션 업데이트
+        function updateActualReductionOptions() {
+            if (!receivedReductionLicense) {
+                hideActualReductionOptions();
+                return;
+            }
+            
+            // 다른 면허들 (기준 후보)
+            const otherLicenses = licenses.filter(l => l !== receivedReductionLicense);
+            
+            // 각 기준별 감경액 계산
+            const reductionAmount = data[receivedReductionLicense.type][receivedReductionLicense.name][entity];
+            const options = otherLicenses.map(base => {
+                const baseAmount = data[base.type][base.name][entity];
+                const reduction = Math.min(reductionAmount * 0.5, baseAmount * 0.5);
+                return {
+                    baseLicense: base,
+                    baseAmount: baseAmount,
+                    reductionAmount: reduction,
+                    finalAmount: reductionAmount - reduction
+                };
+            });
+            
+            // 감경액별로 그룹화
+            const grouped = {};
+            options.forEach(opt => {
+                const key = opt.reductionAmount;
+                if (!grouped[key]) {
+                    grouped[key] = {
+                        reductionAmount: key,
+                        finalAmount: opt.finalAmount,
+                        baseLicenses: []
+                    };
+                }
+                grouped[key].baseLicenses.push(opt.baseLicense);
+            });
+            
+            // 배열로 변환 및 정렬 (큰 순서)
+            const uniqueOptions = Object.values(grouped).sort((a, b) => b.reductionAmount - a.reductionAmount);
+            
+            if (uniqueOptions.length === 1) {
+                // 자동 계산
+                showAutoReduction(uniqueOptions[0]);
+            } else {
+                // 선택 필요
+                showActualReductionOptions(uniqueOptions);
+            }
+        }
+        
+        // 자동 계산 결과 표시
+        function showAutoReduction(option) {
+            document.getElementById('actualReductionSection').style.display = 'none';
+            document.getElementById('autoReductionResult').style.display = 'block';
+            
+            selectedReductionAmount = option;
+            
+            const baseLicenseNames = option.baseLicenses.map(l => l.name).join(' 또는 ');
+            const text = `
+                <div style="margin-bottom: 6px;"><strong>${fmt(option.reductionAmount)}</strong> 감경</div>
+                <div style="font-size: 12px;">(기준: ${baseLicenseNames})</div>
+                <div style="margin-top: 8px; font-weight: 600;">
+                    ${receivedReductionLicense.name}: ${fmt(data[receivedReductionLicense.type][receivedReductionLicense.name][entity])} → ${fmt(option.finalAmount)}
+                </div>
+            `;
+            document.getElementById('autoReductionText').innerHTML = text;
+        }
+        
+        // 실제 감경액 선택 옵션 표시
+        function showActualReductionOptions(options) {
+            document.getElementById('autoReductionResult').style.display = 'none';
+            document.getElementById('actualReductionSection').style.display = 'block';
+            
+            const container = document.getElementById('actualReductionOptions');
+            container.innerHTML = '';
+            
+            options.forEach((option, index) => {
+                const label = document.createElement('label');
+                label.style.cssText = 'display: flex; align-items: start; padding: 12px 15px; background: white; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.2s;';
+                
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'actualReduction';
+                radio.value = index;
+                radio.style.cssText = 'width: 18px; height: 18px; margin-right: 12px; margin-top: 2px; cursor: pointer; accent-color: #ff9800; flex-shrink: 0;';
+                radio.onchange = function() {
+                    selectedReductionAmount = option;
+                    calcTotal();
+                    // 스타일 업데이트
+                    document.querySelectorAll('#actualReductionOptions label').forEach(l => {
+                        l.style.borderColor = '#e0e0e0';
+                        l.style.background = 'white';
+                        l.style.fontWeight = 'normal';
+                    });
+                    label.style.borderColor = '#ff9800';
+                    label.style.background = '#fff3e0';
+                    label.style.fontWeight = '600';
+                };
+                
+                const baseLicenseNames = option.baseLicenses.map(l => l.name).join(' 또는 ');
+                const content = document.createElement('div');
+                content.style.cssText = 'flex: 1;';
+                content.innerHTML = `
+                    <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">${fmt(option.reductionAmount)} 감경</div>
+                    <div style="font-size: 12px; color: #666; margin-bottom: 6px;">(기준: ${baseLicenseNames})</div>
+                    <div style="font-size: 13px; color: #ff9800; font-weight: 600;">
+                        ${receivedReductionLicense.name}: ${fmt(data[receivedReductionLicense.type][receivedReductionLicense.name][entity])} → ${fmt(option.finalAmount)}
+                    </div>
+                `;
+                
+                label.appendChild(radio);
+                label.appendChild(content);
+                
+                // 호버 효과
+                label.onmouseover = function() {
+                    if (!this.querySelector('input').checked) {
+                        this.style.borderColor = '#ff9800';
+                        this.style.background = '#fff3e0';
+                    }
+                };
+                label.onmouseout = function() {
+                    if (!this.querySelector('input').checked) {
+                        this.style.borderColor = '#e0e0e0';
+                        this.style.background = 'white';
+                    }
+                };
+                
+                container.appendChild(label);
+                
+                // 첫 번째를 기본 선택 또는 기존 선택 유지
+                if ((index === 0 && !selectedReductionAmount) || 
+                    (selectedReductionAmount && selectedReductionAmount.reductionAmount === option.reductionAmount)) {
+                    radio.checked = true;
+                    selectedReductionAmount = option;
+                    label.style.borderColor = '#ff9800';
+                    label.style.background = '#fff3e0';
+                    label.style.fontWeight = '600';
+                }
+            });
+        }
+        
+        // 실제 감경액 옵션 숨기기
+        function hideActualReductionOptions() {
+            document.getElementById('actualReductionSection').style.display = 'none';
+            document.getElementById('autoReductionResult').style.display = 'none';
+        }
+        
+        // 감경 적용하여 자본금 계산
+        function calculateCapitalWithReduction() {
+            if (!entity || licenses.length === 0) return 0;
+            
+            let total = 0;
+            
+            licenses.forEach(license => {
+                const amount = data[license.type][license.name][entity];
+                
+                if (receivedReductionLicense && license === receivedReductionLicense && selectedReductionAmount) {
+                    // 감경 적용
+                    total += selectedReductionAmount.finalAmount;
+                } else {
+                    // 전액
+                    total += amount;
+                }
+            });
+            
+            return total;
         }
 
         function selectSideBusiness(choice) {
@@ -2100,6 +2449,11 @@
             sideBusinessTypes = [];
             sideBusinesses = [];
             sideBusReqCap = 0;
+            
+            // 감경 변수 초기화
+            receivedReductionLicense = null;
+            selectedReductionAmount = null;
+            
             document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
             
             // 버튼 컨테이너 초기화
