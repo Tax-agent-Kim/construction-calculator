@@ -38,7 +38,7 @@
     <!-- SEO 메타태그 -->
     <title>건설업 실질자본 계산기 | 김용래세무사사무소 기업진단센터</title>
     <meta name="description" content="건설업 실질자본, 3분만에 쉽고 빠르게 계산하세요! 회원가입없이 무료로 확인할 수 있습니다. 건설업 자본금 계산 이제 쉬워집니다. 건설산업기본법 시행령 기준 - 김용래세무사사무소">
-    <meta name="keywords" content="건설업 실질자본, 실질자본 계산기, 건설업 자본금, 건설업 자본금 계산, 자본금 계산기, 건설업 계산기, 세무사, 건설업등록, 기업진단, 건설산업기본법">
+    <meta name="keywords" content="건설업 실질자본금, 건설업 실질자본, 실질자본 계산기, 건설업 자본금, 건설업 자본금 계산, 자본금 계산기, 건설업 계산기, 세무사, 건설업등록, 기업진단, 건설산업기본법">
     <meta name="author" content="김용래세무사사무소">
     
     <!-- Open Graph (카카오톡, 페이스북 공유 시) -->
@@ -1646,6 +1646,12 @@
                 return;
             }
             
+            // 기존 선택된 면허가 목록에 없으면 초기화
+            if (receivedReductionLicense && !licenses.find(l => l === receivedReductionLicense)) {
+                receivedReductionLicense = null;
+                selectedReductionAmount = null;
+            }
+            
             // 면허 2개 이상이면 감경 UI 표시
             section.style.display = 'block';
             
@@ -1666,6 +1672,7 @@
                             if (cb !== this) cb.checked = false;
                         });
                         receivedReductionLicense = licenses[index];
+                        selectedReductionAmount = null; // 이전 선택 초기화 ⭐
                         // 스타일 업데이트
                         document.querySelectorAll('#receivedReductionOptions label').forEach(l => {
                             l.style.borderColor = '#e0e0e0';
@@ -1856,9 +1863,8 @@
                 
                 container.appendChild(label);
                 
-                // 첫 번째를 기본 선택 또는 기존 선택 유지
-                if ((index === 0 && !selectedReductionAmount) || 
-                    (selectedReductionAmount && selectedReductionAmount.reductionAmount === option.reductionAmount)) {
+                // 첫 번째를 기본 선택 (이전 선택 무시하고 항상 첫 번째)
+                if (index === 0) {
                     radio.checked = true;
                     selectedReductionAmount = option;
                     label.style.borderColor = '#ff9800';
