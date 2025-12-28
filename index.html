@@ -104,6 +104,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            padding-top: 90px;
         }
         .container {
             background: white;
@@ -590,9 +591,160 @@
             background: #1976d2;
             color: white;
         }
+        
+        /* ========================================
+           햄버거 메뉴
+           ======================================== */
+        .hamburger-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .hamburger-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hamburger-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .hamburger-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .hamburger-button {
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .hamburger-line {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        
+        .hamburger-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+        
+        .hamburger-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .hamburger-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: right 0.3s;
+            z-index: 1001;
+            overflow-y: auto;
+        }
+        
+        .hamburger-menu.active {
+            right: 0;
+        }
+        
+        .hamburger-menu-content {
+            padding: 80px 0 20px 0;
+        }
+        
+        .hamburger-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 25px;
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        .hamburger-menu-item:hover {
+            background: #f8f9fa;
+            border-left-color: #007bff;
+        }
+        
+        .hamburger-menu-item.active {
+            background: #f8f9fa;
+            border-left-color: #007bff;
+            color: #007bff;
+            font-weight: 600;
+        }
+        
+        .hamburger-menu-icon {
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
+    <!-- 햄버거 메뉴 -->
+    <div class="hamburger-container">
+        <div class="hamburger-header">
+            <a href="index.html" class="hamburger-logo">
+                <img src="gold.png" alt="김용래세무사사무소" style="width: 32px; height: 32px;">
+                <span class="hamburger-logo-text">김용래세무사사무소</span>
+            </a>
+            <button class="hamburger-button" id="hamburgerBtn" aria-label="메뉴">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="hamburger-overlay" id="hamburgerOverlay"></div>
+    
+    <nav class="hamburger-menu" id="hamburgerMenu">
+        <div class="hamburger-menu-content">
+            <a href="index.html" class="hamburger-menu-item active">
+                <span class="hamburger-menu-icon">🧮</span>건설업 실질자본 간이계산기
+            </a>
+            <a href="qna.html" class="hamburger-menu-item">
+                <span class="hamburger-menu-icon">💬</span>Q&A 게시판
+            </a>
+        </div>
+    </nav>
+
     <div class="container">
         <!-- 회사 브랜딩 헤더 -->
         <div style="text-align: center; padding: 15px 0; border-bottom: 2px solid #e0e0e0; margin-bottom: 20px;">
@@ -604,7 +756,7 @@
                 </div>
                 <!-- 연락처 -->
                 <div style="font-size: 12px; color: #666;">
-                    ☎ 02-991-0331 | 📧 kyrtax@naver.com | 🌐 www.kyrtax.co.kr
+                    ☎ 02-991-0331 | 📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5beaca7a1b4ad95bbb4a3b0a7fbb6bab8">[email&#160;protected]</a> | 🌐 www.kyrtax.co.kr
                 </div>
             </div>
         </div>
@@ -1113,7 +1265,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         /*
          * 건설업 실질자본 간이계산기
          * Copyright © 2024. All rights reserved.
@@ -2856,24 +3008,45 @@
     -->
     <div style="display:none;" data-copyright="김용래세무사사무소" data-fingerprint="1b2c11aac6503c9cc7da0ed4506262cd" data-version="KYR-CONST-CAP-CALC-v2.5.1" data-timestamp="20251211050021">
         Original Source: 김용래세무사사무소 기업진단센터
-        Contact: 02-991-0331 | kyrtax@naver.com | www.kyrtax.co.kr
+        Contact: 02-991-0331 | <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caa1b3b8beabb28aa4abbcafb8e4a9a5a7">[email&#160;protected]</a> | www.kyrtax.co.kr
         Digital Fingerprint: 1b2c11aac6503c9cc7da0ed4506262cd
         This software is protected by copyright law.
         Unauthorized use, modification, or distribution is prohibited.
     </div>
     
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // 햄버거 메뉴
+    (function() {
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const hamburgerOverlay = document.getElementById('hamburgerOverlay');
+        
+        function toggleMenu() {
+            hamburgerMenu.classList.toggle('active');
+            hamburgerOverlay.classList.toggle('active');
+        }
+        
+        if (hamburgerBtn) {
+            hamburgerBtn.addEventListener('click', toggleMenu);
+        }
+        if (hamburgerOverlay) {
+            hamburgerOverlay.addEventListener('click', toggleMenu);
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && hamburgerMenu && hamburgerMenu.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    })();
+    
     // Copyright verification token (do not remove)
     (function(){
         var _t='1b2c11aac6503c9cc7da0ed4506262cd';
         var _s='김용래세무사사무소';
         var _d='20251211050021';
         // Digital signature embedded for legal verification
-        console.log('%c🔐 Copyright Protected', 'color:#red;font-weight:bold;font-size:14px;');
-        console.log('%cOriginal Source: 김용래세무사사무소 기업진단센터', 'color:#666;');
-        console.log('%cDigital Fingerprint: ' + _t, 'color:#999;font-size:10px;');
-        console.log('%cUnauthorized use is prohibited by law.', 'color:#ff0000;font-weight:bold;');
-        console.log('%c무단 사용 금지 - 법적 조치 가능', 'color:#ff0000;font-weight:bold;');
+        console.log('%c🔐 Copyright Protected', 'color:#red;font-weight:bold;font-size:12px');
     })();
     </script>
 </body>
