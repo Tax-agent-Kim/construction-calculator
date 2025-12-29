@@ -437,6 +437,10 @@
             margin-right: 5px;
         }
         
+        .notice-badge.mobile-only {
+            display: none;
+        }
+        
         .status-badge {
             display: inline-block;
             padding: 2px 6px;
@@ -709,6 +713,11 @@
                 color: #333;
                 margin-bottom: 8px;
                 line-height: 1.4;
+            }
+            
+            /* 모바일에서 공지 배지 보이기 */
+            .notice-badge.mobile-only {
+                display: inline-block !important;
             }
             
             /* 번호 컬럼 숨기기 */
@@ -1265,6 +1274,7 @@
                         row.innerHTML = `
                             <td><span class="notice-badge">공지</span></td>
                             <td class="title">
+                                <span class="notice-badge mobile-only">공지</span>
                                 <strong>${data.title}</strong>${commentBadge}
                                 <div class="mobile-meta">
                                     <span>${data.author}</span>
