@@ -666,27 +666,91 @@
                 font-size: 22px;
             }
             
+            /* 모바일에서 테이블을 카드 스타일로 */
+            .board-table {
+                border: none;
+            }
+            
+            .board-table thead {
+                display: none;
+            }
+            
+            .board-table tbody tr {
+                display: block;
+                border: none;
+                border-bottom: 1px solid #e9ecef;
+                padding: 15px;
+                margin-bottom: 0;
+            }
+            
+            .board-table tbody tr:hover {
+                background: #f8f9fa;
+            }
+            
+            .board-table tbody tr.notice {
+                background: #fff8e1;
+                border-left: 3px solid #ffc107;
+            }
+            
+            .board-table td {
+                display: block;
+                border: none;
+                padding: 0;
+                text-align: left !important;
+            }
+            
+            .board-table td.title {
+                font-size: 15px;
+                font-weight: 500;
+                color: #333;
+                margin-bottom: 8px;
+                line-height: 1.4;
+            }
+            
+            .board-table th.col-num,
+            .board-table td:first-child {
+                display: none;
+            }
+            
             .board-table th.col-author,
             .board-table td.author {
-                display: none;
-            }
-            
-            .board-table th.col-views,
-            .board-table td.views {
-                display: none;
-            }
-            
-            /* 모바일에서 조회수 배지 보이기 */
-            .view-badge-mobile {
                 display: inline;
-                color: #666;
                 font-size: 12px;
-                margin-left: 8px;
+                color: #999;
             }
             
             .board-table th.col-date,
             .board-table td.date {
+                display: inline;
                 font-size: 12px;
+                color: #999;
+            }
+            
+            .board-table th.col-views,
+            .board-table td.views {
+                display: inline;
+                font-size: 12px;
+                color: #999;
+            }
+            
+            /* 모바일 메타 정보 (작성자 | 시간 | 조회수) */
+            .mobile-meta {
+                font-size: 12px;
+                color: #999;
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+            
+            .mobile-meta > span:not(:last-child)::after {
+                content: "|";
+                margin-left: 8px;
+                color: #ddd;
+            }
+            
+            /* 모바일에서 조회수 배지 숨기기 (메타에 표시) */
+            .view-badge-mobile {
+                display: none;
             }
             
             .board-header {
@@ -1176,8 +1240,13 @@
             
             // 공지사항
                 notices.forEach(({ id, data }) => {
-                    const date = data.createdAt ? 
-                        new Date(data.createdAt.toDate()).toLocaleDateString('ko-KR').slice(5) : '방금';
+                    const createdDate = data.createdAt ? new Date(data.createdAt.toDate()) : new Date();
+                    const date = createdDate.toLocaleDateString('ko-KR').slice(5);
+                    
+                    // 오늘 날짜인지 확인
+                    const today = new Date();
+                    const isToday = createdDate.toDateString() === today.toDateString();
+                    const timeString = isToday ? createdDate.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : date;
                     
                     const row = document.createElement('tr');
                     row.className = 'notice';
@@ -1190,12 +1259,18 @@
                     onSnapshot(commentsQuery, (commentsSnap) => {
                         const commentCount = commentsSnap.size;
                         const commentBadge = commentCount > 0 ? 
-                            ` <span style="color: #007bff; font-size: 13px;">💬 ${commentCount}</span>` : '';
-                        const viewBadge = ` <span class="view-badge-mobile"><svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="vertical-align: middle; margin-right: 2px;"><path d="M7 0C3.5 0 0.73 2.11 0 5c0.73 2.89 3.5 5 7 5s6.27-2.11 7-5c-0.73-2.89-3.5-5-7-5zm0 8.5c-1.93 0-3.5-1.57-3.5-3.5S5.07 1.5 7 1.5s3.5 1.57 3.5 3.5S8.93 8.5 7 8.5zm0-5.5c-1.1 0-2 0.9-2 2s0.9 2 2 2 2-0.9 2-2-0.9-2-2-2z" fill="#666"/></svg>${data.views || 0}</span>`;
+                            ` <span style="color: #007bff; font-size: 14px;">💬 ${commentCount}</span>` : '';
                         
                         row.innerHTML = `
                             <td><span class="notice-badge">공지</span></td>
-                            <td class="title"><strong>${data.title}</strong>${commentBadge}${viewBadge}</td>
+                            <td class="title">
+                                <div><strong>${data.title}</strong>${commentBadge}</div>
+                                <div class="mobile-meta">
+                                    <span>${data.author}</span>
+                                    <span>${timeString}</span>
+                                    <span>👁 ${data.views || 0}</span>
+                                </div>
+                            </td>
                             <td class="author">${data.author}</td>
                             <td class="date">${date}</td>
                             <td class="views">${data.views || 0}</td>
@@ -1208,8 +1283,13 @@
                 
                 // 일반 게시글
                 questions.forEach(({ id, data }) => {
-                    const date = data.createdAt ? 
-                        new Date(data.createdAt.toDate()).toLocaleDateString('ko-KR').slice(5) : '방금';
+                    const createdDate = data.createdAt ? new Date(data.createdAt.toDate()) : new Date();
+                    const date = createdDate.toLocaleDateString('ko-KR').slice(5);
+                    
+                    // 오늘 날짜인지 확인
+                    const today = new Date();
+                    const isToday = createdDate.toDateString() === today.toDateString();
+                    const timeString = isToday ? createdDate.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : date;
                     
                     const row = document.createElement('tr');
                     row.onclick = () => window.location.href = 'qna.html?id=' + id;
@@ -1221,12 +1301,18 @@
                     onSnapshot(commentsQuery, (commentsSnap) => {
                         const commentCount = commentsSnap.size;
                         const commentBadge = commentCount > 0 ? 
-                            ` <span style="color: #007bff; font-size: 13px;">💬 ${commentCount}</span>` : '';
-                        const viewBadge = ` <span class="view-badge-mobile"><svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="vertical-align: middle; margin-right: 2px;"><path d="M7 0C3.5 0 0.73 2.11 0 5c0.73 2.89 3.5 5 7 5s6.27-2.11 7-5c-0.73-2.89-3.5-5-7-5zm0 8.5c-1.93 0-3.5-1.57-3.5-3.5S5.07 1.5 7 1.5s3.5 1.57 3.5 3.5S8.93 8.5 7 8.5zm0-5.5c-1.1 0-2 0.9-2 2s0.9 2 2 2 2-0.9 2-2-0.9-2-2-2z" fill="#666"/></svg>${data.views || 0}</span>`;
+                            ` <span style="color: #007bff; font-size: 14px;">💬 ${commentCount}</span>` : '';
                         
                         row.innerHTML = `
                             <td>${currentNumber}</td>
-                            <td class="title">${data.title}${commentBadge}${viewBadge}</td>
+                            <td class="title">
+                                <div>${data.title}${commentBadge}</div>
+                                <div class="mobile-meta">
+                                    <span>${data.author}</span>
+                                    <span>${timeString}</span>
+                                    <span>👁 ${data.views || 0}</span>
+                                </div>
+                            </td>
                             <td class="author">${data.author}</td>
                             <td class="date">${date}</td>
                             <td class="views">${data.views || 0}</td>
