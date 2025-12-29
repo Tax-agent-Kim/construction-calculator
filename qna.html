@@ -388,8 +388,12 @@
         .board-table th.col-date { width: 100px; }
         .board-table th.col-views { width: 60px; }
         
-        /* PC에서 조회수 배지 숨기기 */
+        /* PC에서 모바일 전용 요소 숨기기 */
         .view-badge-mobile {
+            display: none;
+        }
+        
+        .mobile-meta {
             display: none;
         }
         
@@ -733,9 +737,10 @@
             .mobile-meta {
                 font-size: 12px;
                 color: #999;
-                display: flex;
+                display: flex !important;
                 gap: 8px;
                 align-items: center;
+                margin-top: 8px;
             }
             
             .mobile-meta > span:not(:last-child)::after {
@@ -1258,12 +1263,9 @@
                             ` <span style="color: #007bff; font-size: 14px;">💬 ${commentCount}</span>` : '';
                         
                         row.innerHTML = `
-                            <td></td>
+                            <td><span class="notice-badge">공지</span></td>
                             <td class="title">
-                                <div>
-                                    <span class="notice-badge">공지</span>
-                                    <strong>${data.title}</strong>${commentBadge}
-                                </div>
+                                <strong>${data.title}</strong>${commentBadge}
                                 <div class="mobile-meta">
                                     <span>${data.author}</span>
                                     <span>${timeString}</span>
@@ -1271,7 +1273,7 @@
                                 </div>
                             </td>
                             <td class="author">${data.author}</td>
-                            <td class="date">${date}</td>
+                            <td class="date">${timeString}</td>
                             <td class="views">${data.views || 0}</td>
                         `;
                     });
@@ -1305,7 +1307,7 @@
                         row.innerHTML = `
                             <td>${currentNumber}</td>
                             <td class="title">
-                                <div>${data.title}${commentBadge}</div>
+                                ${data.title}${commentBadge}
                                 <div class="mobile-meta">
                                     <span>${data.author}</span>
                                     <span>${timeString}</span>
@@ -1313,7 +1315,7 @@
                                 </div>
                             </td>
                             <td class="author">${data.author}</td>
-                            <td class="date">${date}</td>
+                            <td class="date">${timeString}</td>
                             <td class="views">${data.views || 0}</td>
                         `;
                     });
