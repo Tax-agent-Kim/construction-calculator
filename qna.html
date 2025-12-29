@@ -707,30 +707,26 @@
                 line-height: 1.4;
             }
             
+            /* 번호 컬럼 숨기기 */
             .board-table th.col-num,
             .board-table td:first-child {
                 display: none;
             }
             
+            /* 작성자, 날짜, 조회수 숨기기 (mobile-meta에 표시) */
             .board-table th.col-author,
             .board-table td.author {
-                display: inline;
-                font-size: 12px;
-                color: #999;
+                display: none !important;
             }
             
             .board-table th.col-date,
             .board-table td.date {
-                display: inline;
-                font-size: 12px;
-                color: #999;
+                display: none !important;
             }
             
             .board-table th.col-views,
             .board-table td.views {
-                display: inline;
-                font-size: 12px;
-                color: #999;
+                display: none !important;
             }
             
             /* 모바일 메타 정보 (작성자 | 시간 | 조회수) */
@@ -1262,9 +1258,12 @@
                             ` <span style="color: #007bff; font-size: 14px;">💬 ${commentCount}</span>` : '';
                         
                         row.innerHTML = `
-                            <td><span class="notice-badge">공지</span></td>
+                            <td></td>
                             <td class="title">
-                                <div><strong>${data.title}</strong>${commentBadge}</div>
+                                <div>
+                                    <span class="notice-badge">공지</span>
+                                    <strong>${data.title}</strong>${commentBadge}
+                                </div>
                                 <div class="mobile-meta">
                                     <span>${data.author}</span>
                                     <span>${timeString}</span>
