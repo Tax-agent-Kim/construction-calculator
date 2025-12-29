@@ -327,8 +327,12 @@
         .board-table th.col-num { width: 80px; }
         .board-table th.col-author { width: 120px; }
         .board-table th.col-date { width: 100px; }
-        .board-table th.col-views { width: 80px; }
         .board-table th.col-views { width: 60px; }
+        
+        /* PC에서 조회수 배지 숨기기 */
+        .view-badge-mobile {
+            display: none;
+        }
         
         .board-table tbody tr {
             border-bottom: 1px solid #e9ecef;
@@ -613,6 +617,14 @@
                 display: none;
             }
             
+            /* 모바일에서 조회수 배지 보이기 */
+            .view-badge-mobile {
+                display: inline;
+                color: #666;
+                font-size: 12px;
+                margin-left: 8px;
+            }
+            
             .board-table th.col-date,
             .board-table td.date {
                 font-size: 12px;
@@ -798,7 +810,7 @@
                 </div>
                 
                 <div class="view-actions">
-                    <div class="action-left">
+                    <div class="action-left" id="questionActions">
                         <button class="action-btn" onclick="editQuestion()">수정</button>
                         <button class="action-btn" onclick="deleteQuestion()">삭제</button>
                     </div>
@@ -839,7 +851,7 @@
         
         // Firebase 설정 (Firebase Console에서 복사한 설정으로 교체하세요)
         const firebaseConfig = {
-             apiKey: "AIzaSyCcoyVuuLzRKXAZ4fM55PW3ZQQFxnnG98k",
+            apiKey: "AIzaSyCcoyVuuLzRKXAZ4fM55PW3ZQQFxnnG98k",
             authDomain: "kyrtax-qna.firebaseapp.com",
             projectId: "kyrtax-qna",
             storageBucket: "kyrtax-qna.firebasestorage.app",
@@ -906,6 +918,9 @@
                 if (commentFormInputs) {
                     commentFormInputs.style.display = 'none';
                 }
+                
+                // 질문 버튼 업데이트
+                updateQuestionActions();
             } else if (user && user.email !== ADMIN_EMAIL) {
                 // 관리자가 아닌 계정으로 로그인됨
                 alert('관리자 계정이 아닙니다.');
@@ -920,6 +935,9 @@
                 if (commentFormInputs) {
                     commentFormInputs.style.display = 'flex';
                 }
+                
+                // 질문 버튼 업데이트
+                updateQuestionActions();
             }
         });
         
@@ -976,6 +994,9 @@
                         '<span class="status-badge status-answered">답변완료</span>' : 
                         '<span class="status-badge status-waiting">답변대기</span>';
                     document.getElementById('viewStatus').innerHTML = statusBadge;
+                    
+                    // 관리자 버튼 표시
+                    updateQuestionActions();
                     
                     loadComments(id);
                 } else {
@@ -1060,10 +1081,11 @@
                         const commentCount = commentsSnap.size;
                         const commentBadge = commentCount > 0 ? 
                             ` <span style="color: #007bff; font-size: 13px;">💬 ${commentCount}</span>` : '';
+                        const viewBadge = ` <span class="view-badge-mobile"><svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="vertical-align: middle; margin-right: 2px;"><path d="M7 0C3.5 0 0.73 2.11 0 5c0.73 2.89 3.5 5 7 5s6.27-2.11 7-5c-0.73-2.89-3.5-5-7-5zm0 8.5c-1.93 0-3.5-1.57-3.5-3.5S5.07 1.5 7 1.5s3.5 1.57 3.5 3.5S8.93 8.5 7 8.5zm0-5.5c-1.1 0-2 0.9-2 2s0.9 2 2 2 2-0.9 2-2-0.9-2-2-2z" fill="#666"/></svg>${data.views || 0}</span>`;
                         
                         row.innerHTML = `
                             <td><span class="notice-badge">공지</span></td>
-                            <td class="title"><strong>${data.title}</strong>${commentBadge}</td>
+                            <td class="title"><strong>${data.title}</strong>${commentBadge}${viewBadge}</td>
                             <td class="author">${data.author}</td>
                             <td class="date">${date}</td>
                             <td class="views">${data.views || 0}</td>
@@ -1090,10 +1112,11 @@
                         const commentCount = commentsSnap.size;
                         const commentBadge = commentCount > 0 ? 
                             ` <span style="color: #007bff; font-size: 13px;">💬 ${commentCount}</span>` : '';
+                        const viewBadge = ` <span class="view-badge-mobile"><svg width="14" height="10" viewBox="0 0 14 10" fill="none" style="vertical-align: middle; margin-right: 2px;"><path d="M7 0C3.5 0 0.73 2.11 0 5c0.73 2.89 3.5 5 7 5s6.27-2.11 7-5c-0.73-2.89-3.5-5-7-5zm0 8.5c-1.93 0-3.5-1.57-3.5-3.5S5.07 1.5 7 1.5s3.5 1.57 3.5 3.5S8.93 8.5 7 8.5zm0-5.5c-1.1 0-2 0.9-2 2s0.9 2 2 2 2-0.9 2-2-0.9-2-2-2z" fill="#666"/></svg>${data.views || 0}</span>`;
                         
                         row.innerHTML = `
                             <td>${currentNumber}</td>
-                            <td class="title">${data.title}${commentBadge}</td>
+                            <td class="title">${data.title}${commentBadge}${viewBadge}</td>
                             <td class="author">${data.author}</td>
                             <td class="date">${date}</td>
                             <td class="views">${data.views || 0}</td>
@@ -1461,6 +1484,42 @@
             try {
                 await deleteDoc(doc(db, 'questions', questionId, 'comments', commentId));
                 alert('✅ 삭제되었습니다!');
+            } catch (error) {
+                console.error('삭제 실패:', error);
+                alert('삭제에 실패했습니다.');
+            }
+        };
+        
+        // 질문 버튼 업데이트 (관리자용)
+        function updateQuestionActions() {
+            const questionActions = document.getElementById('questionActions');
+            if (!questionActions) return;
+            
+            if (isAdmin) {
+                questionActions.innerHTML = `
+                    <button class="action-btn" onclick="adminDeleteQuestion()">삭제 (관리자)</button>
+                `;
+            } else {
+                questionActions.innerHTML = `
+                    <button class="action-btn" onclick="editQuestion()">수정</button>
+                    <button class="action-btn" onclick="deleteQuestion()">삭제</button>
+                `;
+            }
+        }
+        
+        // 관리자 질문 삭제
+        window.adminDeleteQuestion = async function() {
+            if (!isAdmin) {
+                alert('관리자만 사용할 수 있습니다.');
+                return;
+            }
+            
+            if (!confirm('정말 삭제하시겠습니까?')) return;
+            
+            try {
+                await deleteDoc(doc(db, 'questions', currentQuestionId));
+                alert('✅ 삭제되었습니다!');
+                window.location.href = 'qna.html';
             } catch (error) {
                 console.error('삭제 실패:', error);
                 alert('삭제에 실패했습니다.');
