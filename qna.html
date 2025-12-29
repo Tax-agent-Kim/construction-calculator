@@ -750,6 +750,15 @@
                                     <textarea class="form-textarea" id="contentInput" placeholder="내용을 입력하세요" required></textarea>
                                 </td>
                             </tr>
+                            <tr id="noticeCheckboxRow" style="display: none;">
+                                <th>공지사항</th>
+                                <td>
+                                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                        <input type="checkbox" id="noticeCheckbox" style="width: 18px; height: 18px; cursor: pointer;">
+                                        <span style="font-size: 14px; color: #666;">공지사항으로 등록 (맨 위 고정)</span>
+                                    </label>
+                                </td>
+                            </tr>
                         </table>
                         <button type="submit" class="submit-btn" id="submitBtn">등록하기</button>
                     </form>
@@ -919,6 +928,12 @@
                     commentFormInputs.style.display = 'none';
                 }
                 
+                // 공지사항 체크박스 보이기
+                const noticeCheckboxRow = document.getElementById('noticeCheckboxRow');
+                if (noticeCheckboxRow) {
+                    noticeCheckboxRow.style.display = 'table-row';
+                }
+                
                 // 질문 버튼 업데이트
                 updateQuestionActions();
             } else if (user && user.email !== ADMIN_EMAIL) {
@@ -934,6 +949,12 @@
                 // 답변 폼 보이기
                 if (commentFormInputs) {
                     commentFormInputs.style.display = 'flex';
+                }
+                
+                // 공지사항 체크박스 숨기기
+                const noticeCheckboxRow = document.getElementById('noticeCheckboxRow');
+                if (noticeCheckboxRow) {
+                    noticeCheckboxRow.style.display = 'none';
                 }
                 
                 // 질문 버튼 업데이트
@@ -1262,19 +1283,21 @@
             
             try {
                 const passwordHash = await simpleHash(password);
+                const isNotice = document.getElementById('noticeCheckbox').checked;
                 
                 await addDoc(collection(db, 'questions'), {
                     author: author,
                     title: title,
                     content: content,
                     passwordHash: passwordHash,
-                    isNotice: false,
+                    isNotice: isNotice,
                     createdAt: serverTimestamp(),
                     answered: false,
                     views: 0
                 });
                 
                 writeForm.reset();
+                document.getElementById('noticeCheckbox').checked = false;
                 alert('✅ 등록되었습니다!');
                 
                 document.getElementById('writeFormContainer').style.display = 'none';
