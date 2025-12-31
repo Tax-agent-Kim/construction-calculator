@@ -73,6 +73,19 @@
             transition: all 0.3s;
         }
         
+        /* 햄버거 → X 변환 */
+        .hamburger-button.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+        
+        .hamburger-button.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-button.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+        
         .hamburger-overlay {
             position: fixed;
             top: 0;
@@ -106,6 +119,29 @@
         
         .hamburger-menu.active {
             right: 0;
+        }
+        
+        .hamburger-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .hamburger-close-btn:hover {
+            background: #f0f0f0;
+            transform: rotate(90deg);
         }
         
         .hamburger-menu-content {
@@ -861,6 +897,7 @@
     <div class="hamburger-overlay" id="hamburgerOverlay"></div>
     
     <nav class="hamburger-menu" id="hamburgerMenu">
+        <button class="hamburger-close-btn" id="hamburgerCloseBtn" aria-label="메뉴 닫기">✕</button>
         <div class="hamburger-menu-content">
             <a href="index.html" class="hamburger-menu-item">
                 <span class="hamburger-menu-icon">🧮</span>건설업 실질자본 간이계산기
@@ -1765,14 +1802,19 @@
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const hamburgerOverlay = document.getElementById('hamburgerOverlay');
+        const hamburgerCloseBtn = document.getElementById('hamburgerCloseBtn');
         
         function toggleMenu() {
             hamburgerMenu.classList.toggle('active');
             hamburgerOverlay.classList.toggle('active');
+            hamburgerBtn.classList.toggle('active');
         }
         
         hamburgerBtn.addEventListener('click', toggleMenu);
         hamburgerOverlay.addEventListener('click', toggleMenu);
+        if (hamburgerCloseBtn) {
+            hamburgerCloseBtn.addEventListener('click', toggleMenu);
+        }
         
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
