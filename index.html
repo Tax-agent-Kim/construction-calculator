@@ -96,6 +96,51 @@
            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Top Info Bar */
+        .top-info-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #2c3e50;
+            color: white;
+            z-index: 1001;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .top-info-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
+            font-size: 13px;
+        }
+        
+        .top-info-item {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: opacity 0.2s;
+        }
+        
+        .top-info-item:hover {
+            opacity: 0.8;
+        }
+        
+        .top-info-item span {
+            font-size: 14px;
+        }
+        
+        .top-info-divider {
+            color: rgba(255,255,255,0.3);
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -103,7 +148,7 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 0 20px 20px 20px;
+            padding: 0;
         }
         .container {
             background: white;
@@ -112,8 +157,10 @@
             padding: 40px;
             max-width: 700px;
             width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
+            max-height: none;
+            overflow-y: visible;
+            margin: 108px 20px 0 20px;
+            position: relative;
         }
         h1 { color: #333; text-align: center; margin-bottom: 10px; font-size: 28px; }
         .subtitle { text-align: center; color: #666; margin-bottom: 40px; font-size: 14px; }
@@ -314,8 +361,10 @@
                 padding: 15px;
                 max-width: 100%;
                 border-radius: 0;
-                min-height: 100vh;
+                min-height: calc(100vh - 60px);
                 max-height: none;
+                margin-top: 60px;
+                margin-bottom: 80px;
             }
             
             /* 회사 브랜딩 헤더 조정 */
@@ -596,7 +645,7 @@
            ======================================== */
         .hamburger-container {
             position: fixed;
-            top: 0;
+            top: 38px;
             left: 0;
             width: 100%;
             background: white;
@@ -605,7 +654,7 @@
         }
         
         body {
-            padding-top: 70px;
+            padding-top: 0;
         }
         
         .hamburger-header {
@@ -652,6 +701,19 @@
             transition: all 0.3s;
         }
         
+        /* 햄버거 → X 변환 */
+        .hamburger-button.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+        
+        .hamburger-button.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-button.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+        
         .hamburger-overlay {
             position: fixed;
             top: 0;
@@ -685,6 +747,29 @@
         
         .hamburger-menu.active {
             right: 0;
+        }
+        
+        .hamburger-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .hamburger-close-btn:hover {
+            background: #f0f0f0;
+            transform: rotate(90deg);
         }
         
         .hamburger-menu-content {
@@ -721,6 +806,16 @@
         
         /* 모바일 반응형 */
         @media (max-width: 768px) {
+            /* Top Info Bar 숨기기 */
+            .top-info-bar {
+                display: none;
+            }
+            
+            /* 햄버거 컨테이너 최상단으로 */
+            .hamburger-container {
+                top: 0 !important;
+            }
+            
             .hamburger-header {
                 padding: 6px 10px;
             }
@@ -734,9 +829,8 @@
                 width: 24px !important;
                 height: 24px !important;
             }
-            .hamburger-logo > div > div:last-child {
-                font-size: 15px !important;
-                font-weight: 600 !important;
+            .hamburger-logo > div > div:first-child > div {
+                font-size: 14px !important;
             }
             body {
                 padding-top: 55px;
@@ -745,6 +839,19 @@
     </style>
 </head>
 <body>
+    <!-- Top Info Bar (PC only) -->
+    <div class="top-info-bar">
+        <div class="top-info-content">
+            <a href="tel:02-991-0331" class="top-info-item">
+                <span>☎</span> 02-991-0331
+            </a>
+            <span class="top-info-divider">|</span>
+            <a href="mailto:kyrtax@naver.com" class="top-info-item">
+                <span>📧</span> kyrtax@naver.com
+            </a>
+        </div>
+    </div>
+    
     <!-- 햄버거 메뉴 -->
     <div class="hamburger-container">
         <div class="hamburger-header">
@@ -767,6 +874,7 @@
     <div class="hamburger-overlay" id="hamburgerOverlay"></div>
     
     <nav class="hamburger-menu" id="hamburgerMenu">
+        <button class="hamburger-close-btn" id="hamburgerCloseBtn" aria-label="메뉴 닫기">✕</button>
         <div class="hamburger-menu-content">
             <a href="index.html" class="hamburger-menu-item active">
                 <span class="hamburger-menu-icon">🧮</span>건설업 실질자본 간이계산기
@@ -1235,7 +1343,7 @@
             </div>
         </div>
         
-        <button class="reset-btn" onclick="reset()">다시 계산하기</button>
+        <button class="reset-btn" onclick="reset()">처음으로</button>
         
         <!-- SEO용 추가 정보 (접기/펼치기) -->
         <details style="margin: 30px 0 40px 0; padding: 15px; background: #f8f9fa; border-radius: 12px;">
@@ -2703,6 +2811,20 @@
             document.getElementById('financeSection').classList.remove('show');
             document.getElementById('finalResult').classList.remove('show');
             document.getElementById('progress').style.width = '0%';
+            
+            // 초기 화면 요소 다시 보이기
+            const mainTitle = document.getElementById('mainTitle');
+            const mainSubtitle = document.getElementById('mainSubtitle');
+            const legalNotice = document.getElementById('legalNotice');
+            const step1Container = document.querySelector('.step:nth-child(4)');
+            
+            if (mainTitle) mainTitle.classList.remove('hidden');
+            if (mainSubtitle) mainSubtitle.classList.remove('hidden');
+            if (legalNotice) legalNotice.classList.remove('hidden');
+            if (step1Container) step1Container.classList.remove('hidden');
+            
+            // 페이지 맨 위로 스크롤
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -3037,10 +3159,12 @@
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const hamburgerOverlay = document.getElementById('hamburgerOverlay');
+        const hamburgerCloseBtn = document.getElementById('hamburgerCloseBtn');
         
         function toggleMenu() {
             hamburgerMenu.classList.toggle('active');
             hamburgerOverlay.classList.toggle('active');
+            hamburgerBtn.classList.toggle('active');
         }
         
         if (hamburgerBtn) {
@@ -3048,6 +3172,9 @@
         }
         if (hamburgerOverlay) {
             hamburgerOverlay.addEventListener('click', toggleMenu);
+        }
+        if (hamburgerCloseBtn) {
+            hamburgerCloseBtn.addEventListener('click', toggleMenu);
         }
         
         document.addEventListener('keydown', (e) => {
