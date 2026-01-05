@@ -145,7 +145,7 @@
         }
         
         .hamburger-menu-content {
-            padding: 80px 0 20px 0;
+            padding: 60px 0 0 0;
         }
         
         .hamburger-menu-item {
@@ -905,6 +905,9 @@
             <a href="qna.html" class="hamburger-menu-item active">
                 <span class="hamburger-menu-icon">💬</span>Q&A 게시판
             </a>
+            <a href="https://blog.naver.com/kyr_tax" target="_blank" rel="noopener noreferrer" class="hamburger-menu-item">
+                <span class="hamburger-menu-icon">📝</span>기업진단센터 블로그
+            </a>
         </div>
     </nav>
 
@@ -1544,6 +1547,34 @@
                     answered: false,
                     views: 0
                 });
+                
+                // Zapier 이메일 알림 전송
+                try {
+                    await fetch('https://hooks.zapier.com/hooks/catch/25896799/uwmab3l/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            author: author,
+                            title: title,
+                            content: content,
+                            time: new Date().toLocaleString('ko-KR', {
+                                year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                second: '2-digit',
+                                hour12: false
+                            }),
+                            isNotice: isNotice ? '공지사항' : '일반 질문'
+                        })
+                    });
+                } catch (zapierError) {
+                    console.log('이메일 알림 전송 실패:', zapierError);
+                    // 알림 실패해도 글 작성은 성공한 것으로 처리
+                }
                 
                 writeForm.reset();
                 document.getElementById('noticeCheckbox').checked = false;
