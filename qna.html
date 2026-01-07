@@ -1092,7 +1092,7 @@
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, updateDoc, deleteDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, updateDoc, deleteDoc, getDoc, getDocs, where, limit } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
         
         // Firebase 설정 (Firebase Console에서 복사한 설정으로 교체하세요)
@@ -1320,7 +1320,6 @@
             
             const total = questionsToDisplay.length;
             totalCount.textContent = total;
-            let currentNumber = questions.length;  // 일반 글 개수만 카운트
             
             // 공지사항
                 notices.forEach(({ id, data }) => {
@@ -1388,7 +1387,7 @@
                             ` <span style="color: #007bff; font-size: 14px;">💬 ${commentCount}</span>` : '';
                         
                         row.innerHTML = `
-                            <td>${currentNumber}</td>
+                            <td>${data.postNumber || '?'}</td>
                             <td class="title">
                                 ${data.title}${commentBadge}
                                 <div class="mobile-meta">
@@ -1404,7 +1403,6 @@
                     });
                     
                     questionsList.appendChild(row);
-                    currentNumber--;
                 });
             }
         
@@ -1544,12 +1542,28 @@
                 const passwordHash = await simpleHash(password);
                 const isNotice = document.getElementById('noticeCheckbox').checked;
                 
+                // 현재 최대 번호 가져오기 (공지 제외)
+                const questionsQuery = query(
+                    collection(db, 'questions'),
+                    where('isNotice', '==', false),
+                    orderBy('postNumber', 'desc'),
+                    limit(1)
+                );
+                const querySnapshot = await getDocs(questionsQuery);
+                let nextNumber = 1; // 기본값
+                
+                if (!querySnapshot.empty) {
+                    const maxPost = querySnapshot.docs[0].data();
+                    nextNumber = (maxPost.postNumber || 0) + 1;
+                }
+                
                 await addDoc(collection(db, 'questions'), {
                     author: author,
                     title: title,
                     content: content,
                     passwordHash: passwordHash,
                     isNotice: isNotice,
+                    postNumber: isNotice ? null : nextNumber, // 공지는 번호 없음
                     createdAt: serverTimestamp(),
                     answered: false,
                     views: 0
