@@ -873,6 +873,14 @@
             }
         }
     </style>
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("147dMYMl0oYON2p4B"); // Public Key
+        })();
+    </script>
 </head>
 <body>
     <!-- 햄버거 메뉴 -->
@@ -1548,14 +1556,12 @@
                     views: 0
                 });
                 
-                // Zapier 이메일 알림 전송
+                // EmailJS 이메일 알림 전송
                 try {
-                    await fetch('https://hooks.zapier.com/hooks/catch/25896799/uwmab3l/', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
+                    await emailjs.send(
+                        'service_rs8x3kl',  // Service ID
+                        'template_vdw1308', // Template ID
+                        {
                             author: author,
                             title: title,
                             content: content,
@@ -1569,10 +1575,11 @@
                                 hour12: false
                             }),
                             isNotice: isNotice ? '공지사항' : '일반 질문'
-                        })
-                    });
-                } catch (zapierError) {
-                    console.log('이메일 알림 전송 실패:', zapierError);
+                        }
+                    );
+                    console.log('이메일 알림 전송 성공!');
+                } catch (emailError) {
+                    console.log('이메일 알림 전송 실패:', emailError);
                     // 알림 실패해도 글 작성은 성공한 것으로 처리
                 }
                 
