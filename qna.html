@@ -1545,16 +1545,20 @@
                 // 현재 최대 번호 가져오기 (공지 제외)
                 const questionsQuery = query(
                     collection(db, 'questions'),
-                    where('isNotice', '==', false),
-                    orderBy('postNumber', 'desc'),
-                    limit(1)
+                    where('isNotice', '==', false)
                 );
                 const querySnapshot = await getDocs(questionsQuery);
                 let nextNumber = 1; // 기본값
                 
                 if (!querySnapshot.empty) {
-                    const maxPost = querySnapshot.docs[0].data();
-                    nextNumber = (maxPost.postNumber || 0) + 1;
+                    // 클라이언트에서 최대값 계산
+                    const numbers = querySnapshot.docs
+                        .map(doc => doc.data().postNumber || 0)
+                        .filter(num => num > 0);
+                    
+                    if (numbers.length > 0) {
+                        nextNumber = Math.max(...numbers) + 1;
+                    }
                 }
                 
                 await addDoc(collection(db, 'questions'), {
