@@ -1320,7 +1320,7 @@
             
             const total = questionsToDisplay.length;
             totalCount.textContent = total;
-            let currentNumber = total;
+            let currentNumber = questions.length;  // 일반 글 개수만 카운트
             
             // 공지사항
                 notices.forEach(({ id, data }) => {
@@ -1363,7 +1363,6 @@
                     });
                     
                     questionsList.appendChild(row);
-                    currentNumber--;
                 });
                 
                 // 일반 게시글
