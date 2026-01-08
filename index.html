@@ -799,8 +799,8 @@
         <div class="step">
             <div class="step-title">1단계: 건설업 구분 선택 (복수선택 가능)</div>
             <div class="button-group" id="step1">
-                <button class="btn" onclick="toggleType('comprehensive')">종합건설업</button>
-                <button class="btn" onclick="toggleType('specialized')">전문건설업</button>
+                <button class="btn" onclick="toggleType('comprehensive', this)">종합건설업</button>
+                <button class="btn" onclick="toggleType('specialized', this)">전문건설업</button>
             </div>
         </div>
         
@@ -1290,7 +1290,7 @@
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         /*
          * 건설업 실질자본 간이계산기
          * Copyright © 2024. All rights reserved.
@@ -1620,17 +1620,16 @@
                 text.textContent = '펼치기';
             }
         }
-
-        function toggleType(t) {
+        window.toggleType = function(t, button) {
             const idx = types.indexOf(t);
             if (idx > -1) {
                 types.splice(idx, 1);
-                event.target.classList.remove('active');
+                if (button) button.classList.remove('active');
                 licenses = licenses.filter(l => l.type !== t);
                 updateLicenses();
             } else {
                 types.push(t);
-                event.target.classList.add('active');
+                if (button) button.classList.add('active');
                 
                 // 버튼 생성
                 const container = document.getElementById(t + 'Buttons');
@@ -3039,7 +3038,7 @@
         Unauthorized use, modification, or distribution is prohibited.
     </div>
     
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
     // 햄버거 메뉴
     (function() {
         const hamburgerBtn = document.getElementById('hamburgerBtn');
