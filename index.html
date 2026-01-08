@@ -2,9 +2,9 @@
 <!-- 
 ====================================
 파일명: index.html
-버전: v1.2
+버전: v1.3
 최종 수정일: 2026-01-08
-변경 사항: 블로그 메뉴 추가, 모바일 최적화
+변경 사항: 블로그 메뉴 추가, 계산기 작동 정상화
 ====================================
 -->
 <!--
@@ -104,71 +104,24 @@
            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        /* Top Info Bar */
-        .top-info-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: #2c3e50;
-            color: white;
-            z-index: 1001;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .top-info-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 15px;
-            font-size: 13px;
-        }
-        
-        .top-info-item {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: opacity 0.2s;
-        }
-        
-        .top-info-item:hover {
-            opacity: 0.8;
-        }
-        
-        .top-info-item span {
-            font-size: 14px;
-        }
-        
-        .top-info-divider {
-            color: rgba(255,255,255,0.3);
-        }
-        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: 0;
+            align-items: center;
+            padding: 20px;
         }
         .container {
             background: white;
-            border-radius: 0;
+            border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             padding: 40px;
             max-width: 700px;
             width: 100%;
-            max-height: none;
-            overflow-y: visible;
-            margin: 108px 20px 0 20px;
-            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         h1 { color: #333; text-align: center; margin-bottom: 10px; font-size: 28px; }
         .subtitle { text-align: center; color: #666; margin-bottom: 40px; font-size: 14px; }
@@ -368,8 +321,6 @@
             .container {
                 padding: 15px;
                 max-width: 100%;
-                width: 100%;
-                margin: 0;
                 border-radius: 0;
                 min-height: 100vh;
                 max-height: none;
@@ -653,7 +604,7 @@
            ======================================== */
         .hamburger-container {
             position: fixed;
-            top: 38px;
+            top: 0;
             left: 0;
             width: 100%;
             background: white;
@@ -662,7 +613,7 @@
         }
         
         body {
-            padding-top: 0;
+            padding-top: 120px;
         }
         
         .hamburger-header {
@@ -709,19 +660,6 @@
             transition: all 0.3s;
         }
         
-        /* 햄버거 → X 변환 */
-        .hamburger-button.active .hamburger-line:nth-child(1) {
-            transform: rotate(45deg) translate(7px, 7px);
-        }
-        
-        .hamburger-button.active .hamburger-line:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger-button.active .hamburger-line:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-        
         .hamburger-overlay {
             position: fixed;
             top: 0;
@@ -757,31 +695,8 @@
             right: 0;
         }
         
-        .hamburger-close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: #333;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-        
-        .hamburger-close-btn:hover {
-            background: #f0f0f0;
-            transform: rotate(90deg);
-        }
-        
         .hamburger-menu-content {
-            padding: 60px 0 0 0;
+            padding: 80px 0 20px 0;
         }
         
         .hamburger-menu-item {
@@ -814,62 +729,35 @@
         
         /* 모바일 반응형 */
         @media (max-width: 768px) {
-            /* Top Info Bar 숨기기 */
-            .top-info-bar {
-                display: none;
-            }
-            
-            /* 햄버거 컨테이너 최상단으로 */
-            .hamburger-container {
-                top: 0 !important;
-            }
-            
             .hamburger-header {
-                padding: 6px 10px;
+                padding: 10px 15px;
             }
-            .hamburger-contact {
-                display: none !important;
+            .hamburger-header > a > div > div:first-child {
+                font-size: 16px !important;
             }
-            .hamburger-logo > div {
-                gap: 6px !important;
-            }
-            .hamburger-logo img {
-                width: 24px !important;
-                height: 24px !important;
-            }
-            .hamburger-logo > div > div {
-                font-size: 15px !important;
-                font-weight: 600 !important;
-                white-space: nowrap !important;
+            .hamburger-header > a > div > div:last-child {
+                font-size: 10px !important;
             }
             body {
-                padding-top: 60px;
+                padding-top: 100px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Top Info Bar (PC only) -->
-    <div class="top-info-bar">
-        <div class="top-info-content">
-            <a href="tel:02-991-0331" class="top-info-item">
-                <span>☎</span> 02-991-0331
-            </a>
-            <span class="top-info-divider">|</span>
-            <a href="/cdn-cgi/l/email-protection#63081a1117021b230d021506114d000c0e" class="top-info-item">
-                <span>📧</span> <span class="__cf_email__" data-cfemail="95feece7e1f4edd5fbf4e3f0e7bbf6faf8">[email&#160;protected]</span>
-            </a>
-        </div>
-    </div>
-    
     <!-- 햄버거 메뉴 -->
     <div class="hamburger-container">
         <div class="hamburger-header">
             <a href="index.html" class="hamburger-logo">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="gold.png" alt="김용래세무사사무소 기업진단센터" style="width: 32px; height: 32px; flex-shrink: 0;">
-                    <div style="font-size: 18px; font-weight: 700; color: #333; line-height: 1.3; word-break: keep-all;">
-                        김용래세무사사무소 기업진단센터
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;">
+                    <!-- 로고 + 회사명 -->
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="gold.png" alt="김용래세무사사무소 기업진단센터" style="width: 28px; height: 28px; flex-shrink: 0;">
+                        <div style="font-size: 22px; font-weight: 800; color: #333; white-space: nowrap;">김용래세무사사무소 기업진단센터</div>
+                    </div>
+                    <!-- 연락처 -->
+                    <div style="font-size: 12px; color: #666;">
+                        ☎ 02-991-0331 | 📧 <span class="__cf_email__" data-cfemail="9bf0e2e9effae3dbf5faedfee9b5f8f4f6">[email&#160;protected]</span>
                     </div>
                 </div>
             </a>
@@ -884,7 +772,6 @@
     <div class="hamburger-overlay" id="hamburgerOverlay"></div>
     
     <nav class="hamburger-menu" id="hamburgerMenu">
-        <button class="hamburger-close-btn" id="hamburgerCloseBtn" aria-label="메뉴 닫기">✕</button>
         <div class="hamburger-menu-content">
             <a href="index.html" class="hamburger-menu-item active">
                 <span class="hamburger-menu-icon">🧮</span>건설업 실질자본 간이계산기
@@ -1356,7 +1243,7 @@
             </div>
         </div>
         
-        <button class="reset-btn" onclick="reset()">처음으로</button>
+        <button class="reset-btn" onclick="reset()">다시 계산하기</button>
         
         <!-- SEO용 추가 정보 (접기/펼치기) -->
         <details style="margin: 30px 0 40px 0; padding: 15px; background: #f8f9fa; border-radius: 12px;">
@@ -2824,20 +2711,6 @@
             document.getElementById('financeSection').classList.remove('show');
             document.getElementById('finalResult').classList.remove('show');
             document.getElementById('progress').style.width = '0%';
-            
-            // 초기 화면 요소 다시 보이기
-            const mainTitle = document.getElementById('mainTitle');
-            const mainSubtitle = document.getElementById('mainSubtitle');
-            const legalNotice = document.getElementById('legalNotice');
-            const step1Container = document.querySelector('.step:nth-child(4)');
-            
-            if (mainTitle) mainTitle.classList.remove('hidden');
-            if (mainSubtitle) mainSubtitle.classList.remove('hidden');
-            if (legalNotice) legalNotice.classList.remove('hidden');
-            if (step1Container) step1Container.classList.remove('hidden');
-            
-            // 페이지 맨 위로 스크롤
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -3050,7 +2923,11 @@
         });
 
         // F12 개발자 도구 방지
-        document.addEven 사사무소의 저작물입니다.\n무단 복제 및 배포를 금지합니다.\n\n문의: 02-991-0331');
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                alert('⚠️ 개발자 도구는 사용할 수 없습니다.\n\n본 계산기는 김용래세무사사무소의 저작물입니다.\n무단 복제 및 배포를 금지합니다.\n\n문의: 02-991-0331');
                 return false;
             }
             // Ctrl+Shift+I (개발자 도구)
@@ -3168,12 +3045,10 @@
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const hamburgerOverlay = document.getElementById('hamburgerOverlay');
-        const hamburgerCloseBtn = document.getElementById('hamburgerCloseBtn');
         
         function toggleMenu() {
             hamburgerMenu.classList.toggle('active');
             hamburgerOverlay.classList.toggle('active');
-            hamburgerBtn.classList.toggle('active');
         }
         
         if (hamburgerBtn) {
@@ -3181,9 +3056,6 @@
         }
         if (hamburgerOverlay) {
             hamburgerOverlay.addEventListener('click', toggleMenu);
-        }
-        if (hamburgerCloseBtn) {
-            hamburgerCloseBtn.addEventListener('click', toggleMenu);
         }
         
         document.addEventListener('keydown', (e) => {
@@ -3198,9 +3070,3 @@
         var _t='1b2c11aac6503c9cc7da0ed4506262cd';
         var _s='김용래세무사사무소';
         var _d='20251211050021';
-        // Digital signature embedded for legal verification
-        console.log('%c🔐 Copyright Protected', 'color:#red;font-weight:bold;font-size:12px');
-    })();
-    </script>
-</body>
-</html>
