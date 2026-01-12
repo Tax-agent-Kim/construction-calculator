@@ -3,11 +3,17 @@
 ====================================================================
 파일명: regulations.html
 제목: 건설업체 기업진단지침
-버전: v2.5.8
+버전: v2.6.0
 최종 수정일: 2025-01-11
 ====================================================================
 
 [변경 이력]
+v2.6.0 (2025-01-11)
+- 햄버거 메뉴 계산기 링크 수정 (calculator.html → index.html)
+
+v2.5.9 (2025-01-11)
+- 모바일에서 헤더 폰트 크기 조정 (index/qna와 동일하게)
+
 v2.5.8 (2025-01-11)
 - 인쇄 시 선택 인쇄 컨트롤 패널 숨김 처리
 
@@ -632,6 +638,14 @@ All Rights Reserved.
 
         /* 반응형 */
         @media (max-width: 768px) {
+            .hamburger-header {
+                padding: 10px 15px;
+            }
+            
+            .hamburger-header > a > div > div {
+                font-size: 16px !important;
+            }
+            
             .sidebar {
                 width: 100%;
                 height: 300px;
@@ -886,7 +900,7 @@ All Rights Reserved.
             <a href="qna.html" class="hamburger-menu-item">
                 <span class="hamburger-menu-icon">💬</span>Q&A 게시판
             </a>
-            <a href="regulations_v2.5.8.html" class="hamburger-menu-item active">
+            <a href="regulations_v2.6.0.html" class="hamburger-menu-item active">
                 <span class="hamburger-menu-icon">📋</span>건설업체 기업진단지침
             </a>
             <a href="blog.html" class="hamburger-menu-item">
@@ -898,7 +912,7 @@ All Rights Reserved.
     <!-- 헤더 -->
     <header>
         <h1>건설업체 기업진단지침</h1>
-        <p>건설업 관리규정 [별지 2] &lt;개정 2020.7.1.&gt; &lt;시행 2020.7.1.&gt; | v2.5.8 | 김용래세무회계사무소</p>
+        <p>건설업 관리규정 [별지 2] &lt;개정 2020.7.1.&gt; &lt;시행 2020.7.1.&gt; | v2.6.0 | 김용래세무회계사무소</p>
     </header>
 
     <!-- 메인 컨테이너 -->
@@ -1487,7 +1501,7 @@ All Rights Reserved.
 
     <!-- 인쇄용 꼬리말 -->
     <div class="print-footer">
-        김용래세무사사무소 기업진단센터 | ☎ 02-991-0331 | 📧 kyrtax@naver.com
+        김용래세무사사무소 기업진단센터 | ☎ 02-991-0331 | 📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ce7f5fef8edf4cce2edfae9fea2efe3e1">[email&#160;protected]</a>
     </div>
 
     <!-- 선택 인쇄 컨트롤 -->
@@ -1503,7 +1517,7 @@ All Rights Reserved.
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // 햄버거 메뉴 토글
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const hamburgerMenu = document.getElementById('hamburgerMenu');
@@ -1885,12 +1899,4 @@ All Rights Reserved.
                     const regex = new RegExp(`(${searchTerm})`, 'gi');
                     const highlightedHTML = text.replace(regex, '<span class="highlight">$1</span>');
                     
-                    const span = document.createElement('span');
-                    span.innerHTML = highlightedHTML;
-                    textNode.parentNode.replaceChild(span, textNode);
-                });
-            }
-        }
-    </script>
-</body>
-</html>
+                    const span = doc
