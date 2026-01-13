@@ -3,11 +3,56 @@
 ====================================================================
 파일명: regulations.html
 제목: 건설업체 기업진단지침
-버전: v2.7.1
-최종 수정일: 2025-01-12
+버전: v2.14.0
+최종 수정일: 2025-01-13
 ====================================================================
 
 [변경 이력]
+v2.14.0 (2025-01-13)
+- SEO 최적화: meta 태그, JSON-LD 구조화 데이터 추가
+- 소개 텍스트 추가 (간결하고 정확한 설명)
+- 상호명 통일: 김용래세무사사무소 기업진단센터
+
+v2.11.2 (2025-01-12)
+- 위로 가기 버튼이 toolbar(검색창) 위치로 스크롤하도록 수정
+
+v2.11.1 (2025-01-12)
+- 모바일 헤더와 목차 사이 회색 여백 제거 (padding-top 70px → 40px)
+
+v2.11.0 (2025-01-12)
+- 모바일 헤더 상호 크기 축소 (13px, 로고 20px)
+- 헤더와 목차 사이 여백 제거
+- 목차 높이 축소 (210px → 150px)
+- 위로 가기 버튼 모바일에서 빠른 표시 (100px 스크롤)
+
+v2.10.1 (2025-01-12)
+- 연혁 패널 레이아웃 개선 (중복 제거, 현재 배지 오른쪽 배치)
+
+v2.10.0 (2025-01-12)
+- 버전 선택 드롭다운을 "연혁" 버튼으로 변경
+- 연혁 팝업 패널 추가 (모달 형식)
+- 제목 찌그러짐 해결
+
+v2.9.0 (2025-01-12)
+- 모바일 전용 인쇄 선택 팝업 추가
+- 전체 조문 기본 선택 상태
+- 전체 선택/해제 버튼
+- 개별 조문 선택/해제 가능
+- PC는 기존 방식 유지
+
+v2.8.1 (2025-01-12)
+- 모바일 헤더를 qna v1.8과 완전 동일하게 수정
+- 폰트: 15px, 로고: 24px, 패딩: 6px 10px
+
+v2.8.0 (2025-01-12)
+- 모바일 버전 대폭 개선
+- 헤더 상호 크기 index/qna와 통일 (15px)
+- 헤더 높이 자동 축소
+- 목차 높이 30% 축소 (300px → 210px)
+- 목차 조문 줄간격 축소
+- 제목 아래 개정일 표시
+- 위로 가기 버튼 추가
+
 v2.7.1 (2025-01-12)
 - 선택 인쇄 시 컨트롤 패널 숨김 처리
 
@@ -55,7 +100,7 @@ v2.3.0 (2025-01-11)
 - 제16조~제29조 2020.7.1 시행 버전으로 전체 교체
 
 ====================================================================
-Copyright (c) 2025 김용래세무회계사무소
+Copyright (c) 2025 김용래세무사사무소 기업진단센터
 All Rights Reserved.
 ====================================================================
 -->
@@ -63,7 +108,22 @@ All Rights Reserved.
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>건설업체 기업진단지침 | 김용래세무회계사무소</title>
+    <title>건설업체 기업진단지침 | 김용래세무사사무소 기업진단센터</title>
+    
+    <!-- SEO 메타 태그 -->
+    <meta name="description" content="건설업체 기업진단지침 전문(건설업 관리규정 별지 2). 건설업 등록·신규·증자·변경 시 필수 자료. 2020.7.1 개정 시행. 김용래세무사 02-991-0331">
+    <meta name="keywords" content="건설업체 기업진단, 건설업 실질자본, 기업진단지침, 건설업 등록, 건설세무, 김용래세무사, 건설업 진단, 실질자본 계산">
+    <meta name="author" content="김용래세무사사무소 기업진단센터">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://kyrtax.co.kr/regulations.html">
+    
+    <!-- Open Graph (SNS 공유) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="건설업체 기업진단지침 | 김용래세무사사무소 기업진단센터">
+    <meta property="og:description" content="건설업 실질자본 기업진단 전문 세무사. 건설업 등록 시 필수 자료 제공.">
+    <meta property="og:url" content="https://kyrtax.co.kr/regulations.html">
+    <meta property="og:site_name" content="김용래세무사사무소 기업진단센터">
+    
     <style>
         * {
             margin: 0;
@@ -72,7 +132,7 @@ All Rights Reserved.
         }
 
         body {
-            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            font-family: "맑은 고딕", "Malgun Gothic", Arial, sans-serif;
             background: #f5f5f5;
             color: #333;
         }
@@ -141,13 +201,8 @@ All Rights Reserved.
         .hamburger-logo {
             display: flex;
             align-items: center;
-            gap: 10px;
             text-decoration: none;
-        }
-        
-        .hamburger-logo img {
-            width: 32px;
-            height: 32px;
+            flex: 1;
         }
         
         .hamburger-logo-text {
@@ -167,7 +222,6 @@ All Rights Reserved.
             justify-content: center;
             align-items: center;
             gap: 6px;
-            padding: 0;
             transition: all 0.3s ease;
         }
         
@@ -382,6 +436,8 @@ All Rights Reserved.
         }
 
         /* 버전 선택 */
+        /* 연혁 버튼 */
+        /* 버전 선택 (PC용 드롭다운) */
         .version-selector {
             display: flex;
             align-items: center;
@@ -407,6 +463,135 @@ All Rights Reserved.
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+
+        /* 연혁 버튼 (모바일용) */
+        .version-button {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            background: white;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .version-button:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        /* PC/모바일 표시 제어 */
+        .hide-on-mobile {
+            display: flex;
+        }
+
+        .show-on-mobile {
+            display: none;
+        }
+
+        /* 연혁 패널 */
+        .version-panel {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 9999;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .version-panel.active {
+            display: block;
+        }
+
+        .version-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .version-panel-header h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .version-panel-header button {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .version-panel-content {
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .version-item {
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .version-item:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .version-item.active {
+            border-color: #667eea;
+            background: #f0f3ff;
+        }
+
+        .version-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .version-text {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .version-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            background: #667eea;
+            color: white;
+            font-size: 11px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
+        /* 배경 오버레이 */
+        .version-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+        }
+
+        .version-overlay.active {
+            display: block;
         }
 
         /* 조문 스타일 */
@@ -461,6 +646,178 @@ All Rights Reserved.
         .select-print-info strong {
             color: #667eea;
             font-size: 18px;
+        }
+
+        /* 위로 가기 버튼 */
+        .scroll-to-top {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            z-index: 998;
+            transition: all 0.3s;
+        }
+
+        .scroll-to-top:hover {
+            background: #5568d3;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+        }
+
+        .scroll-to-top.show {
+            display: block;
+        }
+
+        /* 모바일 인쇄 팝업 */
+        .mobile-print-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            overflow-y: auto;
+        }
+
+        .mobile-print-modal.active {
+            display: block;
+        }
+
+        .mobile-print-content {
+            background: white;
+            margin: 20px;
+            border-radius: 12px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .mobile-print-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mobile-print-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .mobile-print-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+        }
+
+        .mobile-print-controls {
+            padding: 15px 20px;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mobile-print-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px 20px;
+        }
+
+        .mobile-print-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .mobile-print-item:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-print-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .mobile-print-item label {
+            flex: 1;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .mobile-print-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: #667eea !important;
+            color: white !important;
+            border-color: #667eea !important;
+            flex: 1;
+        }
+
+        .mobile-print-footer .btn {
+            flex: 1;
+        }
+
+        /* PC에서는 모바일 버튼 숨김, 모바일에서는 PC 버튼 숨김 */
+        .hide-mobile {
+            display: inline-block;
+        }
+
+        .show-mobile {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            /* PC/모바일 표시 제어 */
+            .hide-on-mobile {
+                display: none !important;
+            }
+
+            .show-on-mobile {
+                display: inline-block !important;
+            }
+
+            .hide-mobile {
+                display: none !important;
+            }
+
+            .show-mobile {
+                display: inline-block !important;
+            }
+
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
         }
 
         .article-number {
@@ -636,11 +993,51 @@ All Rights Reserved.
 
         /* 반응형 */
         @media (max-width: 768px) {
+            /* body 상단 여백 축소 */
+            body {
+                padding-top: 40px; /* 70px → 40px */
+            }
+            
+            /* 1. 헤더 크기 더 축소 */
+            .hamburger-header {
+                padding: 6px 10px;
+                margin-bottom: 0; /* 헤더와 목차 사이 여백 제거 */
+            }
+            
+            /* 2. 상호 폰트 더 작게 (13px) */
+            .hamburger-logo > div {
+                gap: 4px !important;
+            }
+            
+            .hamburger-logo > div {
+                gap: 6px !important;
+            }
+            
+            .hamburger-logo img {
+                width: 24px !important;
+                height: 24px !important;
+            }
+            
+            .hamburger-logo > div > div {
+                font-size: 15px !important;
+                font-weight: 600 !important;
+                white-space: nowrap !important;
+            }
+            
+            /* 3. 목차 높이 더 축소 (210px → 150px) */
             .sidebar {
                 width: 100%;
-                height: 300px;
+                height: 150px;
                 border-right: none;
                 border-bottom: 1px solid #ddd;
+                margin-top: 0; /* 헤더와 목차 사이 여백 제거 */
+            }
+            
+            /* 4. 목차 조문 줄간격 축소 */
+            .tree-sub-item {
+                padding: 5px 10px;
+                font-size: 13px;
+                line-height: 1.3;
             }
 
             .main-container {
@@ -649,11 +1046,24 @@ All Rights Reserved.
             }
 
             .content-area {
-                padding: 20px;
+                padding: 15px;
+                padding-bottom: 80px; /* 위로 가기 버튼 공간 확보 */
             }
 
             .hamburger-menu {
                 display: block;
+            }
+            
+            /* 5. 제목 아래 개정일 표시 */
+            .content-title {
+                font-size: 20px;
+                margin-bottom: 5px;
+            }
+            
+            header p {
+                font-size: 12px;
+                color: #666;
+                margin-top: 5px;
             }
         }
 
@@ -685,6 +1095,22 @@ All Rights Reserved.
 
             .menu-panel {
                 display: none;
+            }
+
+            .version-selector {
+                display: none !important;
+            }
+
+            .version-button {
+                display: none !important;
+            }
+
+            .version-panel {
+                display: none !important;
+            }
+
+            .version-overlay {
+                display: none !important;
             }
 
             .content-area {
@@ -808,10 +1234,19 @@ All Rights Reserved.
             .bookmark-panel {
                 display: none;
             }
-            .version-selector {
+            .version-button {
                 display: none;
             }
+            .version-panel {
+                display: none !important;
+            }
+            .version-overlay {
+                display: none !important;
+            }
             .select-print-controls {
+                display: none !important;
+            }
+            .scroll-to-top {
                 display: none !important;
             }
             .content-area {
@@ -837,19 +1272,40 @@ All Rights Reserved.
             }
         }
     </style>
+    
+    <!-- 구조화된 데이터 (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "건설업체 기업진단지침",
+      "description": "건설업 관리규정 [별지 2] 건설업체 기업진단지침 전문. 건설업 등록·증자 시 실질자본 평가 기준. 2020년 7월 1일 개정 시행.",
+      "url": "https://kyrtax.co.kr/regulations.html",
+      "author": {
+        "@type": "Organization",
+        "name": "김용래세무사사무소 기업진단센터",
+        "telephone": "02-991-0331",
+        "email": "kyrtax@naver.com",
+        "areaServed": "KR"
+      },
+      "keywords": ["건설업체 기업진단지침", "건설업 실질자본", "기업진단", "건설세무", "건설업 등록"],
+      "datePublished": "2020-07-01",
+      "dateModified": "2025-01-13"
+    }
+    </script>
 </head>
 <body>
     <!-- 햄버거 메뉴 헤더 -->
     <div class="hamburger-container">
         <div class="hamburger-header">
-        <a href="index.html" class="hamburger-logo">
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="gold.png" alt="김용래세무사사무소 기업진단센터" style="width: 32px; height: 32px; flex-shrink: 0;">
-                <div style="font-size: 18px; font-weight: 700; color: #333; line-height: 1.3; word-break: keep-all;">
-            김용래세무사사무소 기업진단센터
+            <a href="index.html" class="hamburger-logo">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <img src="gold.png" alt="김용래세무사사무소 기업진단센터" style="width: 32px; height: 32px; flex-shrink: 0;">
+                    <div style="font-size: 18px; font-weight: 700; color: #333; line-height: 1.3; word-break: keep-all;">
+                        김용래세무사사무소 기업진단센터
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
             <button class="hamburger-button" id="hamburgerBtn" aria-label="메뉴">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -874,7 +1330,7 @@ All Rights Reserved.
             <a href="regulations.html" class="hamburger-menu-item active">
                 <span class="hamburger-menu-icon">📋</span>건설업체 기업진단지침
             </a>
-            <a href="https://blog.naver.com/kyr_tax" class="hamburger-menu-item">
+            <a href="blog.html" class="hamburger-menu-item">
                 <span class="hamburger-menu-icon">📝</span>기업진단센터 블로그
             </a>
         </div>
@@ -883,7 +1339,7 @@ All Rights Reserved.
     <!-- 헤더 -->
     <header>
         <h1>건설업체 기업진단지침</h1>
-        <p>건설업 관리규정 [별지 2] &lt;개정 2020.7.1.&gt; &lt;시행 2020.7.1.&gt; | v2.7.1 | 김용래세무회계사무소</p>
+        <p>건설업 관리규정 [별지 2] &lt;개정 2020.7.1.&gt; &lt;시행 2020.7.1.&gt; | v2.14.0 | 김용래세무사사무소 기업진단센터</p>
     </header>
 
     <!-- 메인 컨테이너 -->
@@ -944,19 +1400,51 @@ All Rights Reserved.
                     <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
                 </div>
                 <div style="display: flex; gap: 10px;">
-                    <button class="btn" id="selectPrintBtn" onclick="toggleSelectPrintMode()">📋 선택 인쇄</button>
-                    <button class="btn" onclick="window.print()">🖨️ 전체 인쇄</button>
+                    <button class="btn hide-mobile" id="selectPrintBtn" onclick="toggleSelectPrintMode()">📋 선택 인쇄</button>
+                    <button class="btn hide-mobile" onclick="window.print()">🖨️ 전체 인쇄</button>
+                    <button class="btn show-mobile" onclick="openMobilePrintModal()">🖨️ 인쇄</button>
                 </div>
             </div>
 
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
                 <h1 class="content-title" style="margin-bottom: 0;">건설업체 기업진단지침</h1>
-                <div class="version-selector">
+                <!-- PC: 드롭다운 -->
+                <div class="version-selector hide-on-mobile">
                     <select id="versionSelect" onchange="changeVersion(this.value)">
                         <option value="2020.7.1" selected>개정 2020.7.1 (시행 2020.7.1)</option>
                         <!-- 향후 버전 추가 예정 -->
                     </select>
                 </div>
+                <!-- 모바일: 연혁 버튼 -->
+                <button class="version-button show-on-mobile" onclick="toggleVersionPanel()">연혁 ▼</button>
+            </div>
+
+            <!-- 연혁 패널 (숨김) -->
+            <div class="version-overlay" id="versionOverlay" onclick="toggleVersionPanel()"></div>
+            <div class="version-panel" id="versionPanel">
+                <div class="version-panel-header">
+                    <h4>개정 연혁</h4>
+                    <button onclick="toggleVersionPanel()">✕</button>
+                </div>
+                <div class="version-panel-content">
+                    <div class="version-item active" onclick="changeVersion('2020.7.1')">
+                        <div class="version-info">
+                            <span class="version-text">개정 2020.7.1 (시행 2020.7.1)</span>
+                            <span class="version-badge">현재</span>
+                        </div>
+                    </div>
+                    <!-- 향후 버전 추가 예정 -->
+                </div>
+            </div>
+
+            <!-- SEO 소개 텍스트 -->
+            <div style="background: #f8f9ff; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #667eea;">
+                <p style="margin-bottom: 15px; line-height: 1.8; color: #333;">
+                    <strong>건설업체 기업진단지침</strong>은 건설업 등록, 실태조사 등의 경우에 건설업 실질자본을 평가하는 공식 기준입니다.
+                </p>
+                <p style="line-height: 1.8; color: #555;">
+                    제1조(목적)부터 제29조(겸업사업자의 신규등록 신청시 실질자본의 평가)까지 전체 조문을 제공합니다.
+                </p>
             </div>
 
             <!-- 제1장 총칙 -->
@@ -1470,6 +1958,32 @@ All Rights Reserved.
         </div>
     </div>
 
+    <!-- 모바일 인쇄 선택 팝업 -->
+    <div id="mobilePrintModal" class="mobile-print-modal">
+        <div class="mobile-print-content">
+            <div class="mobile-print-header">
+                <h3>인쇄할 조문 선택</h3>
+                <button class="mobile-print-close" onclick="closeMobilePrintModal()">✕</button>
+            </div>
+            <div class="mobile-print-controls">
+                <button class="btn" onclick="selectAllArticles()">전체 선택</button>
+                <button class="btn" onclick="deselectAllArticles()">전체 해제</button>
+            </div>
+            <div class="mobile-print-list" id="mobilePrintList">
+                <!-- JavaScript로 동적 생성 -->
+            </div>
+            <div class="mobile-print-footer">
+                <button class="btn btn-primary" onclick="printSelectedArticles()">🖨️ 인쇄하기</button>
+                <button class="btn" onclick="closeMobilePrintModal()">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 위로 가기 버튼 -->
+    <button id="scrollToTop" class="scroll-to-top" onclick="scrollToTop()" title="맨 위로">
+        ↑
+    </button>
+
     <!-- 선택 인쇄 컨트롤 -->
     <div class="select-print-controls" id="selectPrintControls">
         <div class="select-print-info">
@@ -1528,8 +2042,25 @@ All Rights Reserved.
             }
         });
 
+        // 연혁 패널 토글
+        function toggleVersionPanel() {
+            const panel = document.getElementById('versionPanel');
+            const overlay = document.getElementById('versionOverlay');
+            
+            panel.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if (panel.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
         // 버전 변경 함수
         function changeVersion(version) {
+            toggleVersionPanel();
+            
             // 향후 다른 버전 파일로 이동하는 로직 추가 예정
             // 예: window.location.href = `regulations_${version.replace(/\./g, '_')}.html`;
             
@@ -1639,6 +2170,117 @@ All Rights Reserved.
                     p.classList.add('numbered-item');
                 }
             });
+        });
+
+        // 모바일 인쇄 팝업
+        function openMobilePrintModal() {
+            const modal = document.getElementById('mobilePrintModal');
+            const listContainer = document.getElementById('mobilePrintList');
+            
+            // 조문 목록 생성
+            listContainer.innerHTML = '';
+            document.querySelectorAll('.article').forEach(article => {
+                const articleNumber = article.querySelector('.article-number');
+                if (articleNumber) {
+                    const text = articleNumber.textContent.trim();
+                    const item = document.createElement('div');
+                    item.className = 'mobile-print-item';
+                    item.innerHTML = `
+                        <input type="checkbox" id="mobile-${article.id}" value="${article.id}" checked>
+                        <label for="mobile-${article.id}">${text}</label>
+                    `;
+                    listContainer.appendChild(item);
+                }
+            });
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobilePrintModal() {
+            const modal = document.getElementById('mobilePrintModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function selectAllArticles() {
+            document.querySelectorAll('#mobilePrintList input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = true;
+            });
+        }
+
+        function deselectAllArticles() {
+            document.querySelectorAll('#mobilePrintList input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        }
+
+        function printSelectedArticles() {
+            const selectedIds = [];
+            document.querySelectorAll('#mobilePrintList input[type="checkbox"]:checked').forEach(checkbox => {
+                selectedIds.push(checkbox.value);
+            });
+
+            if (selectedIds.length === 0) {
+                alert('인쇄할 조문을 선택해주세요.');
+                return;
+            }
+
+            // 선택되지 않은 조문 숨기기
+            document.querySelectorAll('.article').forEach(article => {
+                if (!selectedIds.includes(article.id)) {
+                    article.classList.add('print-hide');
+                }
+            });
+
+            closeMobilePrintModal();
+
+            // 인쇄
+            setTimeout(() => {
+                window.print();
+                
+                // 인쇄 후 원래대로
+                setTimeout(() => {
+                    document.querySelectorAll('.article').forEach(article => {
+                        article.classList.remove('print-hide');
+                    });
+                }, 100);
+            }, 100);
+        }
+
+        // 위로 가기 버튼
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        function scrollToTop() {
+            // toolbar(검색창) 위치로 스크롤
+            const toolbar = document.querySelector('.toolbar');
+            if (toolbar) {
+                const toolbarPosition = toolbar.getBoundingClientRect().top + window.pageYOffset;
+                const headerHeight = window.innerWidth <= 768 ? 40 : 70;
+                
+                window.scrollTo({
+                    top: toolbarPosition - headerHeight - 10, // 헤더 + 여백 10px
+                    behavior: 'smooth'
+                });
+            } else {
+                // toolbar가 없으면 맨 위로
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // 스크롤 시 버튼 표시/숨김
+        window.addEventListener('scroll', function() {
+            // 모바일에서는 100px, PC에서는 300px 스크롤 시 표시
+            const threshold = window.innerWidth <= 768 ? 100 : 300;
+            
+            if (window.pageYOffset > threshold) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
         });
 
         // 검색 초기화
