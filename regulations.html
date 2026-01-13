@@ -3,11 +3,15 @@
 ====================================================================
 파일명: regulations.html
 제목: 건설업체 기업진단지침
-버전: v2.14.1
+버전: v2.15.0
 최종 수정일: 2025-01-13
 ====================================================================
 
 [변경 이력]
+v2.15.0 (2025-01-13)
+- 위로 가기 버튼 수정: 절대 최상단(0) + 모든 스크롤 초기화
+- 모바일 목차 높이 20% 증가 (150px → 180px)
+
 v2.14.1 (2025-01-13)
 - 헤더 폰트를 qna v1.8과 완전히 동일하게 통일
 - hamburger-container에 Segoe UI 폰트 적용
@@ -116,7 +120,7 @@ All Rights Reserved.
     <title>건설업체 기업진단지침 | 김용래세무사사무소 기업진단센터</title>
     
     <!-- SEO 메타 태그 -->
-    <meta name="description" content="건설업체 기업진단지침 전문(건설업 관리규정 별지 2). 건설업 등록·신규·증자·변경 시 필수 자료. 2020.7.1 개정 시행. 김용래세무사 02-991-0331">
+    <meta name="description" content="건설업체 기업진단지침 전문(건설업 관리규정 별지 2). 건설업 등록·신규·증자·변경·실태조사 시 필수 자료. 2020.7.1 개정 시행. 김용래세무사 02-991-0331">
     <meta name="keywords" content="건설업체 기업진단지침, 건설업 실질자본, 기업진단지침, 건설업 등록, 건설세무, 김용래세무사, 건설업 진단, 실질자본 계산">
     <meta name="author" content="김용래세무사사무소 기업진단센터">
     <meta name="robots" content="index, follow">
@@ -125,7 +129,7 @@ All Rights Reserved.
     <!-- Open Graph (SNS 공유) -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="건설업체 기업진단지침 | 김용래세무사사무소 기업진단센터">
-    <meta property="og:description" content="건설업 기업진단 전문 세무사. 건설업 자본금 평가 필수 자료 제공.">
+    <meta property="og:description" content="건설업 기업진단 전문 세무사. 건설업 자본금 진단 필수 자료 제공.">
     <meta property="og:url" content="https://kyrtax.co.kr/regulations.html">
     <meta property="og:site_name" content="김용래세무사사무소 기업진단센터">
     
@@ -1030,10 +1034,10 @@ All Rights Reserved.
                 white-space: nowrap !important;
             }
             
-            /* 3. 목차 높이 더 축소 (210px → 150px) */
+            /* 3. 목차 높이 (150px → 180px, 20% 증가) */
             .sidebar {
                 width: 100%;
-                height: 150px;
+                height: 180px;
                 border-right: none;
                 border-bottom: 1px solid #ddd;
                 margin-top: 0; /* 헤더와 목차 사이 여백 제거 */
@@ -1345,7 +1349,7 @@ All Rights Reserved.
     <!-- 헤더 -->
     <header>
         <h1>건설업체 기업진단지침</h1>
-        <p>건설업 관리규정 [별지 2] &lt;개정 2020.7.1.&gt; &lt;시행 2020.7.1.&gt; | v2.14.1 | 김용래세무사사무소 기업진단센터</p>
+        <p>건설업 관리규정 [별지 2] &lt;개정 2020.7.1.&gt; &lt;시행 2020.7.1.&gt; | v2.15.0 | 김용래세무사사무소 기업진단센터</p>
     </header>
 
     <!-- 메인 컨테이너 -->
@@ -2258,22 +2262,32 @@ All Rights Reserved.
         const scrollToTopBtn = document.getElementById('scrollToTop');
         
         function scrollToTop() {
-            // toolbar(검색창) 위치로 스크롤
-            const toolbar = document.querySelector('.toolbar');
-            if (toolbar) {
-                const toolbarPosition = toolbar.getBoundingClientRect().top + window.pageYOffset;
-                const headerHeight = window.innerWidth <= 768 ? 40 : 70;
-                
-                window.scrollTo({
-                    top: toolbarPosition - headerHeight - 10, // 헤더 + 여백 10px
-                    behavior: 'smooth'
-                });
-            } else {
-                // toolbar가 없으면 맨 위로
+            // 여러 방법으로 시도
+            try {
+                // 1. window 스크롤
                 window.scrollTo({
                     top: 0,
+                    left: 0,
                     behavior: 'smooth'
                 });
+                
+                // 2. document 스크롤
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+                
+                // 3. sidebar 스크롤도 초기화 (모바일 목차)
+                const sidebar = document.querySelector('.sidebar');
+                if (sidebar) {
+                    sidebar.scrollTop = 0;
+                }
+                
+                // 4. content-area 스크롤도 초기화
+                const contentArea = document.querySelector('.content-area');
+                if (contentArea) {
+                    contentArea.scrollTop = 0;
+                }
+            } catch (error) {
+                console.error('scrollToTop 오류:', error);
             }
         }
         
