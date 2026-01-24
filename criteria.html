@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 *******************************************************************************
-* 건설업 등록 가이드 v5.10.3
+* 건설업 등록 가이드 v5.10.5
 * Copyright (c) 2025 김용래세무사사무소 기업진단센터
 * All Rights Reserved.
 *******************************************************************************
@@ -1161,24 +1161,28 @@
             
             /* 서류 목록 */
             .document-item {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px;
+                flex-direction: row !important;  /* 가로 배치 - 숫자와 제목 같은 줄 */
+                gap: 12px !important;
+                padding: 12px !important;
+                align-items: flex-start !important;
             }
             
             .document-number {
                 width: 35px;
                 height: 35px;
                 font-size: 16px;
+                flex-shrink: 0 !important;
             }
             
             .document-content {
                 width: 100% !important;
+                flex: 1 !important;
             }
             
             .document-content h3 {
-                font-size: 16px;
-                margin-bottom: 10px !important;
+                font-size: 15px !important;
+                margin-bottom: 8px !important;
+                margin-top: 0 !important;
             }
             
             .document-content p {
@@ -1207,7 +1211,7 @@
             .document-content > div[style*="flex"] > div[style*="flex-shrink"] {
                 flex-direction: column !important;
                 gap: 8px !important;
-                margin-top: 15px !important;
+                margin-top: 12px !important;
             }
             
             /* 다운로드 버튼 */
@@ -1319,7 +1323,7 @@
             }
             
             .container {
-                padding: 15px 10px 20px 10px;
+                padding: 8px 0px 20px 0px !important;  /* 좌우 여백 0 */
             }
             
             .page-header {
@@ -1336,7 +1340,7 @@
             }
             
             .tab-content {
-                padding: 20px 10px;
+                padding: 15px 8px !important;  /* 상단 간격 줄이고 좌우 최소화 */
             }
             
             /* 모바일 테이블 */
@@ -1916,7 +1920,7 @@
                                     <div style="flex: 1; padding-right: 20px;">
                                         <p style="word-break: keep-all;">
                                         • 신분증 (대리인 방문 시: 위임장, 대리인 신분증)<br>
-                                        • <a href="https://www.gov.kr/portal/service/serviceInfo/PTR000050557" target="_blank" style="color: #667eea; text-decoration: none;">법인 인감증명서</a> 원본 <span style="color: #888;">(개인 - 개인 인감증명서 원본)</span><br>
+                                        • <a href="https://www.gov.kr" target="_blank" style="color: #667eea; text-decoration: none;">법인 인감증명서</a> 원본 <span style="color: #888;">(개인 - <a href="https://www.gov.kr" target="_blank" style="color: #667eea; text-decoration: none;">개인 인감증명서</a> 원본)</span><br>
                                         • <a href="https://www.hometax.go.kr" target="_blank" style="color: #667eea; text-decoration: none;">사업자등록증</a> 사본<br>
                                         • <a href="https://www.iros.go.kr" target="_blank" style="color: #667eea; text-decoration: none;">법인 등기사항증명서</a> (말소사항 포함)<br>
                                         • 대표자 및 임원명단<br>
@@ -2005,7 +2009,7 @@
                                         <p>• 건설공사용 시설·장비의 보유현황표 (별지 제22호 서식)<br>
                                         • 장비별 사진<br>
                                         • 장비 구매 세금계산서 등 사본<br>
-                                        • <a href="https://www.gov.kr/portal/service/serviceInfo/PTR000050513" target="_blank" style="color: #667eea; text-decoration: none;">건설기계 등록원부</a> (해당 장비)</p>
+                                        • <a href="https://www.gov.kr" target="_blank" style="color: #667eea; text-decoration: none;">건설기계 등록원부</a> (해당 장비)</p>
                                     </div>
                                     <div style="flex-shrink: 0; display: flex; gap: 6px;">
                                         <a href="files/별지제22호서식.pdf" download style="display: inline-block; padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 11px; font-weight: 600; text-decoration: none; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); transition: all 0.3s; white-space: nowrap;">
