@@ -1177,7 +1177,31 @@
             }
             
             .document-content p {
-                font-size: 14px;
+                font-size: 13px;
+                line-height: 1.8;
+            }
+            
+            /* 서류 버튼 모바일 최적화 */
+            .document-content > div {
+                flex-direction: column !important;
+                gap: 10px !important;
+            }
+            
+            .document-content > div > div:first-child {
+                padding-right: 0 !important;
+            }
+            
+            .document-content > div > div:last-child {
+                width: 100% !important;
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+            
+            .document-content a {
+                width: 100% !important;
+                text-align: center !important;
+                padding: 10px 15px !important;
+                font-size: 13px !important;
             }
             
             /* 절차 단계 */
@@ -2516,26 +2540,39 @@
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const hamburgerOverlay = document.getElementById('hamburgerOverlay');
         
-        function toggleMenu() {
+        function toggleMenu(e) {
+            if (e) e.stopPropagation();
             hamburgerBtn.classList.toggle('active');
             hamburgerMenu.classList.toggle('active');
             hamburgerOverlay.classList.toggle('active');
             document.body.style.overflow = hamburgerMenu.classList.contains('active') ? 'hidden' : '';
         }
         
+        function closeMenu(e) {
+            if (e) e.stopPropagation();
+            hamburgerBtn.classList.remove('active');
+            hamburgerMenu.classList.remove('active');
+            hamburgerOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
         hamburgerBtn.addEventListener('click', toggleMenu);
         
         // X 버튼 클릭
-        hamburgerClose.addEventListener('click', toggleMenu);
+        hamburgerClose.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeMenu();
+        });
         
         // 오버레이 클릭 시 메뉴 닫기
-        hamburgerOverlay.addEventListener('click', toggleMenu);
+        hamburgerOverlay.addEventListener('click', closeMenu);
         
         // 메뉴 항목 클릭 시 메뉴 닫기
         document.querySelectorAll('.hamburger-menu-item').forEach(item => {
             item.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
-                    toggleMenu();
+                    closeMenu();
                 }
             });
         });
