@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 *******************************************************************************
-* 건설업 등록 가이드 v5.10.1
+* 건설업 등록 가이드 v5.10.3
 * Copyright (c) 2025 김용래세무사사무소 기업진단센터
 * All Rights Reserved.
 *******************************************************************************
@@ -1172,8 +1172,13 @@
                 font-size: 16px;
             }
             
+            .document-content {
+                width: 100% !important;
+            }
+            
             .document-content h3 {
                 font-size: 16px;
+                margin-bottom: 10px !important;
             }
             
             .document-content p {
@@ -1181,27 +1186,37 @@
                 line-height: 1.8;
             }
             
-            /* 서류 버튼 모바일 최적화 */
-            .document-content > div {
+            /* 링크 간격 정상화 */
+            .document-content a {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* 서류 내부 레이아웃 세로 배치 */
+            .document-content > div[style*="flex"] {
                 flex-direction: column !important;
-                gap: 10px !important;
+                align-items: stretch !important;
             }
             
-            .document-content > div > div:first-child {
+            .document-content > div[style*="flex"] > div {
                 padding-right: 0 !important;
+                width: 100% !important;
             }
             
-            .document-content > div > div:last-child {
-                width: 100% !important;
+            /* 버튼 컨테이너 */
+            .document-content > div[style*="flex"] > div[style*="flex-shrink"] {
                 flex-direction: column !important;
                 gap: 8px !important;
+                margin-top: 15px !important;
             }
             
-            .document-content a {
+            /* 다운로드 버튼 */
+            .document-content > div[style*="flex"] > div[style*="flex-shrink"] a {
                 width: 100% !important;
                 text-align: center !important;
                 padding: 10px 15px !important;
                 font-size: 13px !important;
+                display: block !important;
             }
             
             /* 절차 단계 */
@@ -1892,7 +1907,6 @@
                 </div>
                 
                 <div class="content-section">
-                    <h2>제출 서류 안내</h2>
                     <div class="document-list">
                         <div class="document-item">
                             <div class="document-number">1</div>
