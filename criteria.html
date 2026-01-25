@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 *******************************************************************************
-* 건설업 등록 가이드 v5.10.5
+* 건설업 등록 가이드 v5.11.0
 * Copyright (c) 2025 김용래세무사사무소 기업진단센터
 * All Rights Reserved.
 *******************************************************************************
@@ -410,6 +410,20 @@
             font-size: 15px;
             color: #666;
             line-height: 1.8;
+        }
+        
+        /* 불릿 항목 들여쓰기 정렬 */
+        .document-content p,
+        .step-content p,
+        .info-box p {
+            word-break: keep-all;
+        }
+        
+        /* 불릿 라인 들여쓰기 스타일 */
+        .hanging-indent {
+            padding-left: 14px;
+            text-indent: -14px;
+            display: block;
         }
         
         /* 절차 단계 스타일 */
@@ -1161,10 +1175,11 @@
             
             /* 서류 목록 */
             .document-item {
-                flex-direction: row !important;  /* 가로 배치 - 숫자와 제목 같은 줄 */
-                gap: 12px !important;
+                flex-direction: column !important;
+                gap: 0 !important;
                 padding: 12px !important;
                 align-items: flex-start !important;
+                position: relative !important;
             }
             
             .document-number {
@@ -1172,17 +1187,21 @@
                 height: 35px;
                 font-size: 16px;
                 flex-shrink: 0 !important;
+                margin-bottom: 8px !important;
             }
             
             .document-content {
                 width: 100% !important;
                 flex: 1 !important;
+                padding-left: 0 !important;
             }
             
             .document-content h3 {
                 font-size: 15px !important;
-                margin-bottom: 8px !important;
-                margin-top: 0 !important;
+                margin-bottom: 12px !important;
+                margin-top: -43px !important;  /* 숫자 높이만큼 위로 */
+                margin-left: 47px !important;  /* 숫자 옆으로 */
+                line-height: 35px !important;  /* 숫자와 수직 정렬 */
             }
             
             .document-content p {
@@ -1335,8 +1354,8 @@
             }
             
             .tab-button {
-                padding: 15px 10px;
-                font-size: 16px;
+                padding: 12px 8px;  /* 15px → 12px 줄임 */
+                font-size: 15px;    /* 16px → 15px */
             }
             
             .tab-content {
@@ -1449,14 +1468,13 @@
                 <div class="tab-container">
                     <!-- 서브 탭 버튼 -->
                     <div class="tab-buttons">
-                        <button class="tab-button active" onclick="switchTab('general')">종합건설업 (5개)</button>
-                        <button class="tab-button" onclick="switchTab('specialized')">전문건설업 (14개)</button>
+                        <button class="tab-button active" onclick="switchTab('general')">종합건설업</button>
+                        <button class="tab-button" onclick="switchTab('specialized')">전문건설업</button>
                     </div>
             
             <!-- 종합건설업 탭 -->
             <div class="tab-content active" id="general-tab">
                 <div class="criteria-section">
-                    <h2>종합건설업 (5개 업종)</h2>
                     <div class="table-wrapper">
                         <table class="criteria-table">
                             <thead>
@@ -1530,7 +1548,6 @@
             <!-- 전문건설업 탭 -->
             <div class="tab-content" id="specialized-tab">
                 <div class="criteria-section">
-                    <h2>전문건설업 (14개 대업종)</h2>
                     <div class="table-wrapper">
                         <table class="criteria-table">
                             <thead>
@@ -1918,13 +1935,13 @@
                                 <h3 style="margin-bottom: 12px;">건설업 등록신청서</h3>
                                 <div style="display: flex; align-items: flex-start; width: 100%;">
                                     <div style="flex: 1; padding-right: 20px;">
-                                        <p style="word-break: keep-all;">
-                                        • 신분증 (대리인 방문 시: 위임장, 대리인 신분증)<br>
-                                        • <a href="https://www.gov.kr" target="_blank" style="color: #667eea; text-decoration: none;">법인 인감증명서</a> 원본 <span style="color: #888;">(개인 - <a href="https://www.gov.kr" target="_blank" style="color: #667eea; text-decoration: none;">개인 인감증명서</a> 원본)</span><br>
-                                        • <a href="https://www.hometax.go.kr" target="_blank" style="color: #667eea; text-decoration: none;">사업자등록증</a> 사본<br>
-                                        • <a href="https://www.iros.go.kr" target="_blank" style="color: #667eea; text-decoration: none;">법인 등기사항증명서</a> (말소사항 포함)<br>
-                                        • 대표자 및 임원명단<br>
-                                        • 다른 법률에 의한 등록업종 보유 시 신고·확인서 및 등록증 사본
+                                        <p style="word-break: keep-all; line-height: 2;">
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 신분증 (대리인 방문 시: 위임장, 대리인 신분증)</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• <a href="https://www.gov.kr" target="_blank" style="color: #667eea; text-decoration: none;">법인 인감증명서</a> 원본 <span style="color: #888;">(개인 - <a href="https://www.gov.kr" target="_blank" style="color: #667eea; text-decoration: none;">개인 인감증명서</a> 원본)</span></span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• <a href="https://www.hometax.go.kr" target="_blank" style="color: #667eea; text-decoration: none;">사업자등록증</a> 사본</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• <a href="https://www.iros.go.kr" target="_blank" style="color: #667eea; text-decoration: none;">법인 등기사항증명서</a> (말소사항 포함)</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 대표자 및 임원명단</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 다른 법률에 의한 등록업종 보유 시 신고·확인서 및 등록증 사본</span>
                                         </p>
                                     </div>
                                     <div style="flex-shrink: 0; display: flex; gap: 6px;">
@@ -1945,9 +1962,10 @@
                                 <h3 style="margin-bottom: 12px;">자본금 증빙서류</h3>
                                 <div style="display: flex; align-items: flex-start; width: 100%;">
                                     <div style="flex: 1; padding-right: 20px;">
-                                        <p>• 재무관리상태진단보고서 (세무사 등 발급)<br>
-                                        • 보증가능금액 확인서<br>
-                                        <span style="font-size: 13px; color: #666; margin-left: 10px;">- <a href="https://www.cgbest.co.kr" target="_blank" style="color: #667eea; text-decoration: none;">건설공제조합</a>, <a href="https://www.kfinco.co.kr" target="_blank" style="color: #667eea; text-decoration: none;">전문건설공제조합</a>, <a href="https://seolbi.com" target="_blank" style="color: #667eea; text-decoration: none;">기계설비건설공제조합</a>, <a href="https://www.sgic.co.kr" target="_blank" style="color: #667eea; text-decoration: none;">서울보증보험</a> 발급</span><br>
+                                        <p style="line-height: 2;">
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 재무관리상태진단보고서 (세무사 등 발급)</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 보증가능금액 확인서</span><br>
+                                        <span style="font-size: 13px; color: #666; margin-left: 10px; display: inline-block; padding-left: 14px; text-indent: -14px;">- <a href="https://www.cgbest.co.kr" target="_blank" style="color: #667eea; text-decoration: none;">건설공제조합</a>, <a href="https://www.kfinco.co.kr" target="_blank" style="color: #667eea; text-decoration: none;">전문건설공제조합</a>, <a href="https://seolbi.com" target="_blank" style="color: #667eea; text-decoration: none;">기계설비건설공제조합</a>, <a href="https://www.sgic.co.kr" target="_blank" style="color: #667eea; text-decoration: none;">서울보증보험</a> 발급</span><br>
                                         <span style="font-size: 13px; color: #e74c3c;">※ 가스·난방공사업은 자본금 증빙 불요</span></p>
                                     </div>
                                     <div style="flex-shrink: 0;">
@@ -1965,16 +1983,17 @@
                                 <h3 style="margin-bottom: 12px;">기술인력 증빙서류</h3>
                                 <div style="display: flex; align-items: flex-start; width: 100%;">
                                     <div style="flex: 1; padding-right: 20px;">
-                                        <p>• 건설기술인력 보유현황표 (별지 제21호 서식)<br>
-                                        • 건설기술경력증 또는 건설기술인 보유증명서 (원본대조필)<br>
-                                        <span style="font-size: 13px; color: #666; margin-left: 10px;">- <a href="http://kocea.or.kr" target="_blank" style="color: #667eea; text-decoration: none;">한국건설기술인협회</a> 발행</span><br>
-                                        • 국가기술자격증 사본 (원본대조필)<br>
-                                        <span style="font-size: 13px; color: #666; margin-left: 10px;">- <a href="https://www.q-net.or.kr" target="_blank" style="color: #667eea; text-decoration: none;">한국산업인력공단</a> 발행</span><br>
-                                        • 4대 사회보험 사업장 가입자 명부 (사업자용)<br>
-                                        <span style="font-size: 13px; color: #666; margin-left: 10px;">- <a href="https://www.4insure.or.kr" target="_blank" style="color: #667eea; text-decoration: none;">4insure.or.kr</a>에서 출력</span><br>
-                                        • 건설기술인 고용보험 피보험자격 내역 확인서 (개인별)<br>
-                                        <span style="font-size: 13px; color: #666; margin-left: 10px;">- <a href="https://www.comwel.or.kr" target="_blank" style="color: #667eea; text-decoration: none;">근로복지공단</a> 1588-0075 문의</span><br>
-                                        <span style="font-size: 13px; color: #666; margin-left: 10px;">- 대표자 본인 또는 가족인 경우에도 제출 (가족은 주민등록표 등본 추가)</span></p>
+                                        <p style="line-height: 2;">
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 건설기술인력 보유현황표 (별지 제21호 서식)</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 건설기술경력증 또는 건설기술인 보유증명서 (원본대조필)</span><br>
+                                        <span style="font-size: 13px; color: #666; margin-left: 10px; display: inline-block; padding-left: 14px; text-indent: -14px;">- <a href="http://kocea.or.kr" target="_blank" style="color: #667eea; text-decoration: none;">한국건설기술인협회</a> 발행</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 국가기술자격증 사본 (원본대조필)</span><br>
+                                        <span style="font-size: 13px; color: #666; margin-left: 10px; display: inline-block; padding-left: 14px; text-indent: -14px;">- <a href="https://www.q-net.or.kr" target="_blank" style="color: #667eea; text-decoration: none;">한국산업인력공단</a> 발행</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 4대 사회보험 사업장 가입자 명부 (사업자용)</span><br>
+                                        <span style="font-size: 13px; color: #666; margin-left: 10px; display: inline-block; padding-left: 14px; text-indent: -14px;">- <a href="https://www.4insure.or.kr" target="_blank" style="color: #667eea; text-decoration: none;">4insure.or.kr</a>에서 출력</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 건설기술인 고용보험 피보험자격 내역 확인서 (개인별)</span><br>
+                                        <span style="font-size: 13px; color: #666; margin-left: 10px; display: inline-block; padding-left: 14px; text-indent: -14px;">- <a href="https://www.comwel.or.kr" target="_blank" style="color: #667eea; text-decoration: none;">근로복지공단</a> 1588-0075 문의</span><br>
+                                        <span style="font-size: 13px; color: #666; margin-left: 10px; display: inline-block; padding-left: 14px; text-indent: -14px;">- 대표자 본인 또는 가족인 경우에도 제출 (가족은 주민등록표 등본 추가)</span></p>
                                     </div>
                                     <div style="flex-shrink: 0; display: flex; gap: 6px;">
                                         <a href="files/별지제21호서식.pdf" download style="display: inline-block; padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 11px; font-weight: 600; text-decoration: none; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); transition: all 0.3s; white-space: nowrap;">
@@ -1992,10 +2011,11 @@
                             <div class="document-number">4</div>
                             <div class="document-content">
                                 <h3 style="margin-bottom: 12px;">사무실 입증서류</h3>
-                                <p>• <a href="https://www.iros.go.kr" target="_blank" style="color: #667eea; text-decoration: none;">건물 등기사항증명서</a>, <a href="https://www.eais.go.kr" target="_blank" style="color: #667eea; text-decoration: none;">건축물대장</a><br>
-                                • 임대차 계약서 사본<br>
-                                • 사무실 내·외부 사진 (책상, 통신장비 촬영)<br>
-                                • 건물 외부 사진 (간판 보이도록 촬영)<br>
+                                <p style="line-height: 2;">
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• <a href="https://www.iros.go.kr" target="_blank" style="color: #667eea; text-decoration: none;">건물 등기사항증명서</a>, <a href="https://www.eais.go.kr" target="_blank" style="color: #667eea; text-decoration: none;">건축물대장</a></span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 임대차 계약서 사본</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 사무실 내·외부 사진 (책상, 통신장비 촬영)</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 건물 외부 사진 (간판 보이도록 촬영)</span><br>
                                 <span style="font-size: 13px; color: #e74c3c;">※ 유의사항: 주거용, 공유오피스, 산업단지 내 지식산업센터 등은 사무실 불인정</span></p>
                             </div>
                         </div>
@@ -2006,10 +2026,11 @@
                                 <h3 style="margin-bottom: 12px;">장비 증빙서류 (해당 업종만)</h3>
                                 <div style="display: flex; align-items: flex-start; width: 100%;">
                                     <div style="flex: 1; padding-right: 20px;">
-                                        <p>• 건설공사용 시설·장비의 보유현황표 (별지 제22호 서식)<br>
-                                        • 장비별 사진<br>
-                                        • 장비 구매 세금계산서 등 사본<br>
-                                        • <a href="https://www.gov.kr" target="_blank" style="color: #667eea; text-decoration: none;">건설기계 등록원부</a> (해당 장비)</p>
+                                        <p style="line-height: 2;">
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 건설공사용 시설·장비의 보유현황표 (별지 제22호 서식)</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 장비별 사진</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 장비 구매 세금계산서 등 사본</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• <a href="https://www.gov.kr" target="_blank" style="color: #667eea; text-decoration: none;">건설기계 등록원부</a> (해당 장비)</span></p>
                                     </div>
                                     <div style="flex-shrink: 0; display: flex; gap: 6px;">
                                         <a href="files/별지제22호서식.pdf" download style="display: inline-block; padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 11px; font-weight: 600; text-decoration: none; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); transition: all 0.3s; white-space: nowrap;">
@@ -2026,11 +2047,11 @@
                     
                     <div class="info-box">
                         <h3>💡 중요 안내사항</h3>
-                        <p style="line-height: 1.8;">
-                        • <strong>서류 유효기간:</strong> 제출일 기준 1개월 이내 발급분<br>
-                        • <strong>원본대조필:</strong> 사본 제출 시 "원본과 틀림없음" 확인 필요<br>
-                        • <strong>개인사업자:</strong> 공동대표자로 건설업 등록 불가<br>
-                        • 업종 또는 등록관청에 따라 추가 서류가 필요할 수 있습니다.
+                        <p style="line-height: 2;">
+                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• <strong>서류 유효기간:</strong> 제출일 기준 1개월 이내 발급분</span><br>
+                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• <strong>원본대조필:</strong> 사본 제출 시 "원본과 틀림없음" 확인 필요</span><br>
+                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• <strong>개인사업자:</strong> 공동대표자로 건설업 등록 불가</span><br>
+                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 업종 또는 등록관청에 따라 추가 서류가 필요할 수 있습니다.</span>
                         </p>
                     </div>
                 </div>
@@ -2143,7 +2164,7 @@
                                                 </label>
                                             </div>
                                             <div class="checkbox-section">
-                                                <strong>전문건설업 (14개)</strong>
+                                                <strong>전문건설업</strong>
                                                 <label class="checkbox-label">
                                                     <input type="checkbox" name="industry" value="지반조성·포장공사업" onchange="updateMainFieldOptions()">
                                                     1. 지반조성·포장공사업
@@ -2467,9 +2488,10 @@
                             <div class="step-number">STEP 1</div>
                             <div class="step-content">
                                 <h3>등록 요건 확인</h3>
-                                <p>• 자본금, 기술능력, 시설장비 요건 확인<br>
-                                • 등록하고자 하는 업종 결정<br>
-                                • 필요 서류 목록 확인</p>
+                                <p style="line-height: 2;">
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 자본금, 기술능력, 시설장비 요건 확인</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 등록하고자 하는 업종 결정</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 필요 서류 목록 확인</span></p>
                             </div>
                         </div>
                         
@@ -2479,12 +2501,13 @@
                             <div class="step-number">STEP 2</div>
                             <div class="step-content">
                                 <h3>서류 준비</h3>
-                                <p>• 자본금 증명서류 준비<br>
-                                <span style="margin-left: 15px;">- 재무관리상태진단보고서 (세무사 등 발급)</span><br>
-                                <span style="margin-left: 15px;">- 보증가능금액 확인서</span><br>
-                                • 건설기술인 채용 및 경력증명서 확보<br>
-                                • 시설·장비 확보 (해당 업종)<br>
-                                • 기타 필요 서류 준비</p>
+                                <p style="line-height: 2;">
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 자본금 증명서류 준비</span><br>
+                                <span style="margin-left: 15px; display: inline-block; padding-left: 14px; text-indent: -14px;">- 재무관리상태진단보고서 (세무사 등 발급)</span><br>
+                                <span style="margin-left: 15px; display: inline-block; padding-left: 14px; text-indent: -14px;">- 보증가능금액 확인서</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 건설기술인 채용 및 경력증명서 확보</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 시설·장비 확보 (해당 업종)</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 기타 필요 서류 준비</span></p>
                             </div>
                         </div>
                         
@@ -2494,12 +2517,13 @@
                             <div class="step-number">STEP 3</div>
                             <div class="step-content">
                                 <h3>등록 신청</h3>
-                                <p>• 건설업 등록신청서 및 구비서류 제출 (관할 등록관청 방문 또는 온라인 신청)<br>
-                                • 수수료 납부<br>
-                                <span style="margin-left: 15px; font-size: 13px;">- 토목공사업, 건축공사업, 조경공사업: <strong>6만원</strong></span><br>
-                                <span style="margin-left: 15px; font-size: 13px;">- 토목건축공사업, 산업·환경설비공사업: <strong>9만원</strong></span><br>
-                                <span style="margin-left: 15px; font-size: 13px;">- 전문공사업 (가스·난방공사업 제외): <strong>2만원</strong></span><br>
-                                <span style="margin-left: 15px; font-size: 13px;">- 가스·난방공사업: <strong>1만원</strong></span></p>
+                                <p style="line-height: 2;">
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 건설업 등록신청서 및 구비서류 제출 (관할 등록관청 방문 또는 온라인 신청)</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 수수료 납부</span><br>
+                                <span style="margin-left: 15px; font-size: 13px; display: inline-block; padding-left: 14px; text-indent: -14px;">- 토목공사업, 건축공사업, 조경공사업: <strong>6만원</strong></span><br>
+                                <span style="margin-left: 15px; font-size: 13px; display: inline-block; padding-left: 14px; text-indent: -14px;">- 토목건축공사업, 산업·환경설비공사업: <strong>9만원</strong></span><br>
+                                <span style="margin-left: 15px; font-size: 13px; display: inline-block; padding-left: 14px; text-indent: -14px;">- 전문공사업 (가스·난방공사업 제외): <strong>2만원</strong></span><br>
+                                <span style="margin-left: 15px; font-size: 13px; display: inline-block; padding-left: 14px; text-indent: -14px;">- 가스·난방공사업: <strong>1만원</strong></span></p>
                             </div>
                         </div>
                         
@@ -2509,10 +2533,11 @@
                             <div class="step-number">STEP 4</div>
                             <div class="step-content">
                                 <h3>심사 및 확인</h3>
-                                <p>• 제출 서류 검토<br>
-                                • 요건 충족 여부 확인<br>
-                                • 보완 서류 요청 (필요시)<br>
-                                • 심사 기간: 약 7~10일 (최장 20일)</p>
+                                <p style="line-height: 2;">
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 제출 서류 검토</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 요건 충족 여부 확인</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 보완 서류 요청 (필요시)</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 심사 기간: 약 7~10일 (최장 20일)</span></p>
                             </div>
                         </div>
                         
@@ -2522,11 +2547,12 @@
                             <div class="step-number">STEP 5</div>
                             <div class="step-content">
                                 <h3>등록증 발급</h3>
-                                <p>• 건설업 등록증 발급<br>
-                                • 등록증 수령 (방문 또는 우편)<br>
-                                <span style="margin-left: 15px; font-size: 13px; color: #666;">- 등록면허세 납부확인서</span><br>
-                                <span style="margin-left: 15px; font-size: 13px; color: #666;">- 국민주택채권 영수증 (자본금의 0.2%)</span><br>
-                                • 건설업 영업 개시 가능</p>
+                                <p style="line-height: 2;">
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 건설업 등록증 발급</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 등록증 수령 (방문 또는 우편)</span><br>
+                                <span style="margin-left: 15px; font-size: 13px; color: #666; display: inline-block; padding-left: 14px; text-indent: -14px;">- 등록면허세 납부확인서</span><br>
+                                <span style="margin-left: 15px; font-size: 13px; color: #666; display: inline-block; padding-left: 14px; text-indent: -14px;">- 국민주택채권 영수증 (자본금의 0.2%)</span><br>
+                                <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 건설업 영업 개시 가능</span></p>
                             </div>
                         </div>
                     </div>
@@ -2540,10 +2566,10 @@
                     
                     <div class="info-box" style="margin-top: 20px;">
                         <h3>📞 문의처</h3>
-                        <p><strong style="color: #f59e0b;">▸ 종합건설업</strong><br>
-                        <span style="margin-left: 10px;">• 관할 대한건설협회 시도회, 시·도 건설업 등록 담당부서</span><br>
+                        <p style="line-height: 1.8;"><strong style="color: #f59e0b;">▸ 종합건설업</strong><br>
+                        <span style="margin-left: 10px; padding-left: 12px; text-indent: -12px; display: inline-block;">• 관할 대한건설협회 시도회, 시·도 건설업 등록 담당부서</span><br>
                         <strong style="color: #f59e0b;">▸ 전문건설업</strong><br>
-                        <span style="margin-left: 10px;">• 관할 시·군·구청 건설업 등록 담당부서</span></p>
+                        <span style="margin-left: 10px; padding-left: 12px; text-indent: -12px; display: inline-block;">• 관할 시·군·구청 건설업 등록 담당부서</span></p>
                     </div>
                 </div>
             </div>
