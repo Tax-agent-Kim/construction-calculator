@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 *******************************************************************************
-* 건설업 등록 가이드 v5.12.0
+* 건설업 등록 가이드 v5.12.2
 * Copyright (c) 2025 김용래세무사사무소 기업진단센터
 * All Rights Reserved.
 *******************************************************************************
@@ -278,10 +278,55 @@
         .main-tab-content {
             display: none;
             padding: 30px;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
         
         .main-tab-content.active {
             display: block;
+            animation: slideIn 0.3s ease forwards;
+        }
+        
+        .main-tab-content.slide-out-left {
+            animation: slideOutLeft 0.3s ease forwards;
+        }
+        
+        .main-tab-content.slide-out-right {
+            animation: slideOutRight 0.3s ease forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideOutLeft {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(50px);
+            }
         }
         
         .section-header {
@@ -2629,26 +2674,42 @@
         });
         
         // 메인 탭 전환
-        function switchMainTab(tabName) {
+        function switchMainTab(tabName, direction = 'none') {
             // 모든 메인 탭 버튼 비활성화
             const mainTabButtons = document.querySelectorAll('.main-tab-button');
             mainTabButtons.forEach(btn => btn.classList.remove('active'));
             
+            // 현재 활성화된 탭 찾기
+            const currentActiveTab = document.querySelector('.main-tab-content.active');
+            
             // 모든 메인 탭 콘텐츠 숨김
             const mainTabContents = document.querySelectorAll('.main-tab-content');
-            mainTabContents.forEach(content => content.classList.remove('active'));
+            mainTabContents.forEach(content => {
+                content.classList.remove('active', 'slide-out-left', 'slide-out-right');
+            });
+            
+            // 방향에 따라 애니메이션 클래스 추가
+            if (currentActiveTab && direction !== 'none') {
+                if (direction === 'left') {
+                    currentActiveTab.classList.add('slide-out-left');
+                } else if (direction === 'right') {
+                    currentActiveTab.classList.add('slide-out-right');
+                }
+            }
             
             // 선택한 메인 탭 활성화
-            if (tabName === 'criteria') {
-                mainTabButtons[0].classList.add('active');
-                document.getElementById('criteria-main-tab').classList.add('active');
-            } else if (tabName === 'documents') {
-                mainTabButtons[1].classList.add('active');
-                document.getElementById('documents-main-tab').classList.add('active');
-            } else if (tabName === 'procedure') {
-                mainTabButtons[2].classList.add('active');
-                document.getElementById('procedure-main-tab').classList.add('active');
-            }
+            setTimeout(() => {
+                if (tabName === 'criteria') {
+                    mainTabButtons[0].classList.add('active');
+                    document.getElementById('criteria-main-tab').classList.add('active');
+                } else if (tabName === 'documents') {
+                    mainTabButtons[1].classList.add('active');
+                    document.getElementById('documents-main-tab').classList.add('active');
+                } else if (tabName === 'procedure') {
+                    mainTabButtons[2].classList.add('active');
+                    document.getElementById('procedure-main-tab').classList.add('active');
+                }
+            }, direction !== 'none' ? 100 : 0);
         }
         
         // 서브 탭 전환 (등록기준 내부)
@@ -3054,6 +3115,7 @@
         let touchEndX = 0;
         let touchStartY = 0;
         let touchEndY = 0;
+        let touchStartElement = null;
         
         const mainTabContainer = document.querySelector('.main-tab-container');
         const tabOrder = ['criteria', 'documents', 'procedure'];
@@ -3068,16 +3130,25 @@
             const diffX = touchEndX - touchStartX;
             const diffY = Math.abs(touchEndY - touchStartY);
             
+            // 표 안에서 터치 시작했으면 무시
+            if (touchStartElement && (
+                touchStartElement.closest('.table-wrapper') || 
+                touchStartElement.closest('.criteria-table') ||
+                touchStartElement.closest('table')
+            )) {
+                return;
+            }
+            
             // 세로 스크롤이 아니고, 가로 스와이프가 충분히 큰 경우만
             if (Math.abs(diffX) > 50 && diffY < 80) {
                 const currentIndex = getCurrentTabIndex();
                 
                 if (diffX > 0 && currentIndex > 0) {
-                    // 오른쪽으로 스와이프 → 이전 탭
-                    switchMainTab(tabOrder[currentIndex - 1]);
+                    // 오른쪽으로 스와이프 → 이전 탭 (왼쪽으로 이동)
+                    switchMainTab(tabOrder[currentIndex - 1], 'right');
                 } else if (diffX < 0 && currentIndex < tabOrder.length - 1) {
-                    // 왼쪽으로 스와이프 → 다음 탭
-                    switchMainTab(tabOrder[currentIndex + 1]);
+                    // 왼쪽으로 스와이프 → 다음 탭 (왼쪽으로 슬라이드)
+                    switchMainTab(tabOrder[currentIndex + 1], 'left');
                 }
             }
         }
@@ -3086,6 +3157,7 @@
         mainTabContainer.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
             touchStartY = e.changedTouches[0].screenY;
+            touchStartElement = e.target;
         }, { passive: true });
         
         mainTabContainer.addEventListener('touchend', (e) => {
