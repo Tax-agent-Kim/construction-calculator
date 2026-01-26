@@ -3,11 +3,16 @@
 ====================================================================
 파일명: regulations.html
 제목: 건설업체 기업진단지침
-버전: v2.15.0
-최종 수정일: 2025-01-13
+버전: v2.16.0
+최종 수정일: 2025-01-27
 ====================================================================
 
 [변경 이력]
+v2.16.0 (2025-01-27)
+- 모바일 전용 목차 접기/펼치기 기능 추가
+- 토글 버튼으로 조문목록 숨김/표시 가능
+- 접힌 상태: 헤더만 50px, 펼친 상태: 전체 180px
+
 v2.15.0 (2025-01-13)
 - 위로 가기 버튼 수정: 절대 최상단(0) + 모든 스크롤 초기화
 - 모바일 목차 높이 20% 증가 (150px → 180px)
@@ -177,13 +182,36 @@ All Rights Reserved.
             overflow-y: auto;
             padding: 20px 0;
         }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
 
         .sidebar h2 {
-            padding: 10px 20px;
+            padding: 10px 0;
             font-size: 16px;
             color: #333;
             border-bottom: 2px solid #666;
             margin-bottom: 10px;
+            flex: 1;
+        }
+        
+        .sidebar-toggle {
+            display: none; /* PC에서는 숨김 */
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px 10px;
+            color: #333;
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar-toggle.collapsed {
+            transform: rotate(-90deg);
         }
 
         /* 검색창 */
@@ -1034,13 +1062,33 @@ All Rights Reserved.
                 white-space: nowrap !important;
             }
             
-            /* 3. 목차 높이 (150px → 180px, 20% 증가) */
+            /* 3. 목차 높이 및 접기 기능 */
             .sidebar {
                 width: 100%;
-                height: 180px;
+                height: auto; /* 180px에서 auto로 변경 */
+                max-height: 180px;
                 border-right: none;
                 border-bottom: 1px solid #ddd;
-                margin-top: 0; /* 헤더와 목차 사이 여백 제거 */
+                margin-top: 0;
+                transition: max-height 0.3s ease;
+                overflow: hidden;
+            }
+            
+            .sidebar.collapsed {
+                max-height: 50px; /* 헤더만 보이는 높이 */
+            }
+            
+            .sidebar-toggle {
+                display: block !important; /* 모바일에서만 표시 */
+            }
+            
+            #sidebarContent {
+                transition: opacity 0.3s ease;
+            }
+            
+            .sidebar.collapsed #sidebarContent {
+                opacity: 0;
+                pointer-events: none;
             }
             
             /* 4. 목차 조문 줄간격 축소 */
@@ -1352,16 +1400,21 @@ All Rights Reserved.
     <!-- 헤더 -->
     <header>
         <h1>건설업체 기업진단지침</h1>
-        <p>건설업 관리규정 [별지 2] &lt;개정 2020.7.1.&gt; &lt;시행 2020.7.1.&gt; | v2.15.0 | 김용래세무사사무소 기업진단센터</p>
+        <p>건설업 관리규정 [별지 2] &lt;개정 2020.7.1.&gt; &lt;시행 2020.7.1.&gt; | v2.16.0 | 김용래세무사사무소 기업진단센터</p>
     </header>
 
     <!-- 메인 컨테이너 -->
     <div class="main-container">
         <!-- 좌측 사이드바 -->
         <aside class="sidebar">
-            <h2>목차</h2>
+            <div class="sidebar-header">
+                <h2>목차</h2>
+                <button class="sidebar-toggle show-on-mobile" onclick="toggleSidebar()">
+                    <span id="toggleIcon">▼</span>
+                </button>
+            </div>
             
-            <ul class="tree-menu">
+            <ul class="tree-menu" id="sidebarContent">
                 <li class="tree-chapter" onclick="toggleChapter('chapter1')">
                     제1장 총칙(1~11)
                 </li>
@@ -2450,6 +2503,22 @@ All Rights Reserved.
             
             chapter.classList.toggle('hidden');
             chapterItem.classList.toggle('collapsed');
+        }
+        
+        // 사이드바 접기/펼치기 (모바일 전용)
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleIcon = document.getElementById('toggleIcon');
+            const toggleBtn = document.querySelector('.sidebar-toggle');
+            
+            sidebar.classList.toggle('collapsed');
+            toggleBtn.classList.toggle('collapsed');
+            
+            if (sidebar.classList.contains('collapsed')) {
+                toggleIcon.textContent = '▶'; // 접힌 상태
+            } else {
+                toggleIcon.textContent = '▼'; // 펼쳐진 상태
+            }
         }
 
         // 조문으로 스크롤
