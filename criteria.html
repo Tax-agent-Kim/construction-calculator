@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 *******************************************************************************
-* 건설업 등록 가이드 v5.12.2
+* 건설업 등록 가이드 v5.13.0
 * Copyright (c) 2025 김용래세무사사무소 기업진단센터
 * All Rights Reserved.
 *******************************************************************************
@@ -246,7 +246,30 @@
             overflow: hidden;
         }
         
-        .main-tab-buttons {
+        /* 슬라이더 래퍼 */
+        .tabs-slider-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tabs-slider {
+            display: flex;
+            transition: transform 0.3s ease-out;
+            will-change: transform;
+        }
+        
+        .main-tab-content {
+            flex: 0 0 100%;
+            width: 100%;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        
+        .main-tab-content.active {
+            /* active 클래스는 인덱스 추적용으로만 사용 */
+        }
+        
+        .section-header {
             display: flex;
             border-bottom: 3px solid #e0e0e0;
             background: #f8f9fa;
@@ -273,60 +296,6 @@
             color: #667eea;
             border-bottom-color: #667eea;
             background: white;
-        }
-        
-        .main-tab-content {
-            display: none;
-            padding: 30px;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        
-        .main-tab-content.active {
-            display: block;
-            animation: slideIn 0.3s ease forwards;
-        }
-        
-        .main-tab-content.slide-out-left {
-            animation: slideOutLeft 0.3s ease forwards;
-        }
-        
-        .main-tab-content.slide-out-right {
-            animation: slideOutRight 0.3s ease forwards;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideOutLeft {
-            from {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-        }
-        
-        @keyframes slideOutRight {
-            from {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(50px);
-            }
         }
         
         .section-header {
@@ -1502,6 +1471,10 @@
                 <button class="main-tab-button" onclick="switchMainTab('procedure')">건설업 등록 절차</button>
             </div>
             
+            <!-- 슬라이더 래퍼 -->
+            <div class="tabs-slider-wrapper">
+                <div class="tabs-slider" id="tabsSlider">
+            
             <!-- 건설업 등록기준 탭 -->
             <div class="main-tab-content active" id="criteria-main-tab">
                 <div class="section-header">
@@ -2618,8 +2591,11 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+            
+                </div><!-- tabs-slider 끝 -->
+            </div><!-- tabs-slider-wrapper 끝 -->
+        </div><!-- main-tab-container 끝 -->
+    </div><!-- container 끝 -->
     </div>
     
     <script>
@@ -2674,42 +2650,28 @@
         });
         
         // 메인 탭 전환
-        function switchMainTab(tabName, direction = 'none') {
-            // 모든 메인 탭 버튼 비활성화
+        function switchMainTab(tabName, animated = false) {
+            const tabOrder = ['criteria', 'documents', 'procedure'];
+            const targetIndex = tabOrder.indexOf(tabName);
+            
+            if (targetIndex === -1) return;
+            
+            // 버튼 활성화
             const mainTabButtons = document.querySelectorAll('.main-tab-button');
-            mainTabButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // 현재 활성화된 탭 찾기
-            const currentActiveTab = document.querySelector('.main-tab-content.active');
-            
-            // 모든 메인 탭 콘텐츠 숨김
-            const mainTabContents = document.querySelectorAll('.main-tab-content');
-            mainTabContents.forEach(content => {
-                content.classList.remove('active', 'slide-out-left', 'slide-out-right');
+            mainTabButtons.forEach((btn, index) => {
+                btn.classList.toggle('active', index === targetIndex);
             });
             
-            // 방향에 따라 애니메이션 클래스 추가
-            if (currentActiveTab && direction !== 'none') {
-                if (direction === 'left') {
-                    currentActiveTab.classList.add('slide-out-left');
-                } else if (direction === 'right') {
-                    currentActiveTab.classList.add('slide-out-right');
-                }
-            }
+            // 슬라이더 이동
+            const slider = document.getElementById('tabsSlider');
+            const offset = -targetIndex * 100;
+            slider.style.transform = `translateX(${offset}%)`;
             
-            // 선택한 메인 탭 활성화
-            setTimeout(() => {
-                if (tabName === 'criteria') {
-                    mainTabButtons[0].classList.add('active');
-                    document.getElementById('criteria-main-tab').classList.add('active');
-                } else if (tabName === 'documents') {
-                    mainTabButtons[1].classList.add('active');
-                    document.getElementById('documents-main-tab').classList.add('active');
-                } else if (tabName === 'procedure') {
-                    mainTabButtons[2].classList.add('active');
-                    document.getElementById('procedure-main-tab').classList.add('active');
-                }
-            }, direction !== 'none' ? 100 : 0);
+            // active 클래스 업데이트 (인덱스 추적용)
+            const mainTabContents = document.querySelectorAll('.main-tab-content');
+            mainTabContents.forEach((content, index) => {
+                content.classList.toggle('active', index === targetIndex);
+            });
         }
         
         // 서브 탭 전환 (등록기준 내부)
@@ -3144,11 +3106,11 @@
                 const currentIndex = getCurrentTabIndex();
                 
                 if (diffX > 0 && currentIndex > 0) {
-                    // 오른쪽으로 스와이프 → 이전 탭 (왼쪽으로 이동)
-                    switchMainTab(tabOrder[currentIndex - 1], 'right');
+                    // 오른쪽으로 스와이프 → 이전 탭
+                    switchMainTab(tabOrder[currentIndex - 1], true);
                 } else if (diffX < 0 && currentIndex < tabOrder.length - 1) {
-                    // 왼쪽으로 스와이프 → 다음 탭 (왼쪽으로 슬라이드)
-                    switchMainTab(tabOrder[currentIndex + 1], 'left');
+                    // 왼쪽으로 스와이프 → 다음 탭
+                    switchMainTab(tabOrder[currentIndex + 1], true);
                 }
             }
         }
