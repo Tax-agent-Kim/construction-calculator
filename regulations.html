@@ -1071,11 +1071,13 @@ All Rights Reserved.
                 border-bottom: 1px solid #ddd;
                 margin-top: 0;
                 transition: max-height 0.3s ease;
-                overflow: hidden;
+                overflow-y: auto; /* 스크롤 가능하도록 수정 */
+                overflow-x: hidden;
             }
             
             .sidebar.collapsed {
                 max-height: 50px; /* 헤더만 보이는 높이 */
+                overflow: hidden; /* 접힌 상태에서만 overflow hidden */
             }
             
             .sidebar-toggle {
