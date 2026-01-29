@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 *******************************************************************************
-* 건설업 등록 가이드 v5.31.0
+* 건설업 등록 가이드 v5.37.1
 * Copyright (c) 2025 김용래세무사사무소 기업진단센터
 * All Rights Reserved.
 *******************************************************************************
@@ -27,7 +27,15 @@
     <meta property="og:site_name" content="김용래세무사사무소 기업진단센터">
     
     <!-- html2pdf.js 라이브러리 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
+        // 출자좌수 모달 배경 클릭 닫기
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'sharesModal') {
+                closeSharesModal();
+            }
+        });
+
+    </script>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1448,6 +1456,7 @@
         .qual-table { width: 100%; border-collapse: collapse; }
         .qual-table th { background: #667eea; color: white; padding: 12px; font-size: 14px; }
         .qual-table td { padding: 9px 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px; line-height: 1.2; }
+        #sharesModal .qual-table th { padding: 8px 10px; }
         .qual-table td.field-name { font-weight: 600; color: #667eea; text-align: center; vertical-align: middle; }
         .qual-table tr.field-기계 { background: #E3F2FD; }
         .qual-table tr.field-토목 { background: #FFF3E0; }
@@ -2053,7 +2062,8 @@
                                     <div style="flex: 1; padding-right: 20px;">
                                         <p style="line-height: 2; margin: 0;">
                                         <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• <strong>재무관리상태진단보고서 (세무사 등 발급)</strong></span><br>
-                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 보증가능금액 확인서</span><br>
+                                        <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 보증가능금액 확인서 
+                                        <a href="#" onclick="openSharesModal(event)" class="qual-link" style="margin-left:8px;font-size:12px;">📊 출자예치금액(기준 좌수) 확인</a></span><br>
                                         <span style="font-size: 13px; color: #666; display: inline-block; padding-left: 28px; text-indent: -14px;">- <a href="https://www.cgbest.co.kr" target="_blank" style="color: #667eea; text-decoration: none;">건설공제조합</a>, <a href="https://www.kfinco.co.kr" target="_blank" style="color: #667eea; text-decoration: none;">전문건설공제조합</a>, <a href="https://seolbi.com" target="_blank" style="color: #667eea; text-decoration: none;">기계설비건설공제조합</a>, <a href="https://www.sgic.co.kr" target="_blank" style="color: #667eea; text-decoration: none;">서울보증보험</a> 발급</span><br>
                                         <span style="font-size: 13px; color: #e74c3c;">※ 가스·난방공사업은 자본금 증빙 불요</span></p>
                                     </div>
@@ -2591,7 +2601,8 @@
                                 <p style="line-height: 2;">
                                 <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 자본금 증명서류 준비</span><br>
                                 <span style="display: inline-block; padding-left: 28px; text-indent: -14px;">- <a href="https://naver.me/GIGoKo7Z" target="_blank" style="color: #667eea; text-decoration: none;"><strong>재무관리상태진단보고서 (세무사 등 발급)</strong></a></span><br>
-                                <span style="display: inline-block; padding-left: 28px; text-indent: -14px;">- 보증가능금액 확인서</span><br>
+                                <span style="display: inline-block; padding-left: 28px; text-indent: -14px;">- 보증가능금액 확인서 
+                                    <a href="#" onclick="openSharesModal(event)" class="qual-link" style="margin-left:8px;font-size:12px;">📊 출자예치금액(기준 좌수) 확인</a></span><br>
                                 <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 건설기술인 채용 및 경력증명서 확보</span><br>
                                 <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 시설·장비 확보 (해당 업종)</span><br>
                                 <span style="display: inline-block; padding-left: 14px; text-indent: -14px;">• 기타 필요 서류 준비</span></p>
@@ -3208,6 +3219,14 @@
             touchEndY = e.changedTouches[0].screenY;
             handleSwipe();
         }, { passive: true });
+    
+        // 출자좌수 모달 배경 클릭 닫기
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'sharesModal') {
+                closeSharesModal();
+            }
+        });
+
     </script>
 
     <!-- 기술자격 모달 -->
@@ -3249,6 +3268,69 @@
             </div>
         </div>
     </div>
+
+    <!-- 출자좌수 모달 -->
+    <div class="qual-modal-overlay" id="sharesModal">
+        <div class="qual-modal-container">
+            <div class="qual-modal-header">
+                <h2>출자예치금액 (기준 좌수) 확인</h2>
+                <button class="qual-modal-close" onclick="closeSharesModal()">✕</button>
+            </div>
+            <div class="qual-modal-body">
+                <div style="overflow-x:auto;max-height:550px;overflow-y:auto;">
+                    <h3 style="margin-top:0;color:#1976d2;font-size:16px;">종합건설업 (법인, 2025.10월 기준)</h3>
+                    <table class="qual-table" style="margin-bottom:8px;font-size:12px;"><colgroup><col style="width:110px;"><col style="width:200px;"><col style="width:80px;"><col style="width:70px;"><col style="width:110px;"><col style="width:70px;"><col style="width:110px;"></colgroup>
+                        <thead style="padding:8px 10px;">
+                            <tr>
+                                <th rowspan="2">구분</th><th rowspan="2">업종</th><th rowspan="2">법정<br>자본금</th>
+                                <th colspan="2">신용평가 D등급</th><th colspan="2">신용평가 C등급 이상</th>
+                            </tr>
+                            <tr>
+                                <th>기준좌수</th><th>예치금액</th><th>기준좌수</th><th>예치금액</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td rowspan="5" style="text-align:center;">종합건설업</td><td>토목공사업</td><td style="text-align:center;">5억원</td><td style="text-align:center;">131좌</td><td style="text-align:center;">205,722,400원</td><td style="text-align:center;">117좌</td><td style="text-align:center;">183,736,800원</td></tr>
+                            <tr><td>건축공사업</td><td style="text-align:center;">3.5억원</td><td style="text-align:center;">94좌</td><td style="text-align:center;">147,617,600원</td><td style="text-align:center;">83좌</td><td style="text-align:center;">130,343,200원</td></tr>
+                            <tr><td>토목건축공사업</td><td style="text-align:center;">8.5억원</td><td style="text-align:center;">225좌</td><td style="text-align:center;">353,340,000원</td><td style="text-align:center;">200좌</td><td style="text-align:center;">314,080,000원</td></tr>
+                            <tr><td>산업환경설비공사업</td><td style="text-align:center;">8.5억원</td><td style="text-align:center;">225좌</td><td style="text-align:center;">353,340,000원</td><td style="text-align:center;">200좌</td><td style="text-align:center;">314,080,000원</td></tr>
+                            <tr><td>조경공사업</td><td style="text-align:center;">5억원</td><td style="text-align:center;">131좌</td><td style="text-align:center;">205,722,400원</td><td style="text-align:center;">117좌</td><td style="text-align:center;">183,736,800원</td></tr>
+                        </tbody>
+                    </table>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin:5px 0 30px 0;">
+                        <div style="font-size:11px;color:#666;line-height:1.6;">
+                            <div>※ 종합건설업종 중복 보유 시, 해당 건설업 기준좌수 모두 보유 필요</div>
+                            <div>※ 개인사업자: 토목, 건축, 토목건축, 산업환경, 조경공사업은 법인의 2배 적용</div>
+                        </div>
+                        <div style="font-size:10px;color:#999;white-space:nowrap;padding-left:20px;">출처: 건설공제조합</div>
+                    </div>
+                    
+                    <h3 style="color:#1976d2;font-size:16px;">전문건설업 (법인, 2025.7월 기준)</h3>
+                    <table class="qual-table" style="font-size:12px;margin-bottom:8px;"><colgroup><col style="width:110px;"><col style="width:200px;"><col style="width:80px;"><col style="width:70px;"><col style="width:110px;"><col style="width:70px;"><col style="width:110px;"></colgroup>
+                        <thead>
+                            <tr>
+                                <th rowspan="2">구분</th><th rowspan="2">업종</th><th rowspan="2">법정<br>자본금</th>
+                                <th colspan="2">신용평가 C등급</th><th colspan="2">신용평가 CC등급 이상</th>
+                            </tr>
+                            <tr>
+                                <th>기준좌수</th><th>예치금액</th><th>기준좌수</th><th>예치금액</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td rowspan="3" style="text-align:center;">전문건설업</td><td>지반조성·포장공사업 외</td><td style="text-align:center;">1.5억원</td><td style="text-align:center;">53좌</td><td style="text-align:center;">50,418,582원</td><td style="text-align:center;">43좌</td><td style="text-align:center;">40,905,642원</td></tr>
+                            <tr><td>철도·궤도, 철강구조물공사업</td><td style="text-align:center;">1.5억원</td><td style="text-align:center;">53좌</td><td style="text-align:center;">50,418,582원</td><td style="text-align:center;">43좌</td><td style="text-align:center;">40,905,642원</td></tr>
+                            <tr><td>가스난방공사업</td><td style="text-align:center;">-</td><td style="text-align:center;">43좌</td><td style="text-align:center;">40,905,642원</td><td style="text-align:center;">43좌</td><td style="text-align:center;">40,905,642원</td></tr>
+                        </tbody>
+                    </table>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin:5px 0;">
+                        <div style="font-size:11px;color:#666;">※ 개인사업자: 철도궤도, 철강구조물공사업은 법인의 2배 적용</div>
+                        <div style="font-size:10px;color:#999;white-space:nowrap;padding-left:20px;">출처: 전문건설공제조합</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     
     <script>
         var qualDataRaw = {
@@ -3778,6 +3860,18 @@
             document.getElementById('qualModal').classList.remove('active');
             document.body.style.overflow = '';
         }
+
+        function openSharesModal(e) {
+            if (e) e.preventDefault();
+            document.getElementById('sharesModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeSharesModal() {
+            document.getElementById('sharesModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
         
         function loadQualifications() {
             var select = document.getElementById('industrySelect');
@@ -3906,6 +4000,14 @@
             html += '</tbody></table></div>';
             container.innerHTML = html;
         }
+
+    
+        // 출자좌수 모달 배경 클릭 닫기
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'sharesModal') {
+                closeSharesModal();
+            }
+        });
 
     </script>
 
