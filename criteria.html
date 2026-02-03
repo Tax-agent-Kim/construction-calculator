@@ -1053,46 +1053,6 @@
             background: #f8f8f8;
         }
         
-        /* 인쇄 시 스타일 */
-        @media print {
-            body {
-                margin: 0;
-                padding: 0;
-            }
-            
-            .print-view {
-                background: white;
-                padding: 0;
-                position: static;
-            }
-            
-            .print-container {
-                max-width: 100%;
-                box-shadow: none;
-                padding: 10mm 15mm;
-                margin: 0;
-            }
-            
-            .no-print {
-                display: none !important;
-            }
-            
-            /* 페이지 나누기 방지 */
-            .application-form-table {
-                page-break-inside: avoid;
-            }
-            
-            .signature-section {
-                page-break-inside: avoid;
-            }
-            
-            /* A4 용지 설정 */
-            @page {
-                size: A4;
-                margin: 10mm 15mm;
-            }
-        }
-        
         /* ========================================
            테이블 스타일
            ======================================== */
