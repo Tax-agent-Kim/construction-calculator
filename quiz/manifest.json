@@ -1,0 +1,24 @@
+{
+  "name": "행정사 1차 기출문제",
+  "short_name": "행정사 기출",
+  "description": "행정사 1차 시험 기출문제 학습 앱",
+  "start_url": "./quiz_v1.9.9.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%234f46e5' rx='20'/><text x='96' y='140' font-size='120' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>행</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%234f46e5' rx='50'/><text x='256' y='380' font-size='320' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>행</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
