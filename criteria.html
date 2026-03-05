@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 *******************************************************************************
-* 건설업 등록 가이드 v5.37.0
+* 건설업 등록 가이드 v5.38.0
 * Copyright (c) 2025 김용래세무사사무소 기업진단센터
 * All Rights Reserved.
 *******************************************************************************
@@ -11,6 +11,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>건설업 등록 가이드 | 김용래세무사사무소</title>
+    
+    <!-- 공통 메뉴 설정 로드 -->
+    <script src="menu-config.js"></script>
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="건설산업기본법 시행령 별표 2 기준. 건설업 등록기준 안내. 건설업 등록 완벽 가이드를 제공합니다. 김용래세무사사무소 기업진단센터">
@@ -1280,49 +1283,12 @@
     </style>
 </head>
 <body>
-    <!-- 햄버거 메뉴 -->
-    <div class="hamburger-container">
-        <div class="hamburger-header">
-            <a href="index.html" class="hamburger-logo">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <img src="gold.png" alt="김용래세무사사무소 기업진단센터" style="width: 32px; height: 32px; flex-shrink: 0;">
-                    <div style="font-size: 18px; font-weight: 700; color: #333; line-height: 1.3; word-break: keep-all;">
-                        김용래세무사사무소 기업진단센터
-                    </div>
-                </div>
-            </a>
-            <button class="hamburger-button" id="hamburgerBtn" aria-label="메뉴">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-        </div>
-    </div>
-    
-    <!-- 햄버거 오버레이 -->
-    <div class="hamburger-overlay" id="hamburgerOverlay"></div>
-    
-    <!-- 햄버거 메뉴 패널 -->
-    <nav class="hamburger-menu" id="hamburgerMenu">
-        <button class="hamburger-close-btn" id="hamburgerClose" aria-label="메뉴 닫기">✕</button>
-        <div class="hamburger-menu-content">
-            <a href="criteria.html" class="hamburger-menu-item active">
-                <span class="hamburger-menu-icon">📋</span>건설업 등록 가이드
-            </a>
-            <a href="index.html" class="hamburger-menu-item">
-                <span class="hamburger-menu-icon">🧮</span>건설업 실질자본 간이계산기
-            </a>
-            <a href="regulations.html" class="hamburger-menu-item">
-                <span class="hamburger-menu-icon">📊</span>건설업체 기업진단지침
-            </a>
-            <a href="qna.html" class="hamburger-menu-item">
-                <span class="hamburger-menu-icon">💬</span>Q&A 게시판
-            </a>
-            <a href="https://blog.naver.com/kyr_tax" class="hamburger-menu-item" target="_blank" rel="noopener noreferrer">
-                <span class="hamburger-menu-icon">📰</span>기업진단센터 블로그
-            </a>
-        </div>
-    </nav>
+    <!-- 햄버거 메뉴는 menu-config.js에서 자동 생성됩니다 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            renderHamburgerMenu('criteria');
+        });
+    </script>
     
     <!-- 메인 컨테이너 -->
     <div class="container">
@@ -2042,55 +2008,7 @@
     </div>
     
     <script>
-        // 햄버거 메뉴 토글
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
-        const hamburgerClose = document.getElementById('hamburgerClose');
-        const hamburgerMenu = document.getElementById('hamburgerMenu');
-        const hamburgerOverlay = document.getElementById('hamburgerOverlay');
-        
-        function toggleMenu(e) {
-            if (e) e.stopPropagation();
-            hamburgerBtn.classList.toggle('active');
-            hamburgerMenu.classList.toggle('active');
-            hamburgerOverlay.classList.toggle('active');
-            document.body.style.overflow = hamburgerMenu.classList.contains('active') ? 'hidden' : '';
-        }
-        
-        function closeMenu(e) {
-            if (e) e.stopPropagation();
-            hamburgerBtn.classList.remove('active');
-            hamburgerMenu.classList.remove('active');
-            hamburgerOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        
-        hamburgerBtn.addEventListener('click', toggleMenu);
-        
-        // X 버튼 클릭
-        hamburgerClose.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            closeMenu();
-        });
-        
-        // 오버레이 클릭 시 메뉴 닫기
-        hamburgerOverlay.addEventListener('click', closeMenu);
-        
-        // 메뉴 항목 클릭 시 메뉴 닫기
-        document.querySelectorAll('.hamburger-menu-item').forEach(item => {
-            item.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    closeMenu();
-                }
-            });
-        });
-        
-        // ESC 키로 메뉴 닫기
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
-                toggleMenu();
-            }
-        });
+        // 햄버거 메뉴는 menu-config.js에서 자동 처리됩니다
         
         // 메인 탭 전환
         function switchMainTab(tabName, animated = false) {
