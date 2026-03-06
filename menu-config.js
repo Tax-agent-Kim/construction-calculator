@@ -28,7 +28,7 @@ const MENU_CONFIG = {
         {
             icon: '🧮',
             text: '건설업 실질자본 간이계산기',
-            url: 'https://kyrtax.co.kr/index.html',
+            url: 'https://kyrtax.co.kr/calculator.html',
             id: 'calculator'
         },
         {
