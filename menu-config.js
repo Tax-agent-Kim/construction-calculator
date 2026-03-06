@@ -8,39 +8,45 @@ const MENU_CONFIG = {
     logo: {
         image: 'https://kyrtax.co.kr/gold.png',
         text: '김용래세무사사무소 기업진단센터',
-        homeUrl: 'https://kyrtax.co.kr/index.html'
+        homeUrl: 'index.html'
     },
     
     // 메뉴 항목 (순서대로 표시됨)
     menuItems: [
         {
+            icon: '🏠',
+            text: '홈',
+            url: 'index.html',
+            id: 'home'
+        },
+        {
             icon: '📋',
             text: '건설업 등록 가이드',
-            url: 'https://kyrtax.co.kr/criteria.html',
+            url: 'criteria.html',
             id: 'criteria'
         },
         {
             icon: '🏥',
             text: '건설업 기업진단 가이드',
-            url: 'https://kyrtax.co.kr/diagnosis-guide.html',
+            url: 'diagnosis-guide.html',
             id: 'diagnosis'
         },
         {
             icon: '🧮',
             text: '건설업 실질자본 간이계산기',
-            url: 'https://kyrtax.co.kr/calculator.html',
+            url: 'calculator.html',
             id: 'calculator'
         },
         {
             icon: '📊',
             text: '건설업체 기업진단지침',
-            url: 'https://kyrtax.co.kr/regulations.html',
+            url: 'regulations.html',
             id: 'regulations'
         },
         {
             icon: '💬',
             text: 'Q&A 게시판',
-            url: 'https://kyrtax.co.kr/qna.html',
+            url: 'qna.html',
             id: 'qna'
         },
         {
