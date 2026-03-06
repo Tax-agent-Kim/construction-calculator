@@ -199,6 +199,16 @@
             cursor: not-allowed;
         }
         
+        @media (max-width: 768px) {
+            .refresh-btn {
+                display: none;
+            }
+            
+            .news-preview-meta {
+                display: none;
+            }
+        }
+        
         .loading-spinner {
             text-align: center;
             padding: 30px;
@@ -411,30 +421,41 @@
 
     <script>
         let isRefreshing = false;
+        let allNewsItems = [];
+        let touchStartY = 0;
+        let touchEndY = 0;
         
-        async function loadNewsPreview() {
+        async function loadNewsPreview(forceRefresh = false) {
             const container = document.getElementById('newsPreview');
             
             try {
                 console.log('뉴스 API 호출 시작...');
-                const response = await fetch('/api/naver-news?keyword=건설업&display=5');
                 
-                console.log('응답 상태:', response.status);
-                
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('API 에러 응답:', errorText);
-                    throw new Error(`API 호출 실패: ${response.status}`);
+                // forceRefresh이거나 캐시가 없으면 API 호출
+                if (forceRefresh || allNewsItems.length === 0) {
+                    const response = await fetch('/api/naver-news?keyword=건설업&display=20');
+                    
+                    console.log('응답 상태:', response.status);
+                    
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error('API 에러 응답:', errorText);
+                        throw new Error(`API 호출 실패: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    console.log('받은 데이터:', data);
+                    
+                    if (data.items && data.items.length > 0) {
+                        allNewsItems = data.items;
+                    } else {
+                        throw new Error('뉴스 데이터 없음');
+                    }
                 }
                 
-                const data = await response.json();
-                console.log('받은 데이터:', data);
-                
-                if (data.items && data.items.length > 0) {
-                    displayNewsPreview(data.items);
-                } else {
-                    throw new Error('뉴스 데이터 없음');
-                }
+                // 랜덤하게 5개 선택
+                const randomItems = getRandomItems(allNewsItems, 5);
+                displayNewsPreview(randomItems);
                 
             } catch (error) {
                 console.error('뉴스 로딩 에러:', error);
@@ -454,16 +475,31 @@
             }
         }
         
+        function getRandomItems(items, count) {
+            const shuffled = [...items].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+        
         function displayNewsPreview(newsItems) {
             const container = document.getElementById('newsPreview');
             const now = new Date();
-            const items = newsItems.slice(0, 5);
             
-            const html = items.map(item => {
+            const html = newsItems.map(item => {
                 const title = item.title.replace(/<[^>]*>/g, '');
                 const pubDate = new Date(item.pubDate);
+                const diffMinutes = Math.floor((now - pubDate) / 1000 / 60);
                 
-                // 날짜/시간 형식: MM.DD HH:MM
+                // 상대 시간 (모바일용)
+                let relativeTime;
+                if (diffMinutes < 60) {
+                    relativeTime = `${diffMinutes}분 전`;
+                } else if (diffMinutes < 1440) {
+                    relativeTime = `${Math.floor(diffMinutes / 60)}시간 전`;
+                } else {
+                    relativeTime = `${Math.floor(diffMinutes / 1440)}일 전`;
+                }
+                
+                // 날짜/시간 형식: MM.DD HH:MM (PC용)
                 const month = String(pubDate.getMonth() + 1).padStart(2, '0');
                 const day = String(pubDate.getDate()).padStart(2, '0');
                 const hours = String(pubDate.getHours()).padStart(2, '0');
@@ -508,6 +544,9 @@
                             <span class="news-title-text">• ${title}</span>
                             <span class="news-preview-meta">${source} • ${dateTimeText}</span>
                         </a>
+                        <div class="news-mobile-time" style="display: none; font-size: 12px; color: #95a5a6; margin-top: 4px; padding-left: 12px;">
+                            ${relativeTime}
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -520,25 +559,59 @@
             
             isRefreshing = true;
             const btn = document.getElementById('refreshNewsBtn');
-            const originalText = btn.innerHTML;
             
-            btn.classList.add('loading');
-            btn.innerHTML = '🔄 로딩중...';
-            btn.disabled = true;
+            if (btn) {
+                const originalText = btn.innerHTML;
+                btn.classList.add('loading');
+                btn.innerHTML = '🔄 로딩중...';
+                btn.disabled = true;
+            }
             
-            await loadNewsPreview();
+            await loadNewsPreview(false); // 캐시된 데이터에서 랜덤 선택
             
             setTimeout(() => {
-                btn.classList.remove('loading');
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                if (btn) {
+                    btn.classList.remove('loading');
+                    btn.innerHTML = '🔄 새로고침';
+                    btn.disabled = false;
+                }
                 isRefreshing = false;
             }, 500);
         }
         
+        // Pull-to-refresh (모바일)
+        function initPullToRefresh() {
+            const newsSection = document.querySelector('.news-preview-section');
+            
+            newsSection.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+            });
+            
+            newsSection.addEventListener('touchmove', (e) => {
+                touchEndY = e.touches[0].clientY;
+            });
+            
+            newsSection.addEventListener('touchend', () => {
+                if (touchEndY > touchStartY + 100 && window.scrollY === 0) {
+                    refreshNews();
+                }
+            });
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(loadNewsPreview, 1000);
+            setTimeout(() => {
+                loadNewsPreview(true);
+                initPullToRefresh();
+            }, 1000);
         });
     </script>
+    
+    <style>
+        @media (max-width: 768px) {
+            .news-mobile-time {
+                display: block !important;
+            }
+        }
+    </style>
 </body>
 </html>
