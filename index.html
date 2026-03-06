@@ -37,6 +37,12 @@
         
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         
+        @media (max-width: 768px) {
+            .container {
+                padding: 8px 10px;
+            }
+        }
+        
         /* 서비스 그리드 - 모바일 최적화 */
         .services-grid {
             display: grid;
@@ -102,6 +108,12 @@
             margin: 20px auto;
             padding: 0 10px;
             max-width: 900px;
+        }
+        
+        @media (max-width: 768px) {
+            .news-preview-section {
+                margin: 8px auto 20px;
+            }
         }
         
         .news-preview-box {
