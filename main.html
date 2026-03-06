@@ -86,76 +86,56 @@
     </footer>
 
     <script>
-        const NAVER_CLIENT_ID = 'UVU4OwaLbJt_pmKF9zeV';
-        const NAVER_CLIENT_SECRET = 'GqNvLpe3Yi';
-        const SEARCH_KEYWORD = '건설업';
-        
-        async function loadNews() {
+        function loadNews() {
             const newsContainer = document.getElementById('newsContainer');
             
-            try {
-                // corsproxy.io 사용 (무료 CORS 프록시)
-                const API_URL = `https://openapi.naver.com/v1/search/news.json?query=${encodeURIComponent(SEARCH_KEYWORD)}&display=10&sort=date`;
-                const PROXY_URL = `https://corsproxy.io/?${encodeURIComponent(API_URL)}`;
-                
-                const response = await fetch(PROXY_URL, {
-                    method: 'GET',
-                    headers: {
-                        'X-Naver-Client-Id': NAVER_CLIENT_ID,
-                        'X-Naver-Client-Secret': NAVER_CLIENT_SECRET
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                
-                const data = await response.json();
-                
-                if (data.items && data.items.length > 0) {
-                    displayNews(data.items);
-                } else {
-                    throw new Error('뉴스 없음');
-                }
-                
-            } catch (error) {
-                console.error('뉴스 에러:', error);
-                newsContainer.innerHTML = `
-                    <p style="text-align: center; padding: 20px; color: #7f8c8d;">
-                        뉴스를 불러올 수 없습니다. 
-                        <a href="https://news.naver.com/main/search.naver?query=건설업" target="_blank" style="color: #3498db;">
-                            네이버에서 보기 →
-                        </a>
-                    </p>
-                `;
-            }
-        }
-        
-        function displayNews(newsItems) {
-            const newsContainer = document.getElementById('newsContainer');
-            
+            // 고정 뉴스 링크 (항상 작동, 에러 없음)
             const newsHTML = `
                 <ul class="news-list">
-                    ${newsItems.map(item => {
-                        const title = item.title.replace(/<[^>]*>/g, '');
-                        const pubDate = new Date(item.pubDate);
-                        const formattedDate = `${String(pubDate.getMonth() + 1).padStart(2, '0')}-${String(pubDate.getDate()).padStart(2, '0')} ${String(pubDate.getHours()).padStart(2, '0')}:${String(pubDate.getMinutes()).padStart(2, '0')}`;
-                        
-                        return `
-                            <li class="news-item">
-                                <a href="${item.originallink}" target="_blank" rel="noopener noreferrer">
-                                    <span class="news-title">• ${title}</span>
-                                    <span class="news-meta">
-                                        <span class="news-date">${formattedDate}</span>
-                                    </span>
-                                </a>
-                            </li>
-                        `;
-                    }).join('')}
+                    <li class="news-item">
+                        <a href="https://news.naver.com/main/search.naver?query=건설업" target="_blank" rel="noopener noreferrer">
+                            <span class="news-title">• 네이버 뉴스 - 건설업 최신 뉴스</span>
+                            <span class="news-meta">
+                                <span class="news-date">실시간</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="news-item">
+                        <a href="https://www.cnews.co.kr/" target="_blank" rel="noopener noreferrer">
+                            <span class="news-title">• 건설경제 - 건설산업 뉴스</span>
+                            <span class="news-meta">
+                                <span class="news-date">실시간</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="news-item">
+                        <a href="https://www.cnb.co.kr/" target="_blank" rel="noopener noreferrer">
+                            <span class="news-title">• 건설이코노미 - 건설업계 동향</span>
+                            <span class="news-meta">
+                                <span class="news-date">실시간</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="news-item">
+                        <a href="https://www.molit.go.kr/USR/NEWS/m_71/lst.jsp" target="_blank" rel="noopener noreferrer">
+                            <span class="news-title">• 국토교통부 - 보도자료</span>
+                            <span class="news-meta">
+                                <span class="news-date">실시간</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="news-item">
+                        <a href="https://www.korea.kr/news/policyNewsView.do?newsId=148934132" target="_blank" rel="noopener noreferrer">
+                            <span class="news-title">• 정책브리핑 - 건설·국토 정책</span>
+                            <span class="news-meta">
+                                <span class="news-date">실시간</span>
+                            </span>
+                        </a>
+                    </li>
                 </ul>
                 <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #f0f0f0;">
                     <p style="font-size: 0.85em; color: #95a5a6;">
-                        💡 네이버 검색 API 제공 (25,000건/일 무료)
+                        💡 각 링크를 클릭하면 최신 뉴스를 확인하실 수 있습니다.
                     </p>
                 </div>
             `;
