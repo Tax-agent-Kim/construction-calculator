@@ -116,7 +116,7 @@
             
             try {
                 // Vercel API 호출
-                const response = await fetch('/api/naver-news?keyword=건설업&display=5');
+                const response = await fetch('/api/naver-news');
                 
                 if (!response.ok) {
                     throw new Error('API 호출 실패');
