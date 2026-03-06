@@ -99,8 +99,9 @@
         
         /* 뉴스 미리보기 */
         .news-preview-section {
-            margin: 20px 0;
+            margin: 20px auto;
             padding: 0 10px;
+            max-width: 900px;
         }
         
         .news-preview-box {
@@ -147,15 +148,55 @@
             font-size: 14px;
             color: #2c3e50;
             text-decoration: none;
-            display: block;
-            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-weight: 500;
             line-height: 1.4;
+            gap: 12px;
+        }
+        
+        .news-preview-title:hover .news-title-text {
+            color: #667eea;
+        }
+        
+        .news-title-text {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         
         .news-preview-meta {
             font-size: 12px;
             color: #95a5a6;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .refresh-btn {
+            background: white;
+            border: 1px solid #667eea;
+            color: #667eea;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .refresh-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .refresh-btn.loading {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
         
         .loading-spinner {
@@ -219,14 +260,20 @@
                 padding-top: 70px;
             }
             
+            .container {
+                max-width: 1200px;
+            }
+            
             .services-grid {
                 grid-template-columns: repeat(6, 1fr);
                 gap: 20px;
-                padding: 20px;
+                padding: 40px 20px;
+                max-width: 1000px;
+                margin: 0 auto;
             }
             
             .service-item {
-                padding: 20px;
+                padding: 20px 12px;
             }
             
             .service-item:hover {
@@ -243,7 +290,12 @@
             }
             
             .service-name {
-                font-size: 14px;
+                font-size: 13px;
+                min-height: 36px;
+            }
+            
+            .news-preview-section {
+                max-width: 900px;
             }
         }
         
@@ -333,7 +385,12 @@
         <div class="news-preview-box">
             <div class="news-preview-header">
                 <h2>📰 건설업 뉴스</h2>
-                <a href="news.html" class="view-all-btn">전체 보기 →</a>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <button class="refresh-btn" id="refreshNewsBtn" onclick="refreshNews()">
+                        🔄 새로고침
+                    </button>
+                    <a href="news.html" class="view-all-btn">전체 보기 →</a>
+                </div>
             </div>
             
             <div id="newsPreview">
@@ -353,6 +410,8 @@
     </footer>
 
     <script>
+        let isRefreshing = false;
+        
         async function loadNewsPreview() {
             const container = document.getElementById('newsPreview');
             
@@ -403,30 +462,78 @@
             const html = items.map(item => {
                 const title = item.title.replace(/<[^>]*>/g, '');
                 const pubDate = new Date(item.pubDate);
-                const diffMinutes = Math.floor((now - pubDate) / 1000 / 60);
                 
-                let timeText;
-                if (diffMinutes < 60) {
-                    timeText = `${diffMinutes}분 전`;
-                } else if (diffMinutes < 1440) {
-                    timeText = `${Math.floor(diffMinutes / 60)}시간 전`;
-                } else {
-                    timeText = `${Math.floor(diffMinutes / 1440)}일 전`;
-                }
+                // 날짜/시간 형식: MM.DD HH:MM
+                const month = String(pubDate.getMonth() + 1).padStart(2, '0');
+                const day = String(pubDate.getDate()).padStart(2, '0');
+                const hours = String(pubDate.getHours()).padStart(2, '0');
+                const minutes = String(pubDate.getMinutes()).padStart(2, '0');
+                const dateTimeText = `${month}.${day} ${hours}:${minutes}`;
+                
+                // 언론사명 추출
+                let source = '언론사';
+                try {
+                    const url = new URL(item.originallink);
+                    const hostname = url.hostname.replace('www.', '');
+                    
+                    const sourceMap = {
+                        'chosun.com': '조선일보',
+                        'donga.com': '동아일보',
+                        'joongang.co.kr': '중앙일보',
+                        'hani.co.kr': '한겨레',
+                        'khan.co.kr': '경향신문',
+                        'cnews.co.kr': '건설경제',
+                        'cnb.co.kr': '건설이코노미',
+                        'mk.co.kr': '매일경제',
+                        'hankyung.com': '한국경제',
+                        'yonhapnews.co.kr': '연합뉴스',
+                        'yna.co.kr': '연합뉴스'
+                    };
+                    
+                    for (const [domain, name] of Object.entries(sourceMap)) {
+                        if (hostname.includes(domain)) {
+                            source = name;
+                            break;
+                        }
+                    }
+                    
+                    if (source === '언론사') {
+                        source = hostname.split('.')[0];
+                    }
+                } catch (e) {}
                 
                 return `
                     <div class="news-preview-item">
                         <a href="${item.originallink}" target="_blank" class="news-preview-title">
-                            • ${title}
+                            <span class="news-title-text">• ${title}</span>
+                            <span class="news-preview-meta">${source} • ${dateTimeText}</span>
                         </a>
-                        <div class="news-preview-meta">
-                            <span>${timeText}</span>
-                        </div>
                     </div>
                 `;
             }).join('');
             
             container.innerHTML = html;
+        }
+        
+        async function refreshNews() {
+            if (isRefreshing) return;
+            
+            isRefreshing = true;
+            const btn = document.getElementById('refreshNewsBtn');
+            const originalText = btn.innerHTML;
+            
+            btn.classList.add('loading');
+            btn.innerHTML = '🔄 로딩중...';
+            btn.disabled = true;
+            
+            await loadNewsPreview();
+            
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                isRefreshing = false;
+            }, 500);
         }
         
         document.addEventListener('DOMContentLoaded', function() {
