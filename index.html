@@ -525,17 +525,56 @@
                     const hostname = url.hostname.replace('www.', '');
                     
                     const sourceMap = {
+                        // 종합
                         'chosun.com': '조선일보',
                         'donga.com': '동아일보',
                         'joongang.co.kr': '중앙일보',
                         'hani.co.kr': '한겨레',
                         'khan.co.kr': '경향신문',
-                        'cnews.co.kr': '건설경제',
-                        'cnb.co.kr': '건설이코노미',
+                        'kmib.co.kr': '국민일보',
+                        'munhwa.com': '문화일보',
+                        'seoul.co.kr': '서울신문',
+                        'segye.com': '세계일보',
+                        'hankookilbo.com': '한국일보',
+                        
+                        // 경제
                         'mk.co.kr': '매일경제',
                         'hankyung.com': '한국경제',
+                        'sedaily.com': '서울경제',
+                        'mt.co.kr': '머니투데이',
+                        'ajunews.com': '아주경제',
+                        'heraldcorp.com': '헤럴드경제',
+                        'edaily.co.kr': '이데일리',
+                        'fnnews.com': '파이낸셜뉴스',
+                        'asiae.co.kr': '아시아경제',
+                        'bizwatch.co.kr': '비즈워치',
+                        'joseilbo.com': '조세일보',
+                        'cnews.co.kr': '건설경제',
+                        'cnb.co.kr': '건설이코노미',
+                        
+                        // 방송/통신
                         'yonhapnews.co.kr': '연합뉴스',
-                        'yna.co.kr': '연합뉴스'
+                        'yna.co.kr': '연합뉴스',
+                        'newspim.com': '뉴스핌',
+                        'newsis.com': '뉴시스',
+                        'news1.kr': '뉴스1',
+                        'ytn.co.kr': 'YTN',
+                        'jtbc.co.kr': 'JTBC',
+                        'kbs.co.kr': 'KBS',
+                        'mbc.co.kr': 'MBC',
+                        'sbs.co.kr': 'SBS',
+                        'tvchosun.com': 'TV조선',
+                        'mbn.co.kr': 'MBN',
+                        'channela.co.kr': '채널A',
+                        'wowtv.co.kr': '한국경제TV',
+                        
+                        // 전문지
+                        'etnews.com': '전자신문',
+                        'dt.co.kr': '디지털타임스',
+                        'zdnet.co.kr': 'ZDNet',
+                        'journalist.or.kr': '기자협회보',
+                        'koreaherald.com': '코리아헤럴드',
+                        'koreadaily.com': '코리아중앙데일리'
                     };
                     
                     for (const [domain, name] of Object.entries(sourceMap)) {
