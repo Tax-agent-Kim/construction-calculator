@@ -442,31 +442,60 @@
         }
 
         .step {
-            background: #f8f9fa;
-            padding: 25px 20px;
-            border-radius: 8px;
+            background: white;
+            padding: 30px 25px;
+            border-radius: 12px;
             text-align: left;
             position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            border: 1px solid #e8e8e8;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .step:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(44, 90, 160, 0.2);
+            box-shadow: 0 8px 20px rgba(44, 90, 160, 0.15);
+            border-color: #2c5aa0;
         }
 
         .step h4 {
             color: #2c5aa0;
-            margin-bottom: 12px;
-            font-size: 1.15em;
-            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step h4::before {
+            content: attr(data-number);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.1em;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            position: relative;
+        }
+
+        .step:hover h4::before {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
         }
 
         .step p {
-            color: #666;
-            font-size: 0.95em;
-            line-height: 1.7;
+            color: #555;
+            font-size: 1em;
+            line-height: 1.8;
             padding-left: 0;
+            margin: 0;
         }
 
         /* 서류 목록 */
@@ -794,19 +823,29 @@
             }
             
             .step {
-                padding: 18px 15px;
+                padding: 25px 18px;
                 text-align: left;
             }
             
             .step h4 {
-                margin: 0 0 10px 0;
-                font-size: 0.95em;
-                font-weight: 600;
+                margin: 0 0 12px 0;
+                font-size: 1.25em;
+                font-weight: 700;
+            }
+            
+            .step h4::before {
+                width: 36px;
+                height: 36px;
+                font-size: 1em;
+                box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
             }
             
             .step p {
-                font-size: 0.9em;
-                line-height: 1.6;
+                font-size: 0.95em;
+                line-height: 1.7;
+                margin: 0;
+                padding-left: 0;
+                color: #555;
             }
             
             .tab-content h3 {
@@ -958,22 +997,22 @@
 
             <div class="process-steps">
                 <div class="step">
-                    <h4>① 상담 신청</h4>
+                    <h4 data-number="1">상담 신청</h4>
                     <p>전화, 이메일 또는 온라인 상담 신청을 통해 진단 목적과 일정을 협의합니다.</p>
                 </div>
 
                 <div class="step">
-                    <h4>② 서류 접수</h4>
+                    <h4 data-number="2">서류 접수</h4>
                     <p>필요 서류를 제출받아 검토하고, 추가 자료 요청 사항을 안내합니다.</p>
                 </div>
 
                 <div class="step">
-                    <h4>③ 재무 분석</h4>
+                    <h4 data-number="3">재무 분석</h4>
                     <p>재무제표 정밀 분석, 건설업 기준 검토, 실질자본금 산정을 진행합니다.</p>
                 </div>
 
                 <div class="step">
-                    <h4>④ 보고서 작성 및 발급</h4>
+                    <h4 data-number="4">보고서 작성 및 발급</h4>
                     <p>분석 결과를 바탕으로 공식 진단보고서를 작성하고 세무사 날인 후 발급합니다.</p>
                 </div>
             </div>
