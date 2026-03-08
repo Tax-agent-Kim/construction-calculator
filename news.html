@@ -101,15 +101,23 @@
             transform: translateY(-2px);
         }
         
+        .news-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
         .news-title {
             font-size: 1.1rem;
             font-weight: 600;
             color: #2c3e50;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0;
             line-height: 1.5;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            flex: 1;
         }
         
         .news-title a {
@@ -124,9 +132,11 @@
         .news-meta {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
             color: #6c757d;
             font-size: 0.9rem;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
         .news-source {
@@ -163,6 +173,18 @@
             .nav-tabs .nav-link {
                 padding: 0.5rem 1rem;
                 font-size: 0.9rem;
+            }
+            
+            .news-content {
+                display: block;
+            }
+            
+            .news-title {
+                margin-bottom: 0.5rem;
+            }
+            
+            .news-meta {
+                justify-content: flex-start;
             }
         }
     </style>
@@ -387,16 +409,18 @@
                 
                 return `
                     <div class="news-card">
-                        <h3 class="news-title">
-                            <a href="${item.originallink}" target="_blank" rel="noopener noreferrer">
-                                ${title}
-                                ${isNew ? '<span class="badge-new">NEW</span>' : ''}
-                            </a>
-                        </h3>
-                        <div class="news-meta">
-                            <span class="news-source">${source}</span>
-                            <span>•</span>
-                            <span class="news-time">${dateTimeText}</span>
+                        <div class="news-content">
+                            <h3 class="news-title">
+                                <a href="${item.originallink}" target="_blank" rel="noopener noreferrer">
+                                    ${title}
+                                    ${isNew ? '<span class="badge-new">NEW</span>' : ''}
+                                </a>
+                            </h3>
+                            <div class="news-meta">
+                                <span class="news-source">${source}</span>
+                                <span>•</span>
+                                <span class="news-time">${dateTimeText}</span>
+                            </div>
                         </div>
                     </div>
                 `;
