@@ -260,6 +260,12 @@
             text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 15px;
+            }
+        }
 
         header h1 {
             font-size: 2em;
@@ -758,26 +764,77 @@
             }
 
             .tab-menu {
-                flex-direction: column;
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                margin-top: -15px;
+            }
+            
+            .tab-menu::-webkit-scrollbar {
+                display: none;
             }
 
             .tab-button {
-                border-bottom: 1px solid #e0e0e0;
+                border-bottom: 3px solid transparent;
                 border-right: none;
-                font-size: 0.95em;
-                padding: 15px 20px;
+                font-size: 0.9em;
+                padding: 12px 16px;
+                white-space: nowrap;
+                min-width: auto;
+                flex-shrink: 0;
             }
 
             .tab-button.active {
-                border-bottom: 1px solid #2c5aa0;
+                border-bottom-color: #2c5aa0;
             }
 
             .tab-content {
                 padding: 30px 20px;
             }
+            
+            .tab-content p,
+            .tab-content li {
+                text-align: justify;
+                line-height: 1.7;
+            }
 
             .process-steps {
                 grid-template-columns: 1fr;
+            }
+            
+            .step {
+                padding: 18px 15px;
+                text-align: left;
+            }
+            
+            .step-number {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1em;
+                margin: 0;
+                flex-shrink: 0;
+            }
+            
+            .step-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+            
+            .step h4 {
+                margin: 0;
+                font-size: 1em;
+            }
+            
+            .step p {
+                font-size: 0.9em;
+                margin: 0;
+                padding-left: 46px;
+                text-align: justify;
+                line-height: 1.6;
             }
 
             .contact-form {
@@ -917,26 +974,34 @@
 
             <div class="process-steps">
                 <div class="step">
-                    <div class="step-number">1</div>
-                    <h4>상담 신청</h4>
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h4>상담 신청</h4>
+                    </div>
                     <p>전화, 이메일 또는 온라인 상담 신청을 통해 진단 목적과 일정을 협의합니다.</p>
                 </div>
 
                 <div class="step">
-                    <div class="step-number">2</div>
-                    <h4>서류 접수</h4>
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h4>서류 접수</h4>
+                    </div>
                     <p>필요 서류를 제출받아 검토하고, 추가 자료 요청 사항을 안내합니다.</p>
                 </div>
 
                 <div class="step">
-                    <div class="step-number">3</div>
-                    <h4>재무 분석</h4>
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h4>재무 분석</h4>
+                    </div>
                     <p>재무제표 정밀 분석, 건설업 기준 검토, 실질자본금 산정을 진행합니다.</p>
                 </div>
 
                 <div class="step">
-                    <div class="step-number">4</div>
-                    <h4>보고서 작성 및 발급</h4>
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <h4>보고서 작성 및 발급</h4>
+                    </div>
                     <p>분석 결과를 바탕으로 공식 진단보고서를 작성하고 세무사 날인 후 발급합니다.</p>
                 </div>
             </div>
