@@ -221,25 +221,30 @@
             }
         }
         
-        .loading-spinner {
-            text-align: center;
-            padding: 30px;
-            color: #95a5a6;
+        /* 스켈레톤 UI */
+        .skeleton-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
         }
-        
-        .spinner {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .skeleton-item:last-child { border-bottom: none; }
+
+        .skeleton-line {
+            background: linear-gradient(90deg, #e9ecef 25%, #f8f9fa 50%, #e9ecef 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.4s infinite;
+            border-radius: 4px;
+            height: 14px;
         }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .skeleton-title { flex: 1; height: 14px; }
+        .skeleton-meta { width: 80px; height: 12px; flex-shrink: 0; }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
         
         footer {
@@ -416,10 +421,11 @@
             </div>
             
             <div id="newsPreview">
-                <div class="loading-spinner">
-                    <div class="spinner"></div>
-                    <p style="margin-top: 12px; font-size: 13px;">뉴스 로딩중...</p>
-                </div>
+                <div class="skeleton-item"><div class="skeleton-line skeleton-title"></div><div class="skeleton-line skeleton-meta"></div></div>
+                <div class="skeleton-item"><div class="skeleton-line skeleton-title"></div><div class="skeleton-line skeleton-meta"></div></div>
+                <div class="skeleton-item"><div class="skeleton-line skeleton-title"></div><div class="skeleton-line skeleton-meta"></div></div>
+                <div class="skeleton-item"><div class="skeleton-line skeleton-title"></div><div class="skeleton-line skeleton-meta"></div></div>
+                <div class="skeleton-item"><div class="skeleton-line skeleton-title"></div><div class="skeleton-line skeleton-meta"></div></div>
             </div>
         </div>
     </section>
@@ -663,10 +669,8 @@
         }
         
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                loadNewsPreview(true);
-                initPullToRefresh();
-            }, 1000);
+            loadNewsPreview(true);
+            initPullToRefresh();
         });
     </script>
     
