@@ -3,11 +3,14 @@
 ====================================================================
 파일명: regulations.html
 제목: 건설업체 기업진단지침 · 건설업 관리규정
-버전: v2.18.0
+버전: v2.18.1
 최종 수정일: 2026-06-25
 ====================================================================
 
 [변경 이력]
+v2.18.1 (2026-06-25)
+- 기본 표시 탭을 건설업체 기업진단지침으로 변경 (관리규정 → 기업진단지침)
+
 v2.18.0 (2026-06-25)
 - 건설업 관리규정(국토교통부예규 제420호, 2025.5.2.) 신규 추가
 - 상단 탭으로 기업진단지침/관리규정 전환 (관리규정 기본 탭)
@@ -1467,12 +1470,12 @@ All Rights Reserved.
 
     <!-- 문서 탭 -->
     <div class="doc-tabs">
-        <div class="doc-tab active" onclick="switchDocTab('management')">건설업 관리규정</div>
-        <div class="doc-tab" onclick="switchDocTab('criteria')">건설업체 기업진단지침</div>
+        <div class="doc-tab" onclick="switchDocTab('management')">건설업 관리규정</div>
+        <div class="doc-tab active" onclick="switchDocTab('criteria')">건설업체 기업진단지침</div>
     </div>
 
     <!-- 기업진단지침 패널 -->
-    <div class="doc-panel" id="panel-criteria">
+    <div class="doc-panel active" id="panel-criteria">
     <!-- 메인 컨테이너 -->
     <div class="main-container">
         <!-- 좌측 사이드바 -->
@@ -2085,7 +2088,7 @@ All Rights Reserved.
     </div><!-- /panel-criteria -->
 
     <!-- 건설업 관리규정 패널 -->
-    <div class="doc-panel active" id="panel-management">
+    <div class="doc-panel" id="panel-management">
         <aside class="sidebar">
             <div class="sidebar-header">
                 <h2>목차</h2>
