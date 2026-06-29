@@ -3,11 +3,16 @@
 ====================================================================
 파일명: regulations.html
 제목: 건설업체 기업진단지침 · 건설업 관리규정
-버전: v2.18.3
+버전: v2.18.4
 최종 수정일: 2026-06-25
 ====================================================================
 
 [변경 이력]
+v2.18.4 (2026-06-25)
+- 헤더-본문 사이 빈 여백/겹침 문제 근본 수정: 고정 px값(70px/40px) 대신
+  실제 렌더링된 헤더 높이를 JS로 측정해 body 상단 여백을 자동 보정
+  (기기·폰트별로 헤더 실제 높이가 달라 생기던 빈 띠 현상 해결)
+
 v2.18.3 (2026-06-25)
 - 모바일 탭 패딩 과다 조정 (16px 22px → 14px 16px)
 
@@ -1466,6 +1471,19 @@ All Rights Reserved.
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             renderHamburgerMenu('regulations');
+
+            // 고정 헤더의 실제 높이만큼 body 상단 여백을 자동 보정
+            // (고정 px값 대신 실측값을 사용해 기기/폰트별 빈 여백·겹침을 방지)
+            function syncHeaderPadding() {
+                const header = document.querySelector('.hamburger-container');
+                if (header) {
+                    document.body.style.paddingTop = header.getBoundingClientRect().height + 'px';
+                }
+            }
+            syncHeaderPadding();
+            window.addEventListener('resize', syncHeaderPadding);
+            // 폰트/이미지 로딩으로 헤더 높이가 늦게 확정되는 경우 대비
+            window.addEventListener('load', syncHeaderPadding);
         });
     </script>
 
